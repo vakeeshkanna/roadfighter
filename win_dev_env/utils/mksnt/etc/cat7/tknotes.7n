@@ -1,0 +1,651 @@
+
+                    MKS Toolkit for Windows NT and Windows 95
+                                Release 4.4a
+                                Release Notes
+
+
+This release of MKS Toolkit supports versions 3.1 and 3.5 of Windows NT,
+and Windows 95 pre-release build 347. 
+
+Note: the file previously installed on Windows NT as $ROOTDIR\etc\profnt.ksh
+is now installed as $ROOTDIR\etc\profwin.ksh on both Windows NT and
+Windows 95. The installation program does not remove the old profnt.ksh
+file, so any modifications you have made to your profile can
+be copied to profwin.ksh before you delete profnt.ksh.
+
+Windows 95 has certain limitations: 
+   * Windows 95 does not currently support 32-bit ASPI tape control; however,
+     in $ROOTDIR\bin we have included the 16-bit DOS binaries for the Toolkit 
+     dd and mt tape utilities to allow you to perform tape control functions.
+     Make sure that $ROOTDIR\bin is in your path if you intend on using
+     dd or mt for tape control. To use the 32-bit tar, pax, or cpio for tape
+     control under Windows 95 you must pipe the command through dd; for 
+     example, to extract a tar archive you could use
+	dd if=/dev/mt0 bs-20b | tar xvf -
+     or to create a tar archive you could use
+	tar -cvf - | dd bs-20b of =/dev/mt0
+     Similarly, to create a cpio archive you could use
+	ls | cpio -ocv | dd bs=10b of=/dev/mt0
+
+     Note: 16-bit DOS binaries do not handle file names longer than eight
+     characters with a three character suffix.
+
+   * Some builds of Windows 95 do not properly handle on-line Help files, so
+     depending on which build you are currently running you may experience
+     difficulties viewing pop-ups or jumps.
+
+   * Windows 95 fails to recognize some application icons within the program
+     group (most notably the MKS KornShell and MKS Info). If you want these
+     icons to appear you must manually associate the .ico file with its
+     appropriate .pif file by specifying the .ico file under Settings/Taskbar/
+     Start Menu/Programs/Advanced/Properties/Program on the Windows 95
+     taskbar.
+   
+   * Windows 95 does not currently recognize the CTRL^ keystroke sequence
+     often used to switch between files under MKS Toolkit.
+
+1.  Features of the MKS Toolkit 4.4
+
+MKS Toolkit 4.4 for Windows NT and Windows 95 contains the following features:
+ 
+  * 32-bit utilities.  All MKS Toolkit utilities functioning under Windows NT
+    and Windows 95 (except for vdiff; see below) are native Windows 32-bit
+    applications.
+
+  * New Utilities:
+    Two new utilities have been added to this release. This is a brief
+    summary of these commands; complete information on these utilities
+    can be found in their respective manual pages in the on-line help.
+
+    * strip   - remove debug information from executable files
+    * registry- display and modify Windows Registry Database information from
+		the command line
+
+  * Graphical Utilities:
+    Five utilities have been included with Toolkit 4.4 to take advantage of
+    the graphical environment under Windows NT and Windows 95. This is a brief
+    summary of the commands; complete information on these utilities can be
+    found in their respective manual pages in the on-line help.
+
+    * filebox - for use primarily from a shell script, filebox lets you
+                display standard Windows "File Open/Save" dialogue box for
+		a specific file
+    * msgbox  - for use primarily from a shell script, msgbox lets you display
+                a message box on screen which prompts the user for a response
+    * start   - runs another program in a new window
+    * wcopy   - copies from a specified file or standard output to the Windows 
+                clipboard 
+    * wpaste  - paste clipboard text to standard output or to a specified file
+ 
+  * vdiff for Windows.  This utility gives you a method of comparing files,
+    offering a side-by-side display of differences. vdiff is similar to our
+    traditional diff command, but with a graphical user interface. vdiff is a 
+    16-bit application. All user instructions can be found in the
+    application's on-line help.
+  
+  * Vi for Windows (viw).  The vi screen editor is now available as a 32-bit
+    Windows application with a graphical user interface and all of the 
+    functionality of MKS Vi.  You can run viw from the Vi for Windows icon 
+    in the "MKS Toolkit" group.  All user instructions can be found in 
+    the application's on-line help.
+  
+  * All commands in MKS Toolkit 4.4 fully support the extended
+    FAT file systems available under Windows NT 3.5 and Windows 95.
+    These versions of the FAT system handle file naming conventions in a
+    way similar to the HPFS and NTFS file systems, for example allowing the
+    addition of a ".z" or ".Z" to file names that already contain a ".".
+
+  * All reference manual pages are available in an on-line Windows Help 
+    format.
+
+2.  Changes for Release 4.4a
+
+This section summarizes the changes made between Toolkit 4.4 for
+Windows NT and Windows 95 and this version.
+
+Corrections:
+  * ar:
+    - now creates COFF-format libraries correctly
+
+3.  Changes for Release 4.4
+
+This section summarizes the changes made between Toolkit 4.3 for
+Windows NT and this version.
+
+Enhancements:
+
+  * ar, nm, and make:
+    - long file names are now supported for COFF-format libraries
+  
+  * alias
+    - an error message is now returned to standard output if the specified
+      alias has not been defined.
+  
+  * cc:
+    - cc scripts now support indexable strings
+    - new built-in functions have been added: access, cd, getcwd, getopt,
+      gettext, isatty, offset, putenv, read, strerror, substr, tail. For
+      complete details, see the cc(5) manpage
+    - you can now include escaped quotes, spaces, and tabs in command
+      line arguments to the Microsoft (msc.ccg) and Watcom (watc386.ccg)
+      compilers;  Borland compiler (bcc.ccg) still has no support for
+      these characters in arguments.
+	- escaped double-quotes that are given in an argument to cc are now
+	  passed directly to the program. For example
+		cc -c -Dstring=\"Hello\" foo.c
+	- if you want to include a space or a tab in an argument then put
+	  double-quotes around the argument. For example
+		cc -c -Dstring="Hello world" foo.c
+	- if you want to include both spaces and quotes in an argument, you
+	  could use
+		cc -c -Dstring="\"Hello world\"" foo.c
+	- space and tab characters are now automatically converted during
+	  processing to a \h (for a space) and a \i (for a tab), so that 
+	  they are not misinterpreted during recursive functions.
+
+  * cpio and pax:
+    - the -h option has been added to create and read archives that are
+      structured with a "little-endian" pattern.
+    - the -H option has been added to create and read archives that contain
+      extraneous binary format header characters for compatibility with
+      previous versions of the Toolkit.
+
+  * cpio, dd, pax, and tar:
+    - under Windows NT you no longer need to prefix floppy disk device calls
+      with the //./ characters; however, you must still add the //./ characters
+      if you want to call a tape device by name (for example, //./TAPE0).
+      We strongly recommend, however, that you specify
+      tape devices as described under tape(4) in the Toolkit Reference Manual.
+      For example, 
+		/dev/mt0
+      has the same effect as specifying //./TAPE0, with the added advantage
+      that cpio, dd, pax, and tar automatically sense and set the correct
+      block size of the tape.
+
+  * date and sleep:
+    - date and sleep are now accurate to one (1) second.
+
+  * kill is now available as a stand alone utility, allowing you to terminate
+    processes from outside the Toolkit Kornshell. Note that NT does not allow
+    kill to send signals to a process, so the process is simply terminated.
+
+
+  * ls:
+    - specifying the -f option now disables the -C, -g, -l, -n, -o, -r, -s,
+      and -t options.
+
+   * make:
+     - targets with a leading . (dot) are no longer automatically treated as 
+       suffix rules.
+     - make -t now creates a file if one with the specified name did not
+       already exist.
+
+   * sh:
+     - the #! characters at the start of any file now cause the shell to 
+       run the command and arguments which immediately follow. When a file
+       containing the #! is executed, the shell interprets the first encountered
+       string as a command, and the next string as options to that command. 
+       The shell accepts multiple options to commands implemented with #!.
+       If the specified command is not found in the current working directory,
+       the shell searches the PATH until the first occurance of the command.
+       NOTE: you may now experience problems with files which previously worked
+       if those files contain a #!.
+     - you can now specify window titles with the TITLEBAR environment variable
+     - PIDs are displayed in hexadecimal format under Windows 95
+     - in accordance with the POSIX standard, double parentheses are no longer
+       interpreted by the shell as a let command. To retain the previous
+       interpretation of double parentheses, use "set -o korn"
+
+   * strings:
+     - strings.exe now understands the PE executable format and by default
+       searches only the file's data sections.
+  
+   * TZ:
+    - commands using timezone now automatically use the current operating
+      system time zone setting if the TZ environment variable is left undefined.
+
+Limitations:
+
+  * bc:
+    -if an error occurs on a line with more than 2048 characters, the
+     line is truncated when printed to standard error.
+
+  * make:
+    -make no longer recognizes targets as potential library members; the
+     target must now be fully qualified. For example, a makefile that looked
+     like this:
+           prog: lib.a(test.obj)
+                 echo "lib.a"
+           test.obj:
+                 echo "test.obj"
+
+     must now be written as:
+           prog: lib.a(test.obj)
+                 echo "lib.a"
+           lib.a(test.obj):
+                 echo "test.obj"
+    
+    - warnings now appear if the same macro is assigned in a makefile that
+      is specified on the command line.
+
+  * size and strings: 
+    - the size and strings utilities do not currently operate on MIPS
+      and Alpha executable files.  The following message will result:
+	"Unknown magic number (4550)"
+
+  * Windows 95 does not handle UNC filenames correctly. Under command.com
+    UNC filenames fail; under the KornShell UNC filenames specified
+    with a drive letter may appear to work, but many useful functions
+    will fail.  Also, the Windows 95 title bar erroneously displays the drive 
+    letter of your current operating system instead of the drive letter of the
+    remote machine.
+
+4.  Changes for Release 4.3a
+
+This section summarizes the changes made between versions 4.3 and 4.3a.
+
+Enhancements:
+  * dd, cpio, mt, pax, and tar: 
+    - further refinements now allow the tape utilities to auto-sense
+      the blocksize used on archives.  The following warning should
+      no longer be a common occurrence:
+	"warning: failed to set blocksize: Incorrect function"
+
+Corrections:
+  * sh:
+    - it is now possible to invoke 16-bit DOS applications from the
+      KornShell using forward slashes, eg:
+	$ ./program.exe
+
+  * crypt:
+    - decrypted files will now always be identical in size to the original
+      plain text.
+
+
+5.  Changes for Release 4.3
+
+This section summarizes the changes made between versions 4.2b and 4.3.
+ 
+Enhancements:
+  * cp, mv, and rm: 
+    - the -v option has been added to these commands to display file names 
+      as they are being processed. 
+
+  * ctags: 
+    - now accepts FORTRAN source files. 
+
+  * dd, cpio, pax, and tar:
+    - no longer require drive letters to be preceded by "//./" when doing raw
+      I/O, for example, 
+	tar cvf a: *
+
+  * dd, cpio, mt, pax, and tar: 
+    - now fully compatible with Exabyte tape drives. 
+
+  * dd: 
+    - you can now specify numeric values on the command line in base 8, 10, 
+      and 16. For example, you could specify
+	dd count=0+9[...]
+      or
+	dd count=10[...]
+
+  * diff: 
+    - the -M mark option has been added to allow you to specify that the 
+      nroff or troff diff mark be used when the -m option is specified. 
+    - now allows you to specify multiple file names on the command line
+      to be compared with those in a specified directory, for example
+	diff file1 file2 [...] dir 
+
+  * ed, grep, gres, more, pg, sed, and vi:  
+    - C string escapes are now permitted in regular expressions. 
+
+  * file: 
+    - now accepts the "-" option to read from standard output, for example
+	cat program.exe | file - 
+
+  * ls: 
+    - the -k option has been added to change the output of the -s option 
+      from blocks to kilobytes. 
+    - if "ls -lt" encounters two files with identical mtime, it now breaks the 
+      tie by collating on the order of file names.
+
+  * mailx:
+    - now defaults to "print" if no command is entered, for example if you
+      press "return". 
+    - now handles nested aliases. 
+    - now properly handles long user names. 
+
+  * make: 
+    - now allows you to redefine suffix rules.  
+    - when the -q option is used lines marked with a leading "+" are now 
+      executed. 
+ 
+  * man: 
+    - "man uncompre" now displays the uncompress man page.
+
+  * pg: 
+    - now accepts the "--" option to indicate that all following command line 
+      arguments are not options.
+
+  * patch: 
+    - now takes the new ed script output generated by 
+	"diff -e file1 file2 [...] dir"
+
+  * pax: 
+    - now adds unextractable links to a list and later (after
+      the file has been read once and rewound) attempts to extract them again.
+    - "pax -rd dirname" makes the directory "dirname" and now extracts
+      the file hierarchy rooted at the directory "dirname".
+ 
+  * rm -r and rmdir: 
+    - now handle directory names with a trailing slash (/). 
+ 
+  * set: 
+    - NT-styled critical error handling can now be disabled with the +X option,       and enabled with the -X option. Critical error handling is disabled
+      by default.
+
+  * sort: 
+    - now accepts input from standard input if no command line options are 
+      given.
+
+  * uncompress:
+    -  when processing a list of files, uncompress now returns an error 
+       message and continues to the next file if it encounters a 
+       non-compressed file. 
+ 
+Corrections:
+
+  * awk: 
+    - the system() function no longer returns a non-zero value when it has 
+      been successful. 
+    - you may now include a blank space between a function name and the 
+      parenthesis enclosing formal function parameters when declaring a 
+      function.  
+    - match() now properly sets RLENGTH when no match is found. 
+
+  * cp and mv:
+    - no longer will you receive an error message regarding security IDs 
+      when moving files across devices or when using the -m or -p options 
+      to copy. 
+  
+  * diff3:
+    - no longer returns an error when dealing with extremely large files. 
+
+  * env: 
+    - "env -i env" now works properly. 
+
+  * expr: 
+    - "expr '-1' : '\(-\)'" now returns a "-" (dash).
+
+  * grep:
+    - grep now returns immediately if there are no patterns to match when using 
+      the -f option.
+
+  * kill:
+    - now properly accepts signal names.
+
+  * make:
+    - now lets you specify a "$" by using "$$" in a prerequisite with the "$$"
+      at the end of the line. For example, 
+	all : setup.ex$$
+                echo hi
+
+  * more: 
+    - now accepts more than 10 arguments in the "MORE=" environtment variable.
+    - the -p option no longer causes an error. 
+  
+  * mt:
+    - the "read" and "write" command line options have been removed from the
+      mt command; use dd instead.
+
+  * od:
+    - now properly processes zero bytes if "0" is specified for # in the 
+      command line "od -N#".
+
+  * patch:
+    - now properly processes files on FAT systems.
+
+  * pax:
+    - "pax -wi" now works properly.
+
+  * rm: 
+    - "rm -f file" now succeeds when there are no write permissions on "file". 
+    - "rm -f *file*" no longer returns an error message if no files are found
+      matching "*file*".
+
+  * sh: 
+    - the trap command now functions properly within shell scripts. 
+    - redirecting standard output to "nul" under Windows NT 3.5 now returns
+      an error message
+.
+  * sort:
+    - now properly handles files terminated with a "^Z".
+
+  * tar:
+    - now returns an error message if you specify more than one of the -c, 
+      -t, or -x options.
+
+  * uniq:
+    - no longer hangs when large values are given with the -f option. For 
+      example, you can now specify
+	uniq -f 2147483647 file1 file2
+
+  * vi:
+    - now returns an error if the environment variable "TMPDIR" is
+      not set to a valid directory.
+    - vi and viw now properly support the ":.t." command.
+    - viw and "vi -c" no longer return an error if the specified file 
+      contains a character string matching one of the names in its directory 
+      structure.  For example, the command
+        vi -c 'g/foo/s/foo/bar' test
+      no longer fails if the file "test" contains the word "foo".
+    - can now be started minimized.
+    - selecting text with the mouse for Edit/Cut now works properly.
+    - the listbox under "Save File as Type" now works properly.
+    - now allows you to save user defined macros in the ex.rc file
+    - no longer deletes previously defined maps in the ex.rc file when
+      it is re-written.
+    - no longer returns an error message via a Message Box when your ex.rc
+      file contains the DOS-specific "scrupdate" and "snow" settings.
+    - now properly supports Insert macros or Abbreviations.
+    - no longer fails when users strike the "s" or "c" keys after deleting
+      text using the "x" key.
+    - now properly aligns TABed text to a specific column when printing.
+
+6.  Changes for Release 4.2b
+
+This section summarizes the changes made between versions 4.2a and 4.2b.
+
+Enhancements:
+  * spell:  now allows multiple -f options to be specified.
+
+Corrections:
+  * ar:
+    - now works correctly with COFF-format libraries.
+
+  * awk:
+    - the substr() built-in will now behave reasonably when the length
+      argument is less than zero.  (a zero length string is returned)
+    - awk now parses the following legal syntax correctly:
+        {  print $1-- }
+    - the split() built-in now allows constant regular expressions as field
+      separators, eg:
+        split(string, array, "regex")
+ 
+  * clear:
+    - now properly clears the screen.
+
+  * make:
+    - now works correctly with COFF-format libraries.
+
+  * viw (vi for Windows):
+    - now possible to filter buffers of text through NT (and
+      Toolkit) commands.  For example, the following now works:
+        :1,$sort
+    - filters will work when vi 'shell=cmd.exe' is set.
+    - the '/' or '?' command may now be used to repeat the last search.
+    - if a region of text is selected using the mouse and an "Edit/Cut"
+      performed, all selected characters are now moved to the clipboard.
+      The previous viw would not cut the last selected character.
+    - viw will now save mappings in the ex.rc file.
+    - viw will now query the user to save files if Windows NT is shut down
+      while a viw session is running.
+    - the 'snow', 'scrupdate', 'attrib' and 'errattrib' settings are
+      understood (and ignored) by viw.
+    - if a HOME environment variable is not set, saved options will be
+      placed into the current directory.
+    - the viw current column indicator now numbers columns starting with
+      one, rather than zero.
+    - the "Options/Save" menu no longer presents garbage to the user.
+    - viw will now draw the terminal screen correctly if it is first
+      started in a minimized state and then restored.
+    - files containing tabs in the middle of lines now print correctly
+      from viw.
+    - there are no longer problems caused by use of the scroll bars
+      after the font has been changed.
+    - viw no longer starts in an odd state (incorrectly drawn windows)
+      if a previous viw session had been minimized when Windows NT was shutdown. 
+
+7.  Changes for Release 4.2a
+
+This section summarizes the changes made between versions 4.2 and 4.2a.
+
+Enhancements:
+  * alias and hash:
+    - now takes the "-r" option, which removes all current tracked aliases.
+
+  * cpio, pax, tar and dd:
+    - now allow you to access tape drives using the name style that is 
+      supported in MKS Toolkit 4.2 for DOS. For example, //./TAPE0 can also 
+      be accessed using /dev/mt0.
+
+  * man:
+    - Toolkit now handles stand-alone man pages that were compressed using the 
+      LH77 compression algorithm.
+    - on-line Manual Pages: some man pages not available in the 4.2 release are
+      included on-line in this letter release.
+
+  * tsort:
+    - now attempts to preserve the input order.
+
+  * vdiff:
+    - no longer requires that all "Compare" windows be closed in order to 
+      get into the Setup dialog.
+
+  * vi:
+    - now processes tilde (~) and environment variables when
+      performing filename expansion. This feature requires that sh.exe
+      has been installed in the $ROOTDIR/mksnt directory.
+
+Corrections:
+  * ar:
+    - now correctly processes COFF format libraries.
+
+  * head:
+    - the "-b" and "-k" options now count bytes rather
+      than counting characters. This means that they now count CRLF as
+      two bytes rather than as one character.
+
+  * make:
+    - when used in a meta-rule, the "<" macro is now
+      set to the target that caused the selection of the inference rule
+      that was used, rather than the out-of-date prerequisite.
+
+  * pack and unpack:
+    - now properly handle read-only files.
+
+  * sort:
+    - "sort -rn" no longer ignores the "-r" for non-numeric keys. 
+      "sort -M" no longer sorts only the month field.
+
+  * grep:
+    - the grep command can now locate strings in a line of
+      text that does not have a newline character at its end, such as the last
+      line of a file.
+
+  * cpio and pax:
+    - the compact binary header format used in cpio format archives was 
+      changed in release 4.2; this has caused portability problems and the 
+      original compact binary header format has been restored.
+
+  * vi:
+    - regular expressions [[.o.]] and [[=o=]] are now supported
+      in vi.
+    - the "C" and "c" commands in vi now completely delete 
+      text in the file when you initiate a change and press Esc without 
+      entering any new text.
+    - if you start vi from cmd.exe, the :n, :sh, and :shell
+      commands now work properly.
+    - no longer exits after the ^C or ^BREAK keys are pressed
+      in command mode, or after any non-alphanumeric key is pressed
+      in insert mode.
+
+  * sh:
+    - no longer exits after a non-alphanumeric key is pressed
+      while in emacs command-line editing mode.
+
+  * xargs:
+    - will now execute *.ksh files, *.bat files and *.cmd files.
+
+
+8.  Changes for Release 4.2
+
+This section summarizes the changes made between versions 4.2BETA and 4.2.
+
+  * This version of MKS Toolkit includes a new file called profnt.ksh that
+    acts as the shell profile.  This was instituted to differentiate between 
+    multiple OS versions of the KornShell running on the same system.  It 
+    is called by the profile.ksh file and is used to set up the NT specific 
+    portions of your shell environment.  See the MKS Toolkit Configuration 
+    Manual for more information.
+
+  * The dev command is now available in the MKS Toolkit for NT.
+
+  * The ps command is not in this release of MKS Toolkit for NT.
+
+  * Change in touch behavior.  There is a new format for specifying the date 
+    and time using the -t option to touch.  Without -t it still uses the 
+    old format.  See the touch(1) man page for more information.
+
+  * Change in date behavior.  There are many new XPG formats supported.  See 
+    the date(1) man page for more information.
+
+  * The SHELLOPT and SHELLIOPT settings are now available for use with vi.  You 
+    can use these to specify the use of a shell other than the KornShell or 
+    command.com by defining them with the vi set command.
+
+
+9.  Caveats
+
+  * Raw Device Support:  Raw device support now works in Toolkit for NT.  
+    To reference a raw device using the mt, cpio, dd, pax, or tar commands, you 
+    must prefix the device with the notation //./, as follows:
+                       //./TAPE0  instead of TAPE0
+    Because the mt, cpio, dd, pax or tar commands have to be able to access
+    the non auto-rewinding tape device, you can also refer to TAPE devices
+    using the following :
+                       /dev/mt0  or
+                       /dev/nmt0
+    Note that these conventions are documented in the on-line man pages, but 
+    not in the printed versions.
+
+  * Microsoft NT 3.5 Resource Kit sh command: The Microsoft Resource Kit for 
+    Windows NT 3.5 contains a command called sh.exe. Since the Resource Kit
+    installation program modifies you system path, you may find that the
+    MKS Toolkit sh command fails if you install the Resource kit after you
+    have installed the MKS Toolkit. Use the
+	which sh.exe
+    to determine which sh your system is calling, and modify your path
+    accordingly.
+
+  * Microsoft rm command:  Microsoft has a command named rm.  If you try to use 
+    the MKS Toolkit rm command, and you notice new directories on your system, 
+    or your disk space is not increasing, then you are using the Microsoft rm 
+    command instead of the MKS Toolkit rm command. 
+
+  * MKS Toolkit commands look for a PATH environment variable before using the 
+    Windows NT Path environment variable.  PATH overrides Path for MKS 
+    commands.  The best thing to do is to include the NT Path variable in the 
+    definition of PATH from the Control Panel, as follows:
+                       Path=C:/WINNT;C:/APPS
+                       PATH=C:/MKSNT;%Path%

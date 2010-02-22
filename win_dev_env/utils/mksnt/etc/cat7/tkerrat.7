@@ -1,0 +1,136 @@
+
+                                 MKS Toolkit
+                                 Release 4.4
+                                Manual Errata
+
+
+
+1.  User's Guide
+----------------
+
+Notes for Different Operating Systems
+
+This User's Guide was written based upon the DOS version of MKS Toolkit. Please 
+make the following considerations when using Toolkit on a different platform.
+
+Some sh examples are wrong for OS/2 and NT.  For example, there is no switch 
+command on  OS/2, so all options to OS/2 commands should be specified with 
+/ (slash)  rather than - (hyphen).
+
+---
+
+Page 65 Awk Tutorial: Introduction:
+
+The manual states that a book entitled The AWK Programming Language is included 
+in the MKS AWK package.  This book is not included with MKS Toolkit.
+
+---
+
+Page 96 AWK Tutorial: 5.2 The if Statement:
+
+After the statement:
+
+   An if statement is an action of the form
+   if (expression) statement1 else statement2
+
+please add:
+
+   NOTE: When the else statement2 part of the if statement is on the same line 
+         as the statement1, the else statement2 should be separated from the 
+         statement1 by a semicolon (;).
+
+---
+
+Page 97 AWK Tutorial:
+
+Please add:
+
+   Remember that \t is the escape sequence for a tab character.
+
+
+
+2.  Reference Manual
+--------------------
+
+Additional Man Pages
+
+There is no printed man page for the new Toolkit command mksdiag(1). This man 
+page is provided online with version 4.2.
+There is no printed man page for the Toolkit command dircmp(1).  This man page 
+is provided online with version 4.2.  
+MKS Toolkit for DOS News support comes with several new man pages.  Some man 
+pages are included in the MKS Toolkit News Manual, and some are included online 
+with version 4.2.
+
+---
+
+alias(1) Man Page
+
+The Synopsis line is incorrect.  It should list the -tx options as not 
+required:  [-tx] instead of -tx.
+
+--- 
+
+cpio(1), dd(1), pax(1), and tar(1) Man Pages
+
+In each of these man pages, remove the comments mentioning MKS Toolkit for NT 
+does not support raw device access.  Raw device access now is supported in MKS 
+Toolkit 4.2 for NT.  To reference a raw device, you must prefix the device with 
+the notation //./, as follows:
+                       //./a:     instead of a:
+                       //./TAPE0  instead of TAPE0
+Note that this convention is documented in the on-line man pages, but not in 
+the printed versions.
+
+---
+
+man(1) Man Page
+
+The Synopsis lines are incorrect.  They should show that the -w and -x options 
+are only allowed in the absence of -k, and -k is required for keyword searches.
+The correct synopsis lines should be:
+man [-wx] [-M path] [section] entry ...
+man -k [-M path] keyword ...
+
+---
+
+touch(1) Man Page
+
+The Synopsis line is incorrect.  It should list the -t option as [[-t] time], 
+not [-t [time]].
+
+---
+
+ulimit(1) Man Page
+
+This man page is missing the -a option.  The -a option shows all current limits.
+
+---
+
+ascii(5) Man Page
+
+The second and third tables in this man page are missing the IBM character set 
+glyphs represented by the listed numbers.  This will be fixed in a future print 
+of the Toolkit Reference.
+
+---
+
+vipc(5) Man Page
+
+In the Set Option Variables section, the discussion of attributes needs more 
+clarification for the OS/2 Toolkit.  All attribute settings require an extra 
+four digits for OS/2, and an attribute setting would appear as follows:
+   0x14000000   Gives a red foreground on a green background
+The existing format is valid for MKS Toolkit for DOS.
+
+
+
+3.  Configuration Manual
+------------------------
+
+Page 4, Before You Begin:  1. System Requirements
+
+Change the Operating System requirements in Table 1 from "DOS 2.1 or later" to 
+"DOS 3.1 or later".
+Also, add a comment here that states that MKS Toolkit only supports machines 
+with a 80286 processor or greater.

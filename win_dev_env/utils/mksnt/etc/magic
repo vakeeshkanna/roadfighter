@@ -1,0 +1,569 @@
+# Magic
+#		Magic file for "file" command.
+#
+#	The fields of this file are as follows:
+#	byte offset, value type, optional operator (= by default), value
+#	to match (numeric or string), and string to be printed.  Numeric
+#	values may be decimal, octal, or hex.  Also note that the last
+#	string may have 1 printf format spec.
+#	The '>' in occasional column 1's is magic: it forces file to
+#	continue scanning and matching additional lines.  The first line
+#	afterwards not so marked terminates the search.
+#
+#	Magic numbers are the byte codes at the start of a file which indicate
+#	it's type.  They are called magic because if you use the CPU jmp
+#	instruction as the file type code you can avoid writing any operating
+#	system code to handle program headers.  It would work like magic.
+#
+# $Id: magic,v 1.1 2007/09/09 05:35:51 waqqassharif Exp $
+#
+# Binary and executable files
+#
+# Common PC 
+#
+# 0x5A4D=MZ, 0x3357=W3, 0x584C=LX, 0x454C=LE, 0x4550=PE, 0x454E=NE
+0	byte	0xE9			DOS executable (.COM)
+0	byte	0xEB			DOS executable (.COM)
+0	byte	0xF0			DOS Library
+0	byte	0x80			OMF object file (Microsoft relocatable)
+0	short	0x5A4D		extended DOS executable (.EXE) 
+&0x18	short	0x40
+>*0x3C	short	0x3357			-- WIN386 Collection of Linear Executables
+>*0x3C	short	0x584C			-- OS/2 32bit Linear format 
+>*0x3C	short	0x454C			-- Windows VxD Linear format
+>*0x3C	short	0x4550			-- Win32 or NT Portable format
+>*0x3C	short	0x454E
+>+54	byte	1			-- OS/2 format
+>+54	byte	2			-- Windows format
+>0x32	string	PKWARE			 Self extracting Zip
+>0x24	string	LHA's			 Self extracting LHA
+>0xE9	string	PKSFX2			 Self extracting Zip
+0	short	0x5A4D		DOS executable (.EXE) 
+>8	long	0x00180020		 DJGPP Compiled with. stub prepended
+>8	long	0x0A930020		 DJGPP Compiled with. GO32 prepended
+0	short	0x5A4C			DOS executable (.EXE) 
+369	string	MICROSOFT		Microsoft Windows PIF file
+0	string	PMCC			Microsoft Windows GRP file
+0	long	0xFFFFFFFF		maybe DOS device driver (.SYS)
+#
+# Other systems executable formats
+#
+0	short	0x154			Encore system executable
+0	short	0160			MIPS Iris 4D executable
+2	short	0314			BSD compact demand paged pure 
+0	short	0401			unix/rt ldp
+0	short	0405			pdp11 overlay
+2	short	0406			AT&T Blit mpx/mux executable
+#
+2	short	0407			BSD style 
+>0	byte&0x80	!0		dynamically linked
+#>1	byte	06			SPARC
+#>1	byte	04			68020
+#>1	byte	02			68010
+#>1	byte	00			old SUN 2
+>1	byte	3			sparc
+>1	byte	2			68020
+>1	byte	1			68010
+>1	byte	0			old sun-2
+>2	short	0407			executable
+>16	long	>0			not stripped
+#
+2	short	0410			BSD style shared text
+>0	byte&0x80	!0		dynamically linked
+>1	byte	3			sparc
+>1	byte	2			68020
+>1	byte	1			68010
+>1	byte	0			old sun-2
+>2	short	0410			executable
+>16	long	>0			not stripped
+#
+0	string	--MKS Project--Sandbox--	MKS SI Project Sandbox Journal
+0	string	--MKS Project--	MKS SI Project Journal
+#
+0	short	0411			pdp11 separate I&D executable
+>8	short	>0			 not stripped
+>15	byte	>0			 - version %ld
+#
+2	short	0413			BSD style demand paged 
+>0	byte&0x80	!0		dynamically linked
+>1	byte	3			sparc
+>1	byte	2			68020
+>1	byte	1			68010
+>1	byte	0			old sun-2
+>2	short	0413			executable
+>16	long	>0			not stripped
+#
+0	long	0x00080456	
+>4	long	826			68010 core file
+>4	long	432			sparc core file
+>116	long	>0			(signal '%d')
+#
+0	short	0420			Alliant virtual executable
+0	short	0421			Alliant compact executable
+0	short	0437			pdp11 kernal overlay
+0	short	0502			basic-16 executable
+0	short	0503			basic-16 executable (TV)
+0	short	0510			COFF format iAPX86 executable
+>12	long	>0			 not stripped
+0	short	0511			COFF format iAPX86 executable (TV)
+>12	long	>0			 not stripped
+>22	short	>0			 - version %ld
+0	short	0513			Convex executable
+0	short	0514			COFF format iAPX 386 executable
+>12	long	>0			 not stripped
+>22	short	>0			 - version %ld
+0	short	0520			COFF format mc68k executable
+0	short	0521			mc68k executable (shared)
+0	short	0522			COFF format iAPX 286 executable (large model)
+>12	long	>0			 not stripped
+>22	short	>0			 - version %ld
+0	short	0530			USS/370 pure executable
+0	short	0531			Amdahl UTS SVR2 executable
+0	short	0534			Amdahl UTS SVR2 pure executable
+0	short	0535			USS/370 executable
+0	short	0551			COFF format 3b20 executable (TV)
+0	short	0554			BCS format 68000 executable
+0	short	0555			BCS format 88000 executable
+0	short	0560			COFF format WE32000 executable
+0	short	0561			COFF format WE32000 executable (TV)
+0	short	0570			COFF format CLIPPER or VAX executable
+0	short	0575			COFF format CLIPPER or VAX pure executable
+0	short	0737			RS/6000 executable
+0	short	0x601A			Atari ST contiguous executable
+>14	long	>0			 - not stripped
+0	short	0x601B			Atari ST non-contig executable
+>14	long	>0			 - not stripped
+0	string	core			core file (Xenix)
+0	short	0xFF65			x.out
+>2	string	__.SYMDEF		 randomized
+0	short	0x206			a.out (Microsoft)
+>0x1e	short	&0x10			 overlay
+>0x1e	short	&0x2			 separate
+>0x1e	short	&0x4			 pure
+>0x1e	short	&0x800			 segmented
+>0x1e	short	&0x400			 standalone
+>0x1e	short	&0x8			 fixed-stack
+>0x1c	byte	&0x80			 byte-swapped
+>0x1c	byte	&0x40			 word-swapped
+>0x10	long	>0			 not-stripped
+>0x1c	byte	&0x4			 86
+>0x1c	byte	&0x9			 286
+>0x1c	byte	&0xa			 386
+>0x1e	short	&0x1			 executable
+>0x1e	short	^0x1			 object file
+>0x1e	short	&0x40			 Large Text
+>0x1e	short	&0x20			 Large Data
+>0x1e	short	&0x120			 Huge Objects Enabled
+0	short	0x10b			VAX demand load format a.out object file
+0	short	0x140			old Microsoft 8086 x.out
+>0x3	byte	&0x4			 separate
+>0x3	byte	&0x2			 pure
+>0	byte	&0x1			 executable
+>0	byte	^0x1			 relocatable
+>0x14	long	>0			 not stripped
+0	long	0x206			b.out
+>0x1e	short	&0x10			 overlay
+>0x1e	short	&0x2			 separate
+>0x1e	short	&0x4			 pure
+>0x1e	short	&0x800			 segmented
+>0x1e	short	&0x400			 standalone
+>0x1e	short	&0x1			 executable
+>0x1e	short	^0x1			 object file
+>0x1e	short	&0x4000			 V2.3
+>0x1e	short	&0x8000			 V3.0
+>0x1c	byte	&0x4			 86
+>0x1c	byte	&0xb			 186
+>0x1c	byte	&0x9			 286
+>0x1c	byte	&0x29			 286
+>0x1c	byte	&0xa			 386
+>0x1e	short	&0x4			 Large Text
+>0x1e	short	&0x2			 Large Data
+>0x1e	short	&0x102			 Huge Objects Enabled
+0	short	0624			COFF format 88000 HP-Apollo executable
+0	short	0627			COFF format 68000 HP-Apollo executable
+0	long	0x10b			VAX demand load format a.out object file
+0	long	0x140			old Microsoft 8086 x.out
+>0x3	byte	&0x4			 separate
+>0x3	byte	&0x2			 pure
+>0	byte	&0x1			 executable
+>0	byte	^0x1			 relocatable
+>0x14	long	>0			 not stripped
+0	long	0xE805			z8000 object file (overlay)
+0	long	0xE807			z8000 object file
+0	long	0xE808			z8000 object file (pure)
+0	long	0xE809			z8000 object file (separate)
+0	long	0x178			Bell 5.0 executable
+0	short	0x90			COFF format TI34010 object file
+0	long	0x02100106		HPPA-RISC 1.1 relocatable object
+0	long	0x02100107		HPPA-RISC 1.1 executable
+0	long	0x02100108		HPPA-RISC 1.1 shared executable 
+0	long	0x0210010b		HPPA-RISC 1.1 demand-load executable 
+0	long	0x0210010e		HPPA-RISC 1.1 shared library
+0	long	0x0210010d		HPPA-RISC 1.1 dynamic load library
+0	long	0x020b0106		HP-UX S800 relocatable object
+0	long	0x020b0107		HP-UX S800 executable
+0	long	0x020b0108		HP-UX S800 shared executable 
+0	long	0x020b010b		HP-UX S800 demand-load executable 
+0	long	0x020b010e		HP-UX S800 shared library
+0	long	0x020b010d		HP-UX S800 dynamic load library
+0	short	02376			structured file
+0	long	4			SNF font file
+0	string	\177ELF			System Vr4 ELF format 
+>4	byte	1			32-bit 
+>4	byte	2			64-bit
+>5	byte	1			LSB 
+>5	byte	5			MSB 
+>16	short	0			unknown type 
+>16	short	1			relocatable 
+>16	short	2			executable 
+>16	short	3			dynamic library 
+>16	short	4			core file 
+>18	short	0			for an unknown machine 
+>18	short	1			for the WE32100 
+>18	short	2			for the SPARC 
+>18	short	3			for the 80386
+>18	short	4			for the 68000 
+>18	short	4			for the 88000 
+>20	long	1			Version 1
+>36	long	1			with Math Coprocessor (FPU/MAU) required
+#
+# Binary support files
+# 
+0	string	!<spell>		MKS Spell hash list (old format)
+0	string	!<spell2>		MKS Spell hash list
+0	string	!<man database compressed>	MKS compressed manual page file
+0	string	AH			Halo(TM) bitmapped font file
+0	long	0x08086B70		TurboC BGI file
+0	long	0x08084B50		TurboC Font file
+0	short	0432			Compiled Terminfo Entry
+#
+# Sound file formats
+#
+0	string	.snd			audio data -
+>12	long	1			8 bit ULAW format,
+>12	long	2			8 bit linear PCM format,
+>12	long	3			16 bit linear PCM format,
+>12	long	4			24 bit linear PCM format,
+>12	long	5			32 bit linear PCM format,
+>12	long	6			32 bit floating point format,
+>12	long	7			64 bit floating point format,
+>12	long	23			compressed (G.721 ADPCM) format,
+>16	long	x			%d Hz
+>20	long	1			mono,
+>20	long	2			stereo,
+>20	long	3			quad,
+8	string	AIFF			AIFF sound file
+0	string	NTRK			MultiTrack sound file
+>4	long	x			- version %ld
+0	string	RIFF			Microsoft Windows WAV sound file
+0	string	MT			maybe a MIDI file
+#
+# Archive files
+#
+0	short	070707			cpio archive with binary header
+0	short	0143561			cpio archive (byte swapped)
+0	string	070707			cpio archive with ASCII header (pre-SVR4 )
+0	string	070701			SVR4 cpio format without CRC and ASCII header (may not work with Toolkit cpio)
+0	string	070702			new SVR4 cpio format with ASCII headers (may not work with Toolkit cpio)
+0	long	0xFF6d			ar archive - old format
+0	short	0xFF65			ar archive - old VAX or PDP11 format
+0	string	\<ar>			ar archive - System V release 1
+0	string	=<ar>			ar archive - System V release 1
+0	string	<ar>			ar archive - System V release 1
+0	string	!<arch>			ar archive - BSD 4.x/System V release 2up
+>8	string	__.SYMDEF		random library
+257	string	ustar			USTAR format tar archive
+0	string	\037\036		packed file
+>2	long	x			 (original size %d)
+0	string	\037\235		compressed file
+>2	byte&0x1F	x		 - with %d bits
+0	long	0x00909D1F		compressed with MKS dictionary format
+0	byte	0x1A			ARC archive
+>1	byte	0			 - empty
+>1	byte	1			 - very old format
+>1	byte	8			 - 8th compression level
+0	short	0xCB05			huf format
+0	short	0x76FF			CP/M squeeze format
+0	short	0x76FE			CP/M crunch format
+0	short	0x8b1f			GNU gzip compressed data
+>2	byte	8			- deflation method
+>3	byte	&0x1			, ascii
+>3	byte	&0x2			, continuation
+>3	byte	&0x4			, extra field
+>3	byte	&0x8			, original file name
+>3	byte	&0x10			, comment
+>3	byte	&0x20			, encrypted
+>8	byte	2			, max compression
+>8	byte	4	 		, max speed
+# Zip's start with PZ and have the version number next
+0	long	0x04034b50		Zip archive
+>1	long	0x0904034b		 (at least v0.9 to extract)
+>1	long	0x0a04034b		 (at least v1.0 to extract)
+>1	long	0x0b04034b		 (at least v1.1 to extract)
+>1	long	0x1404034b		 (at least v2.0 to extract)
+0	string	ZOO 			Zoo archive
+>4	string	1.00			 (v%4s)
+>4	string	1.10			 (v%4s)
+>4	string	1.20			 (v%4s)
+>4	string	1.30			 (v%4s)
+>4	string	1.40			 (v%4s)
+>4	string	1.50			 (v%4s)
+>4	string	1.60			 (v%4s)
+>4	string	1.70			 (v%4s)
+>4	string	1.71			 (v%4s)
+>4	string	2.00			 (v%4s)
+>4	string	2.01			 (v%4s)
+>4	string	2.10			 (v%4s)
+>32	short	0x0001			 (modify: v1.0+)
+>32	short	0x0401			 (modify: v1.4+)
+>32	short	0x0002			 (modify: v2.0+)
+>70	short	0x0001			 (extract: v1.0+)
+>70	short	0x0102			 (extract: v2.1+)
+2	string	-lh0-			Lharc 1.x archive
+2	string	-lh1-			Lharc 1.x archive
+2	string	-lz4-			Lharc 1.x archive
+2	string	-lz5-			Lharc 1.x archive
+#	[never seen any but the last:]
+2	string	-lzs-			LHa 2.x? archive [lzs]
+2	string	-lh -			LHa 2.x? archive [lh ]
+2	string	-lhd-			LHa 2.x? archive [lhd]
+2	string	-lh2-			LHa 2.x? archive [lh2]
+2	string	-lh3-			LHa 2.x? archive [lh3]
+2	string	-lh4-			LHa 2.x? archive [lh4]
+2	string	-lh5-			LHa (2.x) archive
+0	string	KWAJ			Microsoft setup compressed file
+#
+# Miscellaneous files
+#
+1	string	FONT			DOS Code Page Information file
+24	long	60012			news-fs BSD dump file
+24	long	60011			old-fs BSD dump file
+0	string	head			RCS file text
+0	string	begin 			uuencoded file
+0	string	xbtoa			btoa format file
+59	string	VER:			Super Project Plus file
+2	string	Magic			Magic file
+0	long	0x1010101		MMDF mailbox
+0	long	0100554			apl workspace
+0	string	:			very old bourne shell script
+0	string	#!			commands text
+>2	string	/bin/sh			 - Bourne or POSIX shell script
+>2	string	/bin/bc			 - BC calculator
+>2	string	/bin/ksh		 - Korn script
+>2	string	/bin/csh		 - C Shell script
+>2	string	/bin/tsh		 - Tenex C Shell script
+>2	string	/bin/bash		 - Bash script
+>2	string	/bin/perl		 - Perl script
+>2	string	/bin/awk		 - awk script
+>2	string	/bin/nawk		 - new awk script
+>3	string	/bin/sh			 - Bourne or POSIX shell script
+>3	string	/bin/bc			 - BC calculator
+>3	string	/bin/ksh		 - Korn script
+>3	string	/bin/csh		 - C Shell script
+>3	string	/bin/tsh		 - Tenex C Shell script
+>3	string	/bin/bash		 - Bash script
+>3	string	/bin/perl		 - Perl script
+>3	string	/bin/awk		 - awk script
+>3	string	/bin/nawk		 - new awk script
+>3	string	cunbatch		 - Bnews or Cnews news batch file
+>3	string	rnews			 - news batch file
+0	string	From			Unix Version 7 format mail file or news article
+0	string	Return-Path:		SMTP format mail file
+0	short	0x8000			a lif file
+0	long	0x020C010C		a compiled LISP file
+0	string	msgcat01		HP NLS message catalog
+0	string	StartFontMetrics	NeWS ASCII font metrics file
+0	string	StartFont		NeWS ASCII font data file
+0	string	StartFont		NeWS ASCII font data file
+0	long	0x137A2944		NeWS bitmap font
+0	long	0x137A2947		NeWS font family
+10	string	DaTaStReAm		SVR4 datastream package
+0	string	\001h0			SCCS revision control file
+0	byte	0xE1			Polytron VCS logfile (type 1)
+0	byte	0xE2			Polytron VCS logfile (type 2)
+0	string	iconv			MKS iconv font definition file
+>5	string	1			 - version 1
+0	string	MKS			MKS UUCP Config Datafile
+#
+# Documentation formats
+#
+0	string	%!			Generic PostScript file
+>2	string	PS-Adobe-1.0		Level 1 PostScript file
+>2	string	PS-Adobe-2.0		Level 2 PostScript file
+#	 version number follows, in the form PS-Adobe-nn
+0	string	Interpress/Xerox	Interpress document
+#	 version number follows, in the form /n.n
+0	string	StartFontMetrics	ASCII font metrics
+0	string	StartFont		ASCII font bits
+0	long	0x137A2944		NeWS bitmap font
+0	long	0x137A2947		NeWS font family
+8	long	0x137A2B45		X11/NeWS bitmap font
+8	long	0x137A2B48		X11/NeWS font family
+0	long	0x137A2950		scalable OpenFont library
+0	long	0x137A2951		encrypted scalable OpenFont library
+0	string	<MakerFile		Frame Maker document
+0	string	<MIFFile		Frame Maker MIF file
+0	string	<MML			Frame Maker MML file
+0	string	<Book			Frame Maker Book file
+0	string	<MakerDictionary	Frame Maker Dictionary
+0	string	<MakerScreenFon		Frame Maker Font file
+0	string	<Maker Intermediate Print File	Frame Maker IPL file
+0	long	0x435057ff		WordPerfect 5.1 source file
+2	string	gwtree			Freelance Plus drawing
+6	string	GP2CHART		Freelance Plus chart
+0	string	Workspace		Quattro Pro Workspace
+0	long	0xDF63			Quattro Pro menu tree
+0	string	RRTL			Quattro Pro clip art
+0	long	0x08086163		Quattro Pro BGI file
+0	string	$CSDTXT a		Quattro Pro ASCII BGI file
+0	string	BM			Microsoft Windows bitmap
+0	long	0x00035f3f		Microsoft Windows helpfile
+0	short	0xBE31			maybe a Microsoft Windows write file
+6	short	0xedfb			Framework II file
+>2	string	3Q.!&@			 Reflex 1.14 file
+>2	string	3Q.!&			 Reflex 1.0/1.1 file
+0	string	{\\rtf			Rich Text Format file
+0	string	..LAYOUT		Volkswriter 3 file
+0	short	0xA5DB			MS Word for Windows 2.0x document
+0	short	0xA59B			MS Word for Windows 1.x document
+0	string	<!OPS			Interleaf ASCII document
+0	string	\210OPS			Interleaf saved data
+#	 version number follows, in the form <!OPS, Version n.n>
+24	string	SunGKS			SunGKS
+#	 version number follows, in the form SunGKS m.n
+>0	string	GKSM			 Metafile
+0	string	GKSM			GKS Metafile
+8	string	ILBM			IFF ILBM file
+0	short	0xFFFF9601		ispell hash file
+0	string	x\ T 			titroff output
+>4	string	ps			 - Postscript format
+>4	string	cat			 - CAT format
+0	string	FONT			ASCII vfont text
+0	short	0436			BSD vfont data
+0	short	017001			byte-swapped BSD vfont data
+0	string	@document(language	IMAGEN printer text file
+>19	string	impress			 imPRESS language data
+>19	string	daisy			 daisywheel text
+>19	string	diablo			 diablo daisywheel text
+>19	string	printer			 line printer text
+>19	string	tektronix		 Tektronix 4014 format data
+0	long	0x3473291b		HPLJ3 scalable font file
+0	string	%%			Tex source file
+0	short	0xF702			Tex DVI file
+0	short	0xF759		 	Tex packed font file
+0	string	\<!DOCTYPE		Exported SGML document
+0	string	\<!doctype		Exported SGML document
+0	string	\<!SUBDOC		Exported SGML subdocument
+0	string	\<!subdoc		Exported SGML subdocument
+0	string	\<!SQ			SGML
+>5	string	DTD>			 complied rules file
+>5	string	A/E>			 SoftQuad Author/Editor document binary
+>5	string	STS>			 SoftQuad Author/Editor styles binary
+0	short	0125252			SoftQuad troff DESC or font file
+0	string	SQ			SoftQuad file 
+>3	string	BITMAP1			 - Raster format bitmap text
+>3	string	BITMAP2			 - Raster format bitmap data
+0	string	X			SoftQuad troff context intermediate
+>2	string	495			 for AT&T 495 laser printer
+>2	string	hp			 for HP Laser Jet printer
+>2	string	impr			 for IMAGEN imPRESS printer
+>2	string	ps			 for Postscript
+#
+# Graphics files 
+#
+0	string	<list>\n<protocol\ bbn-m	Diamond Multimedia Document
+0	string	GIF			GIF image archive 
+>3	string	87a			 - version 87a
+>3	string	87A			 - version 87a
+>3	string	89a			 - version 89a
+>3	string	89A			 - version 89a
+>10	byte	&0x40			 interlaced
+>10	byte&0x07	=0x00		 2 colours
+>10	byte&0x07	=0x01		 4 colours
+>10	byte&0x07	=0x02		 8 colours
+>10	byte&0x07	=0x03		 16 colours
+>10	byte&0x07	=0x04		 32 colours
+>10	byte&0x07	=0x05		 64 colours
+>10	byte&0x07	=0x06		 128 colours
+>10	byte&0x07	=0x07		 256 colours
+0	string	hsi1			HSI1 image
+0	short	0x4949			TIFF bitmap (II format)
+>2	short	x			 - version %d
+0	short	0x4D4D			TIFF bitmap (MM format)
+>2	short	x			 - version %d
+0	string	IIN1			NIFF raster data - Navy Interchange File Format 
+0	long	0xe0ffd8ff		JPEG image
+>6	string	JFIF			 - JFIF format
+0	short	0x52cc			Utah Raster Toolkit RLE
+0	string	ARF_BEGARF		PHIGS clear text archive
+0	string	@(#)SunPHIGS		SunPHIGS image
+0	string	BEGMF			Computer Graphics Metafile - clear text
+0	short	0x3020			Computer Graphics Metafile - character
+0	short	0433			Curses screen image
+0	short	0434			Curses screen image
+0	string	#FIG			FIG graphics
+>6	string	2.1			Version 2.1
+>6	string	2.0			Version 2.0
+0	string	yz			MGR bitmap
+0	long	0x4DA7EEE8		HP Windows font file
+0	string	Bitmapfile		HP Bitmap file
+0	string	IMGfile			special form of HP Bitmap file
+0	string	Imagefile		IFF image data
+0	string	Rast			IMAGEN RST raster font data
+0	string	P1			PBM file 
+0	string	P2			PGM file 
+0	string	P3			PPM file 
+0	string	P4			PBM raw data file 
+0	string	P5			PGM raw data file 
+0	string	P6			PPM raw data file 
+0	string	\361\0\100\273		CMU window manager bitmap
+0	long	0x42F00F24		Artisan file
+>4	long	1			 24 bit Image
+>4	long	2			  8 bit Image
+>4	long	3			 32 bit Image
+0	short	0x5555			VISX image file
+0	long	00000004		X11 snf font
+0	short	0433			Curses screen image
+0	short	0434			Curses screen image
+0	string	\012\005\001		PC Paintbrush Version 5 .pcx file
+>2	byte	1			 1 bit  per pixel
+>2	byte	2			 2 bits per pixel
+>2	byte	4			 4 bits per pixel
+>2	byte	8			 8 bits per pixel
+>65	byte	1			 1 bit plane
+>65	byte	2			 2 bit planes
+>65	byte	3			 3 bit planes 
+>65	byte	4			 4 bit planes
+0	string	\012\005\000		PC Paintbrush Version 1 .pcx file
+0	string	\012\005\002		PC Paintbrush Version 2 .pcx file
+0	string	\012\005\003		PC Paintbrush Version 3 .pcx file
+0	string	\012\005\004		PC Paintbrush Version 4 .pcx file
+0	long	0xC6D3D0C5		Encapsulated PostScript (EPS) file
+0	long	0x0018FFFF		Keydraw (DRDRAW) GEM drawing file
+1	string	WAD			ID Software Doom 1 or 2 WAD datafile
+0	string	DHFbitmaps.bin		Parallex Software Descent HOG datafile
+0	string	#VRML			Virtual Reality Modelling Language data
+#
+# Spreadsheet files
+#
+0	long	0x0200
+>4	long	0x04040600		 Lotus worksheet
+0	string	SuperCalc		SuperCalc4 file
+0	long	0x001A0000		Lotus 1-2-3 Release 3.1
+>4	long	0x41000			 worksheet
+>4	long	0x8007			 wysiwyg format file
+0	long	0x20000			worksheet
+>4	long	0x130A0B		 - Quattro Pro 1.0
+>4	long	0x65120			 - Quattro Pro 2.0
+>4	long	0x60406			 - Lotus 1-2-3 Release 2.2
+0	string	WNGZWZSS		WingZ worksheet
+0	string	WNGZWZSC		WingZ script
+0	string	WNGZWZHP		WingZ help file
+38	string	Spreadsheet		SC Spread sheet
+3	string	pgscriptver		SunWrite document
+10	string	sundraw			SunDraw document
+#
+# Some real guesses
+#
+0	byte	0			maybe a Microsoft Windows ICO file
+0	string	[			maybe a Microsoft Windows INI file

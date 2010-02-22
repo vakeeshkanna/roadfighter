@@ -1,0 +1,2956 @@
+# alias 
+alias -- display or create command aliases
+Usage:	alias [-tx] [name[=value] ...]
+        alias -r
+-r      remove tracked aliases
+-t	display or add tracked aliases
+-x	display or add exported aliases
+# ar 
+ar -- create and maintain library archives
+Usage:	ar -d [-Ilv] archive member ...
+	ar -m [-abiIlv] [posname] archive file ...
+	ar -p [-Iv] archive [member ...]
+	ar -q [-clsv] [-F format] archive file ...
+	ar [-ru] [-abciIlsuv] [-F format] [posname] archive member ...
+	ar -t [-Ilsv] archive [member ...]
+	ar -x [-CIlsTv] archive [member ...]
+Action options:
+-d		delete specified members from archive
+-m		move specified member relative to posname
+-p		print (like extract) binary member(s) to standard output
+-q		quick addition, append files to end of archive
+-r		replace each specified "member" in archive
+-t		print a table of member names (more information with -v)
+-x		extract specified (or all) "member" files from archive
+Modifier options:
+-a		place specified files after posname (defaults to end)
+-b		place specified files before posname (defaults to beginning)
+-C		do not extract if file with same name exists
+-c		do not print any message if the archive must be created
+-F format	specify coff or omf archive format, defaults to OMF
+-I		ignore case in comparing member names
+-i		insert file before posname (defaults to beginning)
+-l		put temporary files in local (current) directory
+-s		rebuild symbol table regardless of action option
+-T		allow file system to truncate too-long file names
+-u		only replaces if "member" newer than one in archive
+-v		verbose -- give more information about actions being taken
+# asa 
+asa -- interpret ASA/FORTRAN carriage control
+Usage:	asa [file ...]
+
+The first character of each line is the carriage control indicator, as follows:
+(space) single new line
+0	double new line
+1	new page
++	same line (carriage return)
+# awk, awkl 
+awk, awkl -- data transformation, report generation language
+Usage:	awk [-F ere] [-f prog] [-v var=value] [program] 
+            [var=value ...] [file ...]
+
+-F ere	      "ere" is an extended regular expression to be used as 
+	      the field separator
+-f prog	      "prog" file contains the awk program
+-v var=value  assign value to variable before BEGIN action
+
+Use "program" for awk program only if no -f specified.
+If no "file" is specified, use standard input.
+# awkc 
+awkc -- compile AWK programs into executables
+
+Usage:  awkc [-F ere] [-f prog] [-l][-O] -o awkpgm [-P prototype] [-v var=value]
+[program]
+
+-F ere         compile to use the given extended regular expression "ere" to
+	delimit input fields
+-f prog        read the AWK program from the file "prog"
+-l	(DOS only) use the large model AWK prototype module awkrunl.mod
+-O	apply constant folding optimizations to the AWK program
+-o awkpgm      write the awk program to the file called awkpgm.
+	This option is always required.
+-P prototype   replace the prototype module with the given file
+-v var=value   compile the initial value of var to the given value
+program        compile the program given on the command line
+
+When running the awk program "awkpgm", the options are as for awk(1),
+with the exception that the -F and -v options are not
+supported. However, variable assignments and file names can be done
+as for awk(1).
+# fontfile] [
+fontfile] [-w n] [text ...]
+
+-c char		Use character "char" to form output characters (default="X")
+-f fontfile	Use font from "fontfile".
+-w n		Width of output is "n" characters (default is unlimited)
+
+If no "text" arguments found, banner displays text from standard input.
+# basename 
+basename -- display file name component of path name
+Usage:	basename name [suffix]
+# batcher, comp, via 
+batcher, comp, via -- news batching to other sites
+Usage:	batcher [-x] [site ...]
+	comp [12] [no]
+	via [uux] [uuxz] [uuxcun] [uuxcunz] [site]
+
+-x	turns on debugging output
+
+comp 12	12-bit compression
+comp no	pass data straight through, no compression
+
+via uux	normal transmission via UUCP, invoking rnews at the remote site.
+via uuxz	like viauux except with the -z option given to uux
+via uuxcun	like viauux except it invokes cunbatch rather than rnews at the 
+	remote site
+via uuxcunz	like viauuxcun except it invokes cunbatch rather than rnews at 
+	the remote site, and gives the -z option to uux
+# bc 
+bc -- arbitrary-precision arithmetic calculation language
+Usage:    bc [-il] [file ...]
+
+-i     turn on interactive mode with prompting
+-l     load math function library, set scale to 20
+file   text file containing bc instructions
+
+After reading and processing all command line files, bc reads
+from standard input. Valid operators and statements are:
+
+Binary:
+   + addition       - subtraction    * multiplication
+   / division       % modulus        ^ exponentiation
+  && logical and   || logical or
+  == equals        != not equal
+   < less than      > greater than
+  <= less or equal >= greater or equal
+Unary:
+    - negation      ! logical complement
+   -- decrement    ++ increment
+Assignment:
+       = += -= *= /= %= ^=
+Built-in Functions
+	length(expression)	length of number
+	scale(expression)	scale of expression
+	sqrt(expression)	square root
+Statements:
+	break
+	for (expression1; condition; expression2) statement
+	if (condition) statement
+	if (condition) statement else statement
+	print expr ...
+	quit
+	sh test ...
+	void expr
+	while (condition) statement
+# break 
+break -- exit from loop in shell script
+Usage:	break [number]
+# c 
+c -- produce multi-column output
+Usage:	c [-hVv] [-g gutterwidth] [-w pagewidth] [file ...]
+
+-g	set the width of the gutter between columns to "gutterwidth", default=2
+-h	data reads horizontally across rows (default style)
+-V	data reads vertically down balanced columns
+-v	data reads vertically down columns
+-w	the width of the output device is "pagewidth".  Also can be set from
+	COLUMNS= variable from the environment.
+# cal 
+cal -- display a calendar for a year or month
+Usage:	cal [month] [year]
+
+Default is to display a calendar for the current month.
+"month" may be alphabetic month name, abbreviation, or between 1 and 12
+"year" must be full year number (for example, 1987)
+# calendar 
+calendar -- appointment reminder system
+Usage:	calendar [-]
+
+Default is to display current appointments on standard output.
+With - option, mail appointments to every user.
+# cat 
+cat -- concatenate and display text files
+Usage:	cat [-su] [-v[et]] [file ...]
+
+-e	print $ at end of line under -v
+-s	silent: no error messages
+-t	print tabs as ^I under -v
+-u	unbuffered
+-v	display unprintable characters as escape sequences
+# cc 
+cc -- generic C compiler interface
+Usage:	cc [options] [file file ...]
+
+cc can define any interface (see ROOTDIR/etc/compiler.ccg); the following
+are recommended and supported by MKS:
+
+-c		compile to object only; do not link
+-Dname[=value]	define name for preprocessor
+-f-		no floating point support required
+-f		use emulated floating point
+-fp		use coprocessor hardware floating point
+-Idirectory	add directory to search list for #include
+-Ldirectory	add directory to list of directories searched for libraries
+-llibrary	link indicated library
+-m[sml]	memory model to use: s-small is default
+-o output	write linked executable into output
+-Uname		undefine name for preprocessor
+
+file.c		compile C source in file.c
+file.obj	link indicated object file
+file.lib	link indicated object code library
+# cd 
+cd -- change working directory
+Usage:	cd [directory]
+	cd old new
+	cd -
+# chmod 
+chmod -- change access permissions of a file
+Usage:	chmod [-fR] mode pathname ...
+
+-f	Force successful error status, and no error messages
+-R	Execute recursively on everything under directories
+
+Modes may be absolute modes (octal numbers) or have form
+   [who] op permission [op permission ...]
+Values for who:
+u	user permissions
+g	group permissions
+o	other permissions
+a	all, that is, ugo (default)
+Values for op:
++	turn on mode
+-	turn off mode
+=	turn on one mode, turn off others
+Values for permission:
+rwxhsa	read, write, execute, hidden, system, archive
+# ci 
+ci -- check a file into a Source Integrity archive
+Usage: ci [-BCEegIjORTZ] [-ddate] [-f[rev]] [-k[rev]] [-l[rev]] 
+          [-mmsg] [-Nname] [-nname] [-P[project] [-q[rev]] [-r[rev]] [-sstate]
+	  [-t[txtfile]] [-u[rev]] [-wlogin] [-y[!]] [-Yfile] [-Z[passwd]] file ...
+
+-B		force binary file format for check in
+-C		forces the -R option not to skip archives
+-ddate		use "date" rather than now for checking date/time
+-E		stores entire file for each revision
+-e		stores only changes for each revision
+-f[rev]         force check in even if not different
+-Ffile		"file" contains path names of files to be checked in 
+-g		set revision check-in time to the modify date of working file
+-I		redirect standard input to a file or a pipe
+-j		suppresses automatic archiving of non-archived files
+-k[rev]		search for keywords values for revision, etc.
+-l[rev]		check in, while leaving locked copy of working file intact
+-mmsg		string "msg" is the log message for revisions
+-nname		assign symbolic "name" to the number of the revision
+-Nname		like -n; override any previous use of "name"
+-O		ignore any local configuration file
+-P[project]     specify the archive location of files
+-q[rev]		quiet mode -- no diagnostic output
+-r[rev]		assign revision number/name "rev" to the checked in revision
+-R		tells ci to operate recursively
+-sstate		set state of revision to "state" (default: "Exp")
+-t[txtfile]	reads descriptive text from "txtfile" or standard input
+-T		force text file format for check in
+-u[rev]		like -l, except that deposited revision is not locked
+-wlogin		uses "login" rather than the real login name for the author
+-y[!]		assumes a "yes" (-y) or a "no" (-y!) to all questions
+-Yfile		specify local configuration file
+-Z[passwd]      encrypt file with optional password 
+# cksum 
+cksum -- compute checksum and byte count for file
+Usage:	cksum [-ciprt] [file ...]
+
+-c	compute CRC16 instead of default checksum
+-i	compute CRC-CCITT instead of default checksum
+-p 	compute POSIX.2 checksum (default)
+-r	compute alternate (BSD or V7 compatible) checksum
+-t	give a total checksum for all files
+
+If no "file" or "file" is "-", use standard input.
+# clear 
+clear --  clear screen
+Usage:	clear
+# cmp 
+cmp -- compare two files
+Usage:	cmp [-blsx] file1 file2 [seek1 [seek2]]
+ 
+-b	Do a single disk block at a time
+-l	Keep going after finding a difference
+-s	Say nothing, return an error status
+-x	Display differences in hex
+
+One of the files may be "-" for the standard input.
+# co 
+co -- check out a file under RCS
+Usage:	co [-CgIkKORx] [-ddate] [-f[rev]] [-jjoinlist]
+           [-l[rev]] [-p[rev]] [-P[project] [-q[rev]] [-r[rev]] [-sstate]
+	   [-u[rev]] [-w[author]] [-Yfile] [-Zpasswd] file ...
+
+-C		forces the -R option no to skip archives
+-ddate		retrieve latest revision checked in on or before "date"
+-Ffile		"file" contains path names of files to be checked out
+-f[rev]		force overwrite of any existing working file
+-g		set the date of the working file to the check-in date
+-I		redirect standard input to a file or a pipe
+-jjoinlist	generate new revision that is a join of revisions in "joinlist"
+-K		suppress keyword expansion and remove all existing expansions
+-k		suppress keyword expansion
+-l[rev]		like -r, but locks the checked out revision
+-O		ignores default options found in configuration file
+-p[rev]		print on standard output rather than storing working file
+-P[project]	specify the archive location of files
+-q[rev]		quiet mode--no diagnostics
+-r[rev]		retrieve specified revision (<= "rev")
+-R		forces co to operate recusively
+-sstate		retrieve latest revision with specified "state"
+-u[rev]		like -r, but unlocks retrieved revision (if locked)
+-w[login]	retrieve latest revision checked in by "login" (def. yourself)
+-x		force keyword expansion
+-y[!]		assumes a "yes" (-y) or a "no" (-y!) to all questions
+-Yfile		use "file" as the local configuration file
+-Zpasswd	specify "passwd" as the encryption password
+# col 
+col -- remove reverse line-feeds
+Usage:	col [-bfx] [file ...]
+-b	ignores backspace requests
+-f	allows forward half-line movements
+-x	maintain blank characters as blanks; do not convert to tabs
+# : (colon) 
+: (colon) -- expand arguments and do nothing, successfully
+Usage:	: [argument ...]
+# comm 
+comm -- compare sorted files and show differences
+Usage: comm [-123] file1 file2
+-1	Suppress lines only in file1
+-2	Suppress lines only in file2
+-3	Suppress lines in both
+# command 
+command -- execute a simple command
+Usage:	command [-p] [command-line]
+	command [-V|v] command_name
+
+-p		search for utilities using default system PATH
+-V		identify how command_name is interpreted by the shell
+-v		write path name or command used to invoke command_name
+command-line	is a command line for the command you want to execute
+command-name    is the name of a command
+# compress 
+compress -- Lempel-Ziv file compression
+Usage:	compress [-cDdfVv] [-b bits] [file ...]
+
+-b bits	set maximum number of "bits" of compression (default 16)
+-c	write output to standard output
+-D	apply extra compression for dictionaries
+-d	decompresses argument files	
+-f	force compression even if resulting file is larger
+-V	print version number
+-v	print compression statistics
+
+Every input "file" is concatenated and the compressed result is written to
+standard output.  Actual files are compressed in place.
+# continue 
+continue -- skip to next iteration of loop in shell script
+Usage:	continue [n]
+# cp 
+cp -- copy files
+Usage:	cp [-cfimpRrv] source1 [source2 ...] target
+
+-c	check if space on disk, prompt for change: only with removeable media
+-f	force copy with no questions asked.
+-i	interactive; check before overwriting existing file
+-m	retain modification time of original files
+-p	preserve owner, mode, access, modify times if possible
+-R	recursively copy directory structure
+-r 	same as -R
+-v	show file names as they are processed
+# cpio 
+cpio -- archiver to copy and back up files
+Usage:	cpio -o [-aBcHhvyz] [-C blocksize] [-O file] [-V volpat]
+	cpio -i [-BbcdfHhmrSstuvqyz] [-C blocksize] [-I file] 
+                [-V volpat] [pattern ...]
+	cpio -p [-aBdlmruv] directory
+
+-i		input--read file archive from standard input.
+-o		output--produce file archive (of files on standard input) onto
+		standard output.
+-p		like cpio -o | cpio -i (or copy one directory structure to
+		another).
+
+-a		preserve access times of source files copied.
+-B		Buffer I/O in 5120-byte blocks (default buffer is 512 bytes).
+-b		swap both 16-bit words and bytes within words.
+-C blocksize 	Buffer I/O in blocks of specified size.
+-c		write and read archives with ASCII (non-binary) headers.
+-d		create parent directories when creating files.
+-f		copy only files NOT matching a "pattern".
+-H		create and read archives containing extraneous header characters
+-h		create and read archives with "little-endian" headers
+-I file		read from file, rather than standard input.
+-l		when feasible, create links rather than copies of files.
+-m		preserve source file modification date for destination files.
+-O file		write to file, rather than standard output.
+-q		with -i, assume sequential files to be created.
+-r		interactive rename; giving an empty line as the name skips
+		that file.
+-S		swap 16-bit words within longwords.
+-s		swap bytes within each 16-bit word.
+-t		with -i, produce a table of contents.
+-u		unconditional copy, even an older file over a newer one.
+-V volpat	multi-volume archive
+-v		verbose.  Name files being copied or longer form with
+		-it option.
+-y		Yes, first volume is mounted
+-z		Lempel-Ziv compression performed on input or output
+# crypt 
+crypt -- encryption/decryption filter
+Usage:	crypt [-det] [key]
+
+-d	decrypt input using DES algorithm
+-e	encrypt input using DES algorithm
+-t	do not decrypt input if it does not look encrypted
+
+By default a UNIX-compatible Enigma-style rotor machine algorithm is used.
+This algorithm is reflexive.
+
+The key may be supplied as an argument (less secure); otherwise the user is
+prompted for the key, which is not echoed (more secure).
+# csplit 
+csplit -- split a text file, according to criteria
+Usage:    csplit [-Aaks] [-f prefix] [-n number] file arg arg ...
+
+-A	       use uppercase letters instead of numbers in file names
+-a 	       use lowercase letters instead of numbers in file names
+-f prefix      specifies prefix for result files (default "xx")
+-k             do not remove files if error occurs
+-n number      use "number" digits for file names (default 2)
+-s             do not print file size
+file           file to be split
+arg            splitting criterion:
+     /regexp/[offset]    take current line up to regexp+offset
+     %regexp%/[offset]   discard current line up to regexp+offset
+     line#               take current line up to but not including line#
+     {number}            repeat operand number times
+# ctags 
+ctags -- produce tags file for ex, more, and vi
+Usage: ctags [-aBFwx] [-f tagfile] sourcefile ...
+
+-a	     append output to existing "tags" file.
+-B	     generate backward (from the current position) searches
+-F	     generate forward searches (default)
+-f tagfile   send output to tagfile rather than tags
+-w	     suppress warnings
+-x	     produce a more human readable report on standard output
+# cut 
+cut -- selectively display fields or characters from input lines
+Usage:	cut -b list [-n] [file ...]
+	cut -c list [file ...]
+	cut -f list [-d char] [-s] [file ...]
+
+-b list	  cut by bytes
+-c list	  cut by columns
+-d char	  specify "char" as field delimiter
+-f list	  cut by fields
+-n	  do not split characters
+-s	  suppress lines without a field delimiter
+# date 
+date -- set and display date and time
+Usage:	date [-ctu] [timespec]
+	date [-cu] [+format]
+
+-c      use UTC (Coordinated Universal Time) for date
+-t	use BSD format for timespec
+-u	use GMT (Universal Time) for date
+
+Formats:
+%A	Full weekday name (in the current locale) [Sunday]
+%a	Weekday name abbreviation (in the current locale) [Sun]
+%B	Full month name (in the current locale) [February]
+%b	Abbreviated month name (in the current locale) [Feb]
+%C      First two digits of year [19]
+%c	Appropriate date and time representation (in the current locale)
+%D	Date [mm/dd/yy]
+%d	Day of month [01 to 31]
+%EC	Locale's alternate base year (period) representation
+%Ec	Locale's alternate date and time representation
+%EX	Locale's alternate time representation
+%Ex	Locale's alternate date representation
+%EY	full alternate year representation
+%Ey	Locale's alternate offset from %EC (year only) representation
+%e	Day of month [ 1 to 31]
+%H	Hour (24 hour clock) [00 to 23]
+%h	same as %b
+%I	Hour (12 hour clock) [01 to 12]
+%j	Day of year [001 to 366]
+%M	Minute [00 to 59]
+%m	Month [01 to 12]
+%n	Newline
+%Od	Day of month using locale's alternate numeric symbols
+%Oe	Day of month using locale's alternate numeric symbols in a
+	two-character, right-justified, blank-filled field
+%OH	Hour [24-hour clock] using locale's alternate numeric symbols
+%OI	Hour [12-hour clock] using locale's alternate numeric symbols
+%OM	Minutes using locale's alternate numeric symbols
+%Om  	Month using locale's alternate numeric symbols
+%OS	Seconds using locale's alternate numeric symbols
+%OU	Week number of year (with Sunday as first day) using locale's
+	alternate numeric symbols (Days before in week 0)
+%Ou	Weekday as a number using locale's alternate numeric symbols
+	[Monday is the first day]
+%OV 	Week number of year (with Monday as first day) using locale's alternate
+        numeric symbols (see %V)
+%OW	Week number of year (with Monday as first day) using locale's
+	alternate numeric symbols (see %W)
+%Ow	Weekday as a number using locale's alternate numeric symbols
+	(see %w)
+%Oy	Year (offset from %C) using locale's alternate numeric symbols
+%p	Equivalent of AM or PM in current locale.
+%R	24-Hour time [HH:MM]
+%r	12-Hour time with am/pm [11:53:29 AM in POSIX locale]
+%S	Second [00 to 61]
+%T	24-Hour time [HH:MM:SS]
+%t      Tab character
+%u 	Weekday as a number [Monday=1, Sunday=7]
+%U	Week number in year with Sunday as 1st day of week [00 to 53]
+	(Days before first Sunday are in week 0)
+%V 	Week number of year [01-53] (with Monday as first day) (If week
+	containing Jan. 1 has more than 4 days, it is week 1 of new year;
+	otherwise, week 53 of old year.)
+%W	Week number in year with Monday as 1st day of week [00 to 53]
+	(Days before first Monday are in week 0)
+%w	Weekday [Sunday=0, Saturday=6]
+%X	Appropriate time representation in the current locale
+%x	Appropriate date representation in the current locale
+%Y	Year [1987]
+%y	2-Digit year (offset from %C) [87]
+%Z	Timezone [EDT]
+%z	Timezone [EDT]
+%%	Literal '%' character
+Formats apply to output only.
+
+Timespec:
+Time specification pattern of the form
+	[[mm]dd]hhmm[.ss]
+or	mmddhhmmyy[.ss]
+With -t, timespec has the form
+	[[[[cc]yy]mm]dd]hhmm[.ss]
+When setting the date, everything but hours and minutes [hhmm] is optional.
+# dc 
+dc -- arbitrary precision desk calculator 
+Usage:	dc [file]
+
+Operations:
+	+	addition
+	-	subtraction
+	*	multiplication
+	/	division
+	%	modulo (remainder)
+	^	exponentiation
+	<x	pop two values on stack; execute register x if first
+		less than second
+	!<x	pop two values on stack; execute register x if first
+		not less than second
+	>x	pop two values on stack; execute register x if first
+		greater than second
+	!>x	pop two values on stack; execute register x if first
+		not greater than second
+	=x	pop two values on stack; execute register x if first
+		equals second
+	!=x	pop two values on stack; execute register x if first
+		not equal to second
+	c	clear stack (pop everything off)
+	d	duplicate top value on stack
+	f	print full stack
+	I	push input base onto stack
+	i	pop top of stack and use as number radix for input
+	K	push current default scale factor onto stack
+	k	pop top of stack and use value as scale factor
+	Lx	pop top of register x stack and push onto main stack
+	lx	push value from register x onto stack
+	O	push output base onto stack
+	o	pop top of stack and use as number radix for output
+	P	print top value on stack then discard it
+	p	print top value on stack; leave on stack
+	q	quit dc
+	Q	quit several currently executing strings
+	Sx	pop top of main stack and push onto register x stack
+	sx	pop top of stack and store in register x
+	v	replace top of stack with its square root
+	X	replace number on top of stack with its scale factor
+	x	execute string on stack as sequence of dc commands
+	Z	replace number on top of stack with its length
+	z	push stack level onto stack
+	[...]	put bracketed text string on stack
+	!	interpret rest of line as system command
+	?	take input line from input source and execute it
+	;:	array operators
+# dd 
+dd -- copy and convert input blocks
+Usage:	dd bs=s cbs=s conv=n count=n ibs=s if=f imsg=str iseek=n obs=s
+	   of=f omsg=str seek=n skip=n
+
+bs=s	  Size of both input and output blocks
+cbs=s	  Size of conversion buffer (ASCII/EBCDIC)
+conv=	  Comma separated conversion list:
+	  ascii	  Convert EBCDIC to ASCII
+	  block   Convert variable records to fixed records
+	  ebcdic  Convert ASCII to EBCDIC
+	  ibm	  Convert ASCII to better printing EBCDIC
+	  lcase   Map to lowercase
+	  noerror Ignore errors
+	  notrunc Don't truncate output file
+	  retry   Retry on critical error failures [DOS, OS/2 only]
+	  swab	  Swap byte pairs
+	  sync	  Pad each input block to ibs bytes
+	  ucase   Map to uppercase
+	  unblock Covert fixed records to variable records
+	  xxx	  Arbitrary 256 byte file to be used as a translation
+                  table
+count=n	  Copy only n blocks
+ibs=s	  Size of input block in bytes
+if=f	  Name of input file
+imsg=str  Display str when input device can no longer be read
+iseek=n   Seek n blocks from input
+of=f	  Name of output file
+obs=s	  Size of output block in bytes
+omsg=str  Display str when output device can no longer be written to
+seek=n	  Seek n blocks on output
+skip=n	  Skip n blocks from input
+
+A block size is in bytes unless suffixed with w, b, or k, for *2, *512, *1024
+# deroff 
+deroff -- remove nroff/troff formatter commands, prepare word list
+Usage:	deroff [-nw] [file ...]
+-n	include file name and line number with word
+-w	output is a stream of words, one per line.
+# dev 
+dev -- display device driver information
+Usage:	dev
+# df 
+df -- display amount of free space remaining on disk 
+Usage:	df [-kPt] [[device] [filename]] ...
+
+-k	report disk space in 1K units rather than 512-byte blocks
+-P	list complete information on disk space
+-t	list space used as well as space free
+# Usage:	diff [
+Usage:	diff [-befHhimnrsw] [-C n] [-c[n]] [-Difname] [-M mark] path1 path2
+	diff [-befHhimnrsw] [-C n] [-c[n]] [-Difname] [-M mark] file ... dir
+	diffh [-befimnrsw] [-C n] [-c[n]] [-Difname] [-M mark] path1 path2
+	diffh [-befimnrsw] [-C n] [-c[n]] [-Difname] [-M mark] file ... dir
+	bdiff [-befimnrsw] [-C n] [-c[n]] [-Difname] [-M mark] path1 path2
+	bdiff [-befimnrsw] [-C n] [-c[n]] [-Difname] [-M mark] file ... dir
+-b	Blank suppression.  Blanks (space/tab) at end of line ignored.
+	Runs of blanks treated as single space.
+-C n	Same as -cn.
+-c[n]	Show "n" (default 3) lines of context before and after each difference
+-D	Conditional C pre-processor output to convert "path1" to "path2"
+	based on symbol "ifname".
+-e	Produce a script for "ed" to turn "path1" into "path2".
+-f	Like -e, but no incremental modification of line numbers to reflect
+	earlier changes.
+-H	Use half-hearted (-h) option only if insufficient memory for normal
+	algorithm.
+-h	Half-hearted (faster) algorithm.
+	Fails to produce minimal differences if files are too different.
+-i	ignore case of letters
+-M mark Use "mark" as the diff mark to be used if -m is also specified.
+-m	Add extra troff/nroff formatter requests in output.
+-n	Produce differences in format used by MKS RCS.
+-r	Recursively check subdirectories.
+-s	compares two directories, file by file, and prints messages for
+	identical files between the two directories
+-w	ignore white space (blanks and tabs, not newlines)
+
+One of the files may be "-" for the standard input.  If one path name is a
+directory, the base name of the other file is used in that directory.
+If both path names are directories, diff checks corresponding files
+under the two directories.
+"diffh" is equivalent to "diff -h".
+"bdiff" divides the files into "n" (default 3999) line segments.
+# diff3 
+diff3 -- compare three text files
+Usage:	diff3 [-EeHhXx3] file1 file2 file3 [mark1 [mark3]]
+
+-E	Same as -e but overlapping differences are marked.
+-e	script of differences in all 3 files or in "file3"
+-H	Tells diff to use the -H option when called by diff3
+-h	Tells diff to use the -h option when called by diff3
+-X	Same as -x but overlapping differences are marked.
+-x	script of differences in all files
+-3	script of differences only in "file3"
+
+These options produce "ed" script to transform "file1"
+"mark1" and "mark3" are marks for overlaps -- defaults are "file1" and "file3"
+# diffb 
+diffb -- compare binary files and show differences
+Usage:	diffb [-n] [-C n] [-c[n]] file1 file2
+
+-C n	same as -cn
+-c[n]	show n bytes of context (default 3)
+-n	display differences in RCS format
+# dircmp 
+dircmp -- compare directories
+Usage:  dircmp [-d] [-s] dir1 dir2
+-d      compare contents of files with the same names
+-s      suppress messages about identical files
+# dirname 
+dirname -- display directory components of path name
+Usage:	dirname directory
+# . (dot) 
+. (dot) -- execute shell file in current environment
+Usage:	. file [argument ...]
+# du 
+du -- summarize file space usage
+Usage:	du [-a|-s][-krtx] [-l num] [pathname ...]
+
+-a	List all (including files)
+-k  	Display file sizes in 1024-byte units
+-l num	Display "num" levels of subdirectories
+-r	Report files and directories that cannot be opened or read
+-s	Suppress subdirectory display
+-t	Print a final total
+-x  	Only include files on same device as directory
+# echo 
+echo -- display arguments
+Usage:	echo arg ...
+\a	bell
+\b	backspace
+\c	removes any following characters including \n and \r   	
+\f	formfeed
+\n	newline
+\r	carriage return
+\t	horizontal tab
+\v 	vertical tab
+\0num	the byte with numeric value specified by octal number "num"
+\\	backslash
+# ed, red 
+ed, red -- line-oriented text editor
+Usage:	ed [-bsTx] [-p prompt] [file]
+	red [-bsTx] [-p prompt] [file]
+
+-b		edit larger files by restricting memory for paging
+-p prompt	enable command prompting, using "prompt".
+-s		quiet mode - no e,r,w counts, no !, no checking on e and q.
+-T		cause files to have newline only, not newline and carriage
+		return (DOS, OS/2, NT and Windows 95 only).
+-x		handle encrypted files
+"red" is the restricted editor.
+
+Commands:
+.a		append			.c		change
+.,.d		delete 			E fn		force edit
+e fn		edit file		f fn		change file name
+(1,$)G/RE/	interactive global	1,$g/RE/cmd	global match
+H		display errors		h		last error
+.i		insert 			.,+1j		join lines
+.kx		mark lines		.,.l		display controls
+.,.ma		move			.,.n		numbered display
+P		toggle prompt		.,.p		display
+Q		force quit 		q		quit
+$r fn		read file		.,.s/RE/new/	substitute first
+.,.s/RE/new/n	substitute nth 		.,.s/RE/new/g	substitute all
+.,.ta		copy lines		u		undo modification
+(1,$)V/RE/	interactive v 		1,$v/RE/cmd	inverted global
+1,$w fn		write file		1,$wq fn	write file/quit
+X		encryption		$=		line number
+!cmd		call shell
+
+Commands are given with their default addresses spelled out in full.
+# env 
+env -- display environment, set environment for process
+Usage:	env [-i] [variable=value ...] [command argument ...]
+	env [-] [variable=value ...] [command argument ...]
+
+-i	do not start from existing environment
+-	obsolete version of -i
+# eval 
+eval -- evaluate arguments in shell
+Usage:	eval [argument ...]
+# ex 
+ex -- text editor
+Usage:	ex [-elRrsvx] [+command] [-c command] [-t tag] [-w size] [file ...] 
+Command line options:
++command	run command at start of editing session
+-c command	run command at start of editing session
+-e		ex mode 		
+-l		lisp mode
+-R		set readonly
+-r 		recover files after crash
+-s		quiet mode		
+-t tag		search for tag	
+-v		visual mode	
+-w size 	set window=size
+-x		encryption used
+
+Commands
+	ab	Set abbreviation	a	Append
+	args	Show arg list		c	Change
+	cd	Change directory 	co	Copy lines		
+	d	Delete 			e	New file
+	f	Show current file info 	g	Global execution	
+	i	Insert 			j	Join			
+	k	Mark line 		l	List unambiguously	
+	map	Define macros for vi 	mark	Mark line		
+	m	Move lines 		n	Edit next file		
+	nu	Prints lines numbered 	o 	Enter open mode
+	p	Print lines		pre 	Preserve (not implemented)
+	pu	Put lines from buffer 	q	Quit	
+	r	Read file		rec	Recover (not implemented)
+	rew	Rewind arg list		se	Set parameters
+	sh	Invoke shell		so	Execute commands from file
+	st	Suspend editor		su	Suspend editor
+	s	Pattern substitution	t	Copy lines
+	una	Delete abbreviation	u	Undo last change
+	unm	Delete macro		v	Global non-matching execution 
+	ve	Show editor version	vi	Enter visual mode 
+	w	Write file		wn	Write file then edit next
+	x	Write and quit 		ya	Yank lines		
+	z	Print window 
+	!	Invoke command		=	Print line number
+	<	Shift left		>	Shift right
+	^D	Scroll			&	Repeat substitute
+	~	Repeat substitute	@	Execute buffer
+# exec 
+exec -- execute a command in place of the current shell
+Usage:	exec [command line]
+# exit 
+exit -- exit from the shell
+Usage:	exit [expression]
+# expand 
+expand -- expand tabs to spaces
+Usage:  expand [-t tablist] [file ...]
+        expand [-number] [-number1,number2...] [file ...]
+
+-number			Tab stops set "number" spaces apart
+-number1,number2...	Set tab stops at positions "number1", "number2" ...
+-t tablist 		Set tab stops at positions indicated by "tablist"
+# expire 
+expire -- expire old news
+Usage:	expire [-a dir] [-cghlprstvx] [-F char] [-n nnnnn] [controlfile]
+
+-a dir	'dir' is the default archiving directory
+-c	check the format and consistency of the control file and the 
+	$NEWSCTL/active file, but do not do any expiring
+-g	report invalid expiration dates
+-h	do not expire any article which would be archived if it were expired
+-l	consider first filename in a history line to be the leader of its line, 
+	to be expired only after all others have expired
+-p	print an `index' line for each archived article, containing its 
+	pathname, message ID, date received, and Subject: line
+-r	suppress history rebuild
+-s	optimize error recovery to minimize space consumed
+-t	print (on standard error) a shell-script-like description of what would 
+	be done, but don't do it
+-v	verbose: report some statistics after termination
+-x	turn on (voluminous and cryptic) debugging output
+-F char	the subfield separator character in the middle history field is char 
+	rather than the normal `~'
+-n nnnnn	set expire's idea of the time to nnnnn (for testing)
+# export 
+export -- mark names for export
+Usage:	export [name[=value] ...]
+	export -p
+
+-p	display names and values of all exported variables in a form
+	suitable for re-input to the shell.
+# expr 
+expr -- evaluate expression 
+Usage:	expr [-W] expression
+
+-W	(POSIX and UNIX) enables the use of octal and hexadecimal numbers
+Expression consists of:
+
+INTEGER (eg -40) or STRING (eg abc)	  ( expression )
+expression + expression			  expression - expression
+expression * expression			  expression / expression
+expression % expression			  expression < expression
+expression <= expression		  expression > expression
+expression >= expression		  expression != expression
+expression != expression		  expression & expression
+expression | expression			  expression : regular_expression
+substr expression expression expression	  index expression expression
+match expression regular_expression	  length expression
+
+Result is printed on standard output.
+# false 
+false -- fail quietly
+Usage:	false [argument ...]
+# fc 
+fc -- display, fix edit and re-enter previous commands
+Usage:	fc [-r] [-e editor] [first [last]]
+	fc -l [-nr] [first [last]]
+	fc -s [old=new] [specifier]
+
+-e 	specify editor
+-l	list commands (no editing or re-entering)
+-n	suppress numbering of commands
+-r	reverse order of commands
+-s	substitute new for old
+# fg 
+fg -- bring process back into the foreground
+Usage:	fg [%n]
+	fg pid       (DOS only)
+%n	n is the number reported by the jobs command (default 1)
+pid	is a hex psp address as given by the ps command
+# file 
+file -- determine file type
+Usage:	file [-c] [-f filelist] [-m magic] file ...
+
+-c		Perform validity check on magic file and exit.
+-f filelist	File "filelist" contains a list of files to examine.
+-h		Identify symbolic links as symbolic links.
+-m magic	Use file "magic" instead of "/etc/magic" for file type
+		information.
+# filebox 
+filebox - Display an "open file" or "save file" dialogue box.
+
+Usage: filebox [-acmnops] [-d dir] [-e ext] [-f name/filter_pairs] [-i file] 
+[-I #] [-t title]
+
+Options
+
+-a	file must already exist
+-c	prompt to create non-existant file
+-d dir	specify initial directory
+-e	specify default extension if not specified by user
+-f	specify name/filter pairs
+-i file	specify initial file name for user filename input area
+-I	specify initial index of filter
+-m	allow selection of multiple files
+-n	do not show "Network..." button
+-o	prompt for overwrite of existing file
+-p	specify that leading path must exist
+-s	display "save file" instead of "open file"
+-t title
+	specify title text of dialogue box
+# find 
+find -- find files within file tree
+Usage:	find directory ... expression
+
+Operators:
+!		   not
+-a		   and
+-o		   or
+
+Primaries:
+-atime #	   accessed in # days
+-cpio cpio-file	   write in cpio format
+-ctime #	   changed in # days
+-depth		   process directories after contents
+-exec command ;	   execute command; arg {} replaced by object name matched
+-follow		   follow symbolic links
+-group name	   group is name
+-inum #		   has inode number #
+-level #	   do not descend below # levels
+-links #	   has # links
+-mtime #	   modified in # days
+-name pattern	   name matching pattern
+-ncpio cpio-file   write to cpio-file in cpio -c format
+-newer file	   modified more recently than file
+-nogroup	   not owned by any group
+-none		   do not invoke default -print option
+-nouser		   not owned by any user
+-ok command ;	   like -exec; but ask first
+-perm  mask	   permissions exact match
+-perm -mask	   permissions match with given mask
+-perm onum	   symbolic mode like in chmod
+-print		   print current
+-prune		   stop traversing lower into the tree at this point
+-size #		   has # blocks (512 byte blocks)
+-type c		   type of entry: "c" chosen from set [bcdfnp]
+-user name	   owned by name
+-xdev		   do not cross device boundaries from the root of tree
+
+Each "#" represents a decimal integer: +# more than, -# less than, # exact.
+# fmt 
+fmt -- simple text formatter
+Usage:	fmt [-bCcjns] [-l n] [-p n] [-w n] [file ...]
+
+-b	block paragraphs
+-C	center
+-c 	crown paragraphs
+-j	(right) justify
+-l n	set output line length
+-n	do not preserve normal "fmt" inter-word spacing or break levels
+-p n	set page offset (output only)
+-s      do not join short lines to form long lines
+-w n	same as -l
+# fold 
+fold -- break lines into shorter lines
+Usage:	fold [-bs] [-w width] [-width]  [file ...]
+
+-b         width is specified in bytes
+-s 	   breaks line at last blank before width
+-w width   maximum length of output lines
+-width	   maximum length of output lines
+# functions 
+functions -- display or modify shell functions
+Usage:	functions [-tux] [name] [name]...
+
+-t	turn on xtrace option for the specified functions
+-u	convert all characters to upper case in function definitions
+-x	set functions for automatic export
+# getconf 
+getconf - display POSIX configuration information
+Usage:	getconf system_var
+	getconf path_var pathname
+	getconf -a
+# getopt 
+getopt -- external command to parse shell file options
+Usage:	getopt [-c cmdname] optiondesc argument ...
+
+-c cmdname   set command name used in getopt error messages
+
+"optiondesc" gives a description of the options from following "argument"s.
+# getopts 
+getopts -- parse options from shell script command line
+Usage:	getopts optstring name [arguments]
+
+arguments	used instead of positional parameters
+name		shell variable to be set to option letter found
+optstring	shows all the letters to be recognized as options;
+		put ":" after options that take arguments
+# glob 
+glob -- file name generation (wild cards)
+
+This command should not be called directly by the user;
+    see the manual.
+# grep, egrep, fgrep 
+grep, egrep, fgrep -- match patterns in a file
+Usage:  grep [-bcEFilnqsvx] [-e pattern]... [-f patternfile]... [pattern] [file ...]
+	egrep [-bcilnqsvx] [-e pattern]... [-f patternfile]... [pattern] [file ...]
+	fgrep [-bcilnqsvx] [-e pattern]... [-f patternfile]... [pattern] [file ...]
+
+-b		precede matches by block number
+-c		count matches
+-E		egrep version of grep
+-e pattern  	match "pattern"
+-F		fgrep version of grep
+-f patternfile 	specify a file of patterns to match
+-i		case insensitive
+-l		display file names of matches
+-n		precede lines by line number
+-q		simply return with an exit status
+-s		suppress file error messages
+-v		display all non-matching lines
+-x	 	exact match on whole line
+
+A "pattern" is a direct string match in fgrep and a full regular
+expression match in egrep.
+# gres 
+gres -- substitute for a pattern in a file
+Usage:	gres pattern substitution [file ...]
+
+"pattern" is a full egrep-style regular expression.
+The "substitution" may contain:
+&	the entire string matching the "pattern"
+\0	same as "&"
+\n	(n from 1 to 9) the string matching the "n"th parenthesized part of
+	pattern
+# hash 
+hash -- create a tracked alias
+Usage:	hash [name ...]
+	hash -r
+# head 
+head -- display first part of file
+Usage:	head [-num] [file ...]
+	head [-bcklmn num] [file ...]
+
+-b num	display first num 512-byte blocks
+-c num  display first num bytes
+-k num  display first num K (1024-bytes)
+-l num  display first num lines
+-m num  display first num megabytes
+-n num	display first num lines (preferred format)
+-num	display first num lines (obsolete)
+# help 
+help -- display brief command explanations
+Usage:	help [command ...]
+Looks in $ROOTDIR/etc/helpfile and $HELP/helpfile
+for explanations of command.
+# history 
+history -- display command history
+Usage:	history [-nr] [first] [last]
+
+-n	do not display command numbers
+-r	display commands in reverse order
+first	number of first command to display
+last	number of last command to display
+# iconv 
+iconv -- convert characters from one code set to another
+Usage:	iconv [-sc] -f oldset -t newset [file ...]
+	iconv -l [-v]
+-c 		cleans out characters with translation or encoding errors
+-f oldset	names the code set of the input
+-l 		list all code sets supported
+-s		suppress messages about faulty encodings
+-t newset	names the code set of the output
+-v		produces verbose output
+# id 
+id - display user and group names
+Usage:	id [user]
+	id -G [-n] [user]
+	id -g [-nr] [user]
+	id -u [-nr] [user]
+-G      output all different group ID's
+-g	output only effective group ID (POSIX only)
+-n	output name as string instead of number
+-r	output real ID instead of effective one
+-u	output only effective user ID
+# ident 
+ident -- looks for keywords in a file
+Usage:	ident [-q] [-Ffile...] [file ...]
+
+-Ffile	"file" contains path names of files to be checked
+-q	suppress warning when no pattern in a "file"
+
+Search each "file" for RCS keywords (or standard input if no "file" given)
+
+# Usage: shell=[ROOTDIR]/etc/init.exe [
+Usage: shell=[ROOTDIR]/etc/init.exe [-R directory] [-T terminal]
+
+D:		name of drive that contains /etc/init.exe
+-R directory	set ROOTDIR to "directory"
+-T terminal	run user session on serial line indicated by "terminal"
+# injnews 
+injnews -- news-posting front-end for relaynew
+Usage:	injnews [-N] [-x excluded-site]
+
+-N	suppresses posting and produces on standard output the article that 
+	would have otherwise been posted; the resultant article will have been 
+	checked for illegalities as usual and will be suitable as input to 
+	rnews.
+-x excluded-site	prevents transmission to excluded-site.
+# integer 
+integer -- declare an integer variable
+Usage:	integer [options] name name ...
+
+[options]	same as for typeset
+# jobs 
+jobs -- display status of jobs in current session
+Usage:  jobs [-l]  (DOS only)
+	jobs [-l|-p] [%job-identifier]   (OS/2,NT, Windows 95 and POSIX)
+-l	also displays process IDs  (on DOS, displays PSPs)
+-p	displays only the process IDs of group leaders (OS/2 and POSIX only)
+# join 
+join -- join two sorted, textual relational databases
+Usage:	join [-a n] [-e s] [-o list] [-t c] [-v [n]]
+	   [-1 n] [-2 n] file1 file2
+	join [-a n] [-e s] [-j[n] m] [-o list] [-t c] file1 file2
+-a n    unpaired records are printed for file "n".
+-e s	all empty fields are replaced by string "s" on output.
+-j[n] m	join field number is "m" in file "n" (both if missing). Default m=1.
+-o list	following arguments beginning with a digit are output list elements,
+	having form of either "n.m" where "n" is file number and "m" is field
+	number or 0, which stands for the join field .
+-t c	input and output field separator is character "c".
+-v [n]	suppress matching lines.
+-1 n	join field is the nth field in file1.
+-2 n	join field is the nth field in file2.
+
+"file1" and "file2" should be sorted on their respective join fields.
+"file1" may be "-" to use standard input.
+# kill 
+kill -- terminate process
+Usage:	kill [-fpv] [pid ...] (DOS Only)
+	kill -l [exit_stat]   (POSIX, OS/2 and Windows NT)
+	kill [-s sig] [pid ...] [jid ...] (POSIX, OS/2 and Windows NT)
+
+%n	  n is the number reported by the jobs command (DOS Only)
+pid	  is a hex psp address as given by the ps command (DOS Only)
+-f	  Automatically force deletion of memory blocks. (DOS Only)
+-p	  Kill the psp; don't get rid of associated memory blocks. (DOS Only)
+-v	  Verbose (DOS Only)
+
+-l	  display all signals supported (POSIX, OS/2 and Windows NT)
+-s	  specify the signal to send (POSIX, OS/2 and Windows NT)
+exit_stat exit code of a terminated process (POSIX, OS/2 and Windows NT)
+sig	  name of the signal to send (POSIX, OS/2 and Windows NT)
+pid	  decimal integer specifying the process id (POSIX, OS/2 and Windows NT)
+jid	  job-identifier (POSIX, OS/2 and Windows NT)
+# lc 
+lc -- list file system elements in categories
+Usage:	lc [-adfn1] [directory ...]
+-a	List everything including "." and ".."
+-d	List only the directories
+-f	List only the files
+-n	No output; exit status only
+-1	List each file on separate line
+# let 
+let -- evaluate arithmetic expressions
+Usage:	let expression ...
+	((expression))
+
+The second form is only available if you specify set -o korn.
+
+Constants are of form [base#]number; where base is a decimal number
+from 2 to 36 (default 10), and number is a string of digits in that base.
+# lex 
+lex -- lexical analyzer generator
+Usage: lex [-achlntTv] [-L[CP]] [-D defnfile] [-o outfile] [-p pfx]
+	[-P proto] [-W filename] file.l ...
+-a		use full 8-bit ASCII (default 7-bit tables are smaller)
+-c		generate C action (default)
+-D defnfile	with -LC, place header into "defn" rather then "lex_yy.hpp"
+-h		print this message and quit
+-l		suppress generation of #line (Pascal {$LINE}) directives
+-LP		generate Pascal code into lex_yy.pas
+-LC		generate C++ code into lex_yy.hpp and lex_yy.cpp
+-n		suppress -v if table size changed
+-o outfile	put scanner into "code" rather then "lex_yy.c"
+-p prefix	change "yy" prefix in code to "pfx"
+-P proto	use "proto" instead of usual prototype code.
+-t		place scanner on standard output, messages on standard error
+-T		write state table to "l.out" (l.output on UNIX)
+-v		print amount of table space used
+-w              generate a Windows compatible resource output file
+-W filename     write a Windows resource file to the specified "filename"
+
+"file.l" is a file of lex expressions and actions. If not provided,
+standard input is used. More than one file can be provided; these
+are read as one lex input.
+# line 
+line -- copy one line of standard input
+Usage:	line
+# login 
+login -- authenticate computer user
+Usage:	login [-Rr] [username [[variable=]value] ... ]
+-R	ask for dial-in password whether or not user has a password
+-r	ask for dial-in password if user has no password
+# logname 
+logname - display user name
+Usage:	logname
+# look 
+look -- find lines in a sorted file which begin with string
+Usage:	look [-df] string [file]
+
+-d	treat only letters and digits as significant
+-f	ignore the case of letters in the search
+# ls 
+ls -- list file and directory names and attributes
+Usage:	ls [-AabCcdFfgiLlmnopqRrstux1] [path ...]
+
+-A	List all entries except "." and ".."
+-a	List all entries
+-b	Display non-displayable character as "\ooo"
+-C	Multi-column output sorted down
+-c	Last attribute modification time		[UNIX and POSIX]
+-d	Give directory information, not contents
+-F	-p + "*" at end of executable			[UNIX and POSIX]
+-f	List all entries, directory contents not sorted [UNIX and POSIX]
+-g	display only the GID				[UNIX and POSIX]
+-i	display i-number as first column		[UNIX and POSIX]
+-k	changes output of -s from blocks to kbytes 
+-L 	follow symbolic links				[UNIX and POSIX]
+-l	Long listing
+-m	Stream (comma separated) format
+-n	UID/GID numbers					[UNIX and POSIX]
+-o	display only the UID				[UNIX and POSIX]
+-p	Put "/" at end of directory name
+-q	Non-displayable names as "?"
+-R	Recursively list subdirectories
+-r	Reverse sorting order
+-s	display size in blocks
+-t	Sort by time
+-u	Last access time				[UNIX and POSIX]
+-x	Multi-column output sorted across
+-1	Use single column output on terminal
+# m4 
+m4 -- macro processing language
+Usage:	m4 [-s] [-D name[=value]] [-U name] [file ...]
+
+-D name	 	Define symbol with given name; value is null
+-D name=value	Define symbol with given name and value
+-s		Use C #line directives to synchronize output and input
+-U name		Undefine name
+# mail 
+mail -- send or receive electronic mail messages
+Usage:	mail [user ...]
+-O	ignores local configuration file
+-Yfile	specifies file as the local configuration file
+# mailx 
+mailx -- read electronic mail
+Usage:	mailx [-efHiNn] [-u user] [filename]
+	mailx [-FinU] [-h number] [-r address] [-s subject] user ...
+
+Options are:
+-e		test for presence of mail; set exit status
+-F		record message in file named after first recipient
+-f 		read mail from "filename" if given (else $MBOX or $HOME/mbox)
+-H		display header summary only
+-h number	maximum number of network hops is "number"
+-i		ignore interrupts
+-N		do not display initial header summary
+-n		do not use system /etc/mail.rc
+-r address	pass address to network delivery software
+-s subject	make "subject" the subject line of the message being sent
+-U		convert address from UUCP style to internet standard
+-u user		read mail for "user"
+# make, makeq 
+make, makeq -- maintain program-generated and interdependent files
+Usage: make [-EeinpqrstuvVx] [-k|-S] [-c dir] [-f file] ...  [macro_defs] ...
+	    [-D macro_def] ... [target ...]
+
+-c dir		change into specified directory upon startup
+-D macro_def	define macro before reading any makefile
+-E		suppress reading the environment
+-e		define environment variables as macros after parsing makefile
+-f file		Use "file" rather than the default "makefile" or "Makefile"
+-i		ignore errors
+-k		make independent targets, even if errors
+-n		trace and display, do not execute commands
+-p		display a version of the makefile
+-q		exit status of 0 if target up to date.  No execution.
+-r		don't use default rules in startup file
+-S 		terminate make if an error occurs
+-s		do work silently
+-t		touch file time stamps without execution
+-u		force unconditional update of target
+-V		display version number
+-v		verbose, display what is being done
+-x		export all macro definitions to environment
+
+"macro_defs" are strings of the form "macro=value" which define macros
+for make.
+# man 
+man -- print sections of the online reference manual
+Usage:	man [-wx] [-M path] [section] entry ...
+	man -k [-M path] keyword ...
+-k	  provide references to sections containing any "keyword"
+-M path	  a set of directories to search
+-w	  only display the name of the file that contains the entry
+-x	  display files that man is searching to find entry
+# manstrip 
+manstrip -- strip the unprintable sequences out of online man pages
+Usage:	manstrip
+# merge 
+merge -- three-way file merge
+Usage:	merge [-hHpqZ] file1 root file2 [mark1 [mark2]]
+
+-h	tell diff to use the -h option
+-H	tell diff to use the -H option
+-p	print result of merge to standard output rather than "file1"
+-q	quiet mode; suppress diagnostics
+-Z	security mode: temporary files are zeroed before unlinking
+
+"mark1" and "mark2" are marks for overlaps between "file1" and "file2"
+By default, changes are merged into file1.
+# mkdir 
+mkdir -- create a new directory
+Usage:  mkdir [-p] [-m mode] directory ...
+-m mode	set permission bits
+-p	create missing intermediate path name components
+# mksdiag 
+mksdiag -- check Toolkit configuration
+Usage:	mksdiag [-d] [-q]
+none	check machine configuration
+-d	dump machine configuration information
+-q	quiet mode; gives return status only
+# mksgroup 
+mksgroup -- create Microsoft Windows group
+Usage: mksgroup profile_filename
+# mksinfo 
+mksinfo -- display MKS Toolkit serial number and other MKS information
+Usage:	mksinfo
+# mksos 
+mksos -- background interface to the operating system
+Usage: mksos
+# mksuucp 
+mksuucp -- UUCP file transfer program
+Usage:	mksuucp
+# mkswind 
+mkswind -- run MKS Windows TSR
+Usage:	mkswind [-d]
+
+-d	output entry point address for debuggers
+
+See the manual entry for yycurses(5) for more details
+on the calling interface.
+# more 
+more -- display files on a page-by-page basis
+Usage:	more [-ceiSs] [-A|-u] [-n number] [-P string] [-p command]
+	     [-t tag] [file ...]
+        more [-ceiSs] [-A|-u] [-n number] [-P prompt] [-t tag] [+command]
+             [file ...]
+
+-A	    Display all characters; understand some ANSI escape sequences
+-c	    Redraw each line when displaying a new page.
+-e	    Exit immediately after last line of last file.
+-i	    Ignore case during searches.
+-P string   Set prompt to string.
+-p command  Display page resulting from "command".
+-S 	    Do not use STANDOUT mode for prompt.
+-s          Replace consecutive empty lines with a single empty line.
+-t tag	    Display page containing tag.
+-u  	    No backspace conversion.
++command    Display page resulting from "command".
+
+Type "h" to interactive prompt (between pages) for summary of commands.
+# msgbox 
+msgbox - Display a message box and get response from user
+Usage: msgbox [-fq] [-i icon] [-b buttons] [-d defbutton] Title Message
+
+Options
+
+-b button	include button
+-d defbutton	default button
+-f		put message box in foreground
+-i icon		include icon
+-q		quiet mode
+Title		the title of the message
+Message		the text of the message
+# mt 
+mt -- magnetic tape control
+Usage:	mt [-f filename] command [count]
+
+asf	absolute space to count file number
+bsf	back space over count EOF characters
+bsr	back space count records
+device	scan the system for SCSI host adapters, and lists the
+	devices
+eof	write count EOF characters at the current position on the tape
+fsf	forward space over count EOF characters
+fsr	forward space count records
+nbs	back space count records
+weof	write count EOF characters at the current position on the tape
+eom	space to the end of recorded media on the tape
+erase	erase the entire tape
+offline	rewind the tape and take the drive unit off-line
+retension
+	rewind the cartridge tape completely to smooth out tape tension
+rewind	rewind the tape
+rewoffl	rewind the tape and take the drive unit off-line
+status	print status information about the tape unit
+tension	rewind the cartridge tape completely to smooth out tape tension
+# mv 
+mv -- rename and move files and directories
+Usage:	mv [-firRv] source1 [source2 ...] target
+
+-f	force; delete destination without questions
+-i	interactive; check before overwriting existing file
+-R	recursive; move directory structure
+-r	same as -R
+-v	show file names as they are being processed
+# News Manual 
+News Manual - Overview and Setup information
+# newsrun 
+newsrun -- prepare news batch files for relaynew
+Usage:	newsrun [-ehx] [grades]
+
+-e	only sort the batch files left by relaynew into site-specific batch 
+	files for distribution, and do not perform other newsrun processing.  
+-h	copy all news batches (before any processing is done to them) to the 
+	$NEWSARTS/coming.in/hold directory.
+-x	turn debugging on.  Reports all debugging information during processing.
+# nl 
+nl -- number lines
+Usage:	nl [-btype] [-dxy] [-ftype] [-htype] [-in] [-ln] [-nfmt] 
+	   [-p] [-ssep] [-v[n]] [-w[n]] [file]
+-btype	numbering type for page body (default only text lines numbered)
+-dxy	page delimiter characters changed from default x=\, y=:
+-ftype	numbering type for page footer (default none)
+-htype	numbering type for page header (default none)
+-in	increment page number by "n"
+-ln	under "a" numbering, number every "n"th (default n=1) blank line
+-nfmt	line number format is "fmt" (one of "ln", "rn", or "rz"--default: "rn")
+-p	continuous numbering across page boundaries
+-ssep	separate page number from text of line by string "sep"
+-v[n]	start page numbering for each page at "n"
+-w[n]	width of line number is "n"
+
+type:	a (all)		n (none)	t (text)	pstring (pattern)
+Text lines are read from "file" or standard input.
+# nm 
+nm -- display symbol table of object, library, or executable file
+Usage:	nm [-AaefgnoPprsuv] [-t format] file [...]
+
+-A 	   prefix each line by file name
+-a	   display all symbols (print line number table)
+-e	   display global (external) and static symbols
+-f	   display full output (default)
+-g	   display global symbols only
+-n	   same as -v
+-o	   display numeric values in octal (same as -t o)
+-P         display output in portable POSIX-compliant format 
+-p	   don't sort
+-r	   reverse sort order
+-s	   display symbol size
+-t format  display numeric values in given format (o=octal, d=decimal, x=hex)
+-u	   display undefined symbols only
+-v	   sort output by value (address)
+-x	   display numeric values in hex (same as -t x)
+# nr 
+nr -- read news and electronic mail
+Usage:	nr
+
+General Commands
+
+F1		h		Display Help Screen.
+left arrow	q Q		Quit to previous level or exit.
+up arrow	p		Go to previous line.
+down arrow	n		Go to next line.
+right arrow	<ENTER>		Select current item.
+page up		B		Move back one screen.
+page down	F		Move forward one screen.
+home		H		Go to first screen.
+end		E $		Go to last screen.
+		<SPACE>		Select next unread article.
+		<n>		Select news group or article n.
+		/ <pattern>	Search forward for pattern.
+		? <pattern>	Search backward for pattern.
+		m <user>	Mail to user address.
+		P [newsgroup]	Post article to newsgroup.
+		x X		Exit without changes.
+		v <file>	View file.
+		V		Display NR version information.
+
+
+Subscribed Newsgroup Screen
+
+		a		Show All active newsgroups.
+		c		Catch up on all articles in current newsgroup.
+		s		Subscribe to current newsgroup.
+		u		Unsubscribe to current newsgroup.
+
+
+Unsubscribed Newsgroup Screen
+
+		ENTER		Toggle subscribe/unsubscribe newsgroup.
+		S <pattern>	Subscribe to newsgroups matching pattern. 
+		U <pattern>	Unsubscribe to newsgroups matching pattern. 
+		s		Subscribe to current newsgroup.
+		u		Unsubscribe to current newsgroup.
+		
+
+Newsgroup Articles Screen
+
+		c		Catch up on all articles in newsgroup.
+		f		Post follow-up article to newsgroup.
+		r		Reply via mail to author of current article.
+		s <file>	Save current article to file.
+		u		Toggles read/unread status.
+		
+
+Mail Screen
+
+		d		Delete current message.
+		u		Mark current message as unread.
+		r		Reply to author of message.
+		s <file>	Save current message to file.
+
+
+Mouse Actions
+
+Help region			Display Help Screen.
+Close box			Quit to previous level or exit.
+Up arrow			Go to previous line.
+Down arrow			Go to next line.
+Newsgroup or subject line	Select current item.
+Region above slider		Move backwards a screen.
+Region below slider		Move forwards a screen.
+Flag indicator			Cycle through choice of flags.
+# od 
+od -- formatted file dump
+Usage:	od [-bcDdhOoSsXx] [file] [[+]offset[.][b]]
+	od [-v] [-A doxn] [-j #[kbm]] [-n #] [-t acdfoux[#]] [file...]
+
+-b	bytes in octal
+-c	bytes in ASCII
+-D	unsigned decimal longs (4 bytes)
+-d	unsigned decimal words (2 bytes)
+-h	bytes in hex
+-O	unsigned octal longs
+-o	unsigned octal words (default option)
+-S 	signed decimal longs
+-s	signed decimal words
+-X	unsigned hexadecimal longs
+-x	unsigned hexadecimal words
+
+-A	specify format for address output
+-j #	skip # bytes
+-N #	maximum bytes to process
+-t	specify output format
+-v	print all lines
+# pack 
+pack -- compress files by Huffman encoding 
+Usage:	pack [ [-] [-f] [-o file] file ] ...
+
+-	  display statistics on compression of following files (toggle)
+-f	  compress following files even if already packed or linked (toggle)
+-o file	  write output to given file
+# passwd 
+passwd -- change user login password
+Usage:	passwd [username]
+# paste 
+paste -- horizontally concatenate lines
+Usage:	paste [-s] [-d list] file ...
+
+-d list	  list contains output field separator characters (used circularly)
+-s	  concatenate all lines of each file on single output line
+# patch 
+patch -- change file using diff output
+Usage:    patch [-bceflNnRsv] [-B prefix] [-D symbol] [-d dir] [-F n]
+          [-i file] [-o file] [-p n] [-r file] [file]
+-B prefix save copy of original file "prefix" preceding file name
+-b        save copy of original file in "file.orig"
+-c        input is context diff
+-D symbol mark changes with C "#ifdef symbol"
+-d dir    change to directory dir before patching
+-e        input is ed script
+-F n      ignore n lines of context diff when searching for patch
+-f        do not request additional information from user
+-i file   specifies patch input from "file" instead of standard input
+-l        equate white space to white space, regardless of length
+-N        ignore patches already applied or reversed
+-n        input is normal diff
+-o file   write output to file
+-p n      delete n components from path names in patch file
+-R        reverse sense of the patch script
+-r file   specify reject file name
+-s        remain silent unless error occurs
+-v        display version number, then exit
+# pathchk 
+pathchk --  check path names
+Usage:	pathchk [-p] pathname ...
+-p	perform a more extensive portability check
+# pax 
+pax -- archiver for data interchange and file backup
+Usage: pax [-cdnqvz] [-f arch] [-s substitute] ... [pattern ...]
+       pax -r [-cdHhiknuvz] [-f arch] [-o opt] ... [-p str] ... 
+	   [-s substitute] ... [-V volpat] [pattern ...]
+       pax -w [-dHhiLqtuvXz] [-b blocksize] [[-a] [-f arch]] [-o opt] ...
+           [-s substitute] ... [-V volpat] [-x format] [pathname ...]
+       pax -r -w [-diklLnqtuvX] [-p str] ... [-s substitute] ... 
+	   [pathname ...] directory
+
+list mode 	neither -r nor -w specified
+read mode	-r specified but not -w
+copy mode	-r and -w specified
+write mode	-w specified but not -r
+
+-a        	append files to end of archive
+-b block  	block output with "blocksize" bytes per write
+-c        	use files that do not match given patterns
+-d         	do not create intermediate directories if not explicitly 
+		specified 
+-f arch   	use "arch" as path name of archive file 
+-H              create and read archives containing extraneous header characters
+-h              create and read archives with "little-endian" headers
+-i        	rename files interactively 
+-k	  	prevent the overwriting of existing files
+-L 	  	follow symbolic links
+-l        	use links instead of copies when possible; UNIX only, 
+		copy mode only
+-n        	treat patterns as actual path names 
+-o opt	  	provide info on modifying algorithm for extracting/writing 
+		files
+-p str    	specify file characteristic options
+-q		assume all extracted files are text
+-r        	read from archive
+-s substitute   change path names; "str" has form /old/new/[gp] as in ed(1)
+-t 	  	preserve the access time of archived files   
+-u        	only copy file if newer than existing file with same name
+-v        	display file names as they are processed
+-V volpat   	multi-volume archive
+-w        	write to archive
+-X          	only uses files on the same device as their parent directory
+-x format   	specify output format: "cpio", "cpiob", "tar", or "ustar"
+# pcat 
+pcat -- display Huffman packed files on standard output
+Usage:	pcat file ...
+# pg 
+pg -- interactively display files
+Usage:	pg [-acefnst] [-p string] [-#] [+#] [+/pattern/] 
+[file ...]
+
+-a	    use ANSI mode
+-c	    clear screen before each screenful printed
+-e	    no interaction at end of file
+-f	    no folding of lines to screen width
+-n	    no newline needed to terminate interactive commands 
+-p string   set command prompt to "string" (default: ":")
+-s	    interactive prompts and messages in standout mode 
+-t	    do not buffer streams into temporary files--no backward reading
+-#	    set display window size to # lines (default = screen size - 1)
++#	    start at line numbered #
++/pattern/  start at line containing regular expression 'pattern'
+
+Type "h" to interactive prompt (between pages) for summary of commands.
+# pj 
+pj - MKS Source Integrity project journal
+Usage:	pj directive [-iOq] [-y[!]] [-Ffilelist] [-krev] [-Pproject]
+	[-vsearchvar[=value]] [-Vvar[=value]] [-Yfile] [-Zpasswd]
+	[options] [file...]
+
+Options
+
+-Ffilelist	a file containing the names of files to be manipulated
+-i		recursively apply operation to included subprojects
+-O		ignores any local Source Integrity configuration
+-Pproject	names the project file
+-q		quiet mode
+-vsearchvar[=value]
+		use files with an association searchvar, and [value] if given
+-Vvar[=value]	use value in place of default project var
+-y		answer all user queries in the affirmative
+-y!		answer all user queries in the negative
+-Yfile		use "file" as the local configuration file
+-Zpasswd	decrypt an encrypted project file or member with passwd
+
+Directives
+
+pj add		add member files to a project
+pj addrule	set member attributes
+pj build	run commands stored as the BUILD parameter
+pj ci		check in and save archived member files
+pj checkpoint	save (archive) the current project journal
+pj clean	remove unmodified working files
+pj co		check out archived member files
+pj create	create a new project journal
+pj diff		display differences between working files and project revision
+pj drop		delete members from the project journal
+pj droprule	remove attributes from members
+pj finddep	find and list member dependencies
+pj label	assign labels to members
+pj lock		lock an archived member file
+pj log		display member revision history
+pj mkmf		refresh makefile dependencies
+pj mods		find project modifications since last checkpoint
+pj print	print member information to standard output
+pj refresh	bring working files up to date
+pj sandbox	create a new sandbox
+pj set		set project attributes
+pj state	change the state of archived member files
+pj sync		update to head rev, and refresh/checkpoint project
+pj unlock	unlock an archived member file
+pj unset	remove project attributes
+pj update	update saved working file information or rename a member
+pj vars		print all project attributes to standard output
+pj what		display changes to project members 
+# pmrun 
+pmrun -- launch a program as a new Presentation Manager session
+Usage:   pmrun [-b] [-c] [-d|-f|-w] [-h|-n|-x] [-i iconfile] [-t title]
+         [-p xstart ystart width height] program [args ...]
+
+-b      	run the program in the background
+-c      	do not close the window after the program has completed
+-d      	force the program to run in a detached session 
+		(no window or full screen)
+-f      	force the program to run in a full screen session
+-h      	create the session as a "hidden" (invisible) session
+-i iconfile 	specifies file containing an icon image
+-n      	start the session "minimized" (that is, iconized)
+-p xstart ystart width height
+		specifies the position of the session's window
+-t title 	specify title of the session
+-w      	force the program to run in a windowed session
+-x      	start the session "maximized"
+# postnews 
+postnews -- simple interactive news-posting interface
+Usage:	postnews [-h headerfile] [newsgroup]
+
+-h headerfile	specifies that a suitable header has already been constructed 
+	and can be found in headerfile, in which case postnews bypasses 
+	the initial prompting for header contents.
+newsgroup	specifies the name of the newsgroup to post the article to.
+# pr 
+pr -- display and format files
+Usage:	pr [+#] [-#] [-amdFprtW] [-c col] [-ec#] [-H header_fmt] [-h header] 
+           [-ic#] [-l#] [-nc#] [-o #] [-sc] [-w#] [ file ... ]
+
+-a		Columns across page instead of down
+-d		Double space
+-c #		Print in # columns
+-ec#		Expand tabs ("c") on input to every # column
+-f		Use a formfeed between pages instead of linefeeds,
+		rings bell and waits for carriage return between pages
+-F		Use a formfeed between pages instead of linefeeds 
+-H header_fmt	Allows customization of header line
+-h header	Use "header" as header instead of file names
+-ic#		Replace white space on output by tabs ("c") every # column
+-l#		Page length is #
+-m		Merge; display each file downwards in its own column
+-nc#		Line number files # wide delimited by "c"
+-o#		Offset output by #
+-p		Pause before each page for terminal output
+-r		Don't display error messages if files can't be opened
+-sc		Separate columns by "c" instead of white space
+-t	 	Don't display headers or trailers
+-W		Fold lines at column width instead of truncating
+-w#		Set line width
++#		Start displaying each file on page #.
+-#		Print in # columns
+# print 
+print -- display arguments from the shell
+Usage:	print [-npRrs] [-u[n]] [argument ...]
+
+-n	newline is not added end of output
+-p	write output to pipe
+-R	raw mode; options used as arguments (except -n)
+-r	raw mode
+-s	output to command history file
+-u[n]	output to file descriptor n
+# printf 
+printf -- display a formatted string
+Usage:	printf format [argument...]
+	format - C language printf-style format string
+# process 
+process -- process all news
+Usage:	process [-b n] [-e n] [-q] [-v]
+
+-b n	sets time to begin process to n
+-e n	sets time to end process to n
+-q	disables error message when process is executed outside of time settings
+-v	verbose output
+# prof 
+prof -- profile execution times on DOS
+Usage:	prof [-ahlnotxz] [-f[n]] [-O file] file[.exe] [arg ...]
+
+-a	  sort by addresses
+-f[n]	  speed-up profiling ticks by 2^n
+-h	  don't display a header
+-l	  add line numbers to symbol table
+-n	  sort by name
+-O file	  redirect statistics output to "file"
+-o	  display addresses in octal
+-t	  sort by counts
+-x	  display addresses in hex
+-z	  show all routines including zero ones.
+# ps 
+ps -- display process status on Windows NT and POSIX-compliant systems
+Usage:	ps [-Aacdefjln] [-G idlist] [-g grouplist] [-n name] [-o format] ... 
+           [-p proclist] [-s idlist] [-t termlist] [-U|u userlist]
+-A		print info for all accessible processes
+-a		print info for all processes associated with terminals
+-c		not currently implemented
+-d		list all processes except group leader
+-e 		print info for all accessible processes
+-f  	        print as if user specified:
+			ruser=UID,pid,ppid,pcpu=C,stime,tty=TTY,atime,args
+-G idlist	display processes in specified process groups
+-g grouplist	display processes in specified groups
+-j		print as if user specified:
+			pid,sid,pgid=PGRP,tty=TTY,atime,comm
+-l		print as if user specified:
+		flags,state,ruid=UID,pid,ppid,pcpu=C,pri,nice,addr,vsz=SZ,
+		wchan,tty=TTY,atime,comm=COMD
+-n name		specify the name of the executable containing the kernel
+		symbol table
+-o format	display info specified by format
+-p proclist	display processes with specified process ID numbers
+-s idlist       display processes in the given session
+-t termlist	display processes associated with given terminals
+-U|u userlist	display processes for given users
+# ps 
+ps -- display process and memory block status on DOS
+Usage:	ps
+# ps 
+ps -- display process status on OS/2
+Usage:	ps
+# ps 
+ps -- display process status on Windows 95
+Usage:	ps [-lmp]
+
+-l	display long format
+-m	display module information
+-P	display full pathnames for all processes and modules
+# pvcs2rcs 
+pvcs2rcs -- PVCS to RCS conversion utility
+Usage:	pvcs2rcs [-Ov] [-Ffile...] [-Y file] file ...
+
+-Ffile		"file" contains path names of files to be converted
+-O		ignore any local configuration file
+-v		display additional information about conversion
+-Yfile		use "file" as the local configuration file
+# pwd 
+pwd -- display working directory
+Usage:	pwd
+# r 
+r -- edit and re-execute previous command
+Usage:	r [old=new] [specifier]
+
+old=new		change string "old" to "new"
+specifier	command number or start of command
+# rcs 
+rcs -- change RCS archive attributes
+Usage:	rcs [-Aoldfile] [-alogins] [-BCiIkKLOqRTU] [-b[rev]] [-cstring] 
+	    [-D[rev]] [-e[logins]] [-Ffile...] [-l[rev]] [-Nname[:rev]] 
+            [-nname[:rev]] [-orange] [-P[project] [-sstate[:rev]] 
+	    [-t[txtmsg]] [-u[rev]] [-y[!]] [-Yfile] [-Z[passwd]] 
+            [-z[passwd]] file...
+
+-alogins	append names in list of login names ("logins") to access list
+-Aoldfile	append access list of "oldfile" to RCS archive
+-b[rev]		set default branch to "rev"
+-B		set file format to binary
+-cstring	set comment leader to "string"
+-C		forces the -R option not to skip archives
+-D[rev]		create a new branch with a copy of the file at rev		-e[logins]	erase list of login names ("logins") or whole access list
+-Ffile		"file" contains path names of files to be changed
+-I		redirect standard input to file or pipe
+-i		create and initialize new RCS archive
+-k		uncompress archive file
+-K		compress archive file
+-L		set locking to strict
+-l[rev]		lock revision "rev"
+-nname[:rev]	give symbolic "name" to "rev" (or if no "rev", delete "name")
+-Nname[:rev]	same as -n, but overrides a previous assignment of "name"
+-orange		delete revisions given by "range"
+-O		ignore any local configuration file
+-P[project]     specify the archive location of files
+-q		quiet mode -- no diagnostics
+-R		tells rcs to operate recursively
+-sstate[:rev]	set state for revision "rev" to "state"
+-t[txtmsg]	take descriptive text for RCS archive from "txtmsg" or 
+-T		set file format to text standard input
+-u[rev]		unlock revision "rev"
+-U		set locking to non-strict
+-y[!]		assumes a "yes" (-y) or a "no" (-y!) to all questions
+-Yfile		use "file" as the local configuration file
+-z[passwd]	decrypt all revisions of a file
+-Z[passwd]	encrypt all revisions of a file
+# rcsclean 
+rcsclean -- unlock and delete unchanged working files
+Usage:	rcsclean [-CkKORux] [-Ffile...] [-P[project] [-q[rev]] [-r[rev]]
+	[-Yfile] [-Z passwd] file ...
+
+-C		forces the -R option not to skip archives
+-Ffile		"file" contains path names of files to be cleaned up
+-k      	suppress keyword expansion
+-K		suppress keyword expansion and remove all existing expansions
+-O		ignore any local configuration file
+-P[project]     specify the archive location of files
+-q[rev]		suppress diagnostics
+-r[rev]		specify revision to be "rev" (default is latest revision)
+-R		tells rcsclean to operate recursively
+-u		chmod unchanged working files back to the attributes of the
+		archive file
+-x		force keyword expansion
+-Yfile		use "file" as the local configuration file
+-Z passwd       specifies passwd as decryption password
+# rcsdiff 
+rcsdiff -- compare file revisions
+Usage:	rcsdiff [-befhikKmnOqRwx] [-c[n]] [-Cn] [-Dname] 
+	   [-Ffile...] [-P[project] [-rrev1] [-rrev2] [-Yfile] [-Z passwd] file ...
+-b		ignore trailing blanks and treat other space as equal
+-c[n]		show "n" (default 3) lines of context
+-C n		same as -cn
+-Dname		create C preprocessor input conditional on "name" being defined
+-e		generate an edit script useful with ed
+-f		generate an (unusable) edit script using original line numbers
+-Ffile		"file" holds path names of files to be compared to archive files
+-h		half-hearted (faster) algorithm
+-i		ignore case of letters
+-k		suppress keyword expansion
+-K		suppress keyword expansion and remove all existing expansions
+-n		generate an edit script usefule for RCS
+-O		ignore any local configuration file
+-P[project]     specify the archive location of files
+-q		quiet mode: suppress diagnostic output
+-rrev1		specify first (older) revision
+-rrev2		specify second (newer) revision
+If no "-r" option is given, rcsdiff compares latest revision with working file.
+If only one "-r" option is given, rcsdiff compares "rev1" with working file.
+-R		tells diff to work recursively
+-w		ignore white space (blanks and tabs)
+-x 		force keyword expansion
+-Yfile		use "file" as the local configuration file
+-Z passwd       specifies passwd as decryption password
+# rcsmerge 
+rcsmerge -- merge RCS revisions
+Usage:	rcsmerge [-Opq] [-P[project] -rrev1 [-rrev2] [-Yfile] [-Z passwd] file
+
+-O		ignore any local configuration file
+-p		print result on standard output rather than changing work file
+-P[project]     specify the archive location of files
+-q		quiet mode; suppress diagnostics
+-rrev1		specify first revision
+-rrev2		specify second revision (use latest revision if omitted)
+rcsmerge incorporates changes between "rev1" and "rev2" into the working file.
+-Yfile 		use "file" as the local configuration file
+-Z passwd	specifies passwd as decryption password
+# read 
+read -- input a line to the shell
+
+Usage:	read [-prs] [-u[n]] [variable?prompt] [variable ...]
+
+-p	input from co-process
+-r	raw mode
+-s	input added to command history file
+-u[n]	input from file descriptor n
+# readonly 
+readonly -- mark variable as readonly
+Usage:	readonly [name[=value] ...]
+	readonly -p
+
+-p      display all names set as readonly
+# registry 
+registry -- display and modify the Windows Registry Database
+Usage:	registry -d -k key [-n name]
+	registry -p [-k key] [-n name] [-r]
+	registry -s -k key -n name -v value
+# report 
+report - Generate text delimited database tables from a project, sandbox, 
+	 or file, which can be imported into a database
+
+Usage:	[-b basename] [-d depth] [-q] [-s] [-y[!]] [-Z password] file...  
+
+Options
+
+-b basename	specify the name of the generated data file  
+-d depth	specify the depth of generated report
+-q		quiet mode
+-s		open subprojects for data as well
+-y[!]		assume a "yes" (y) or "no" (y!) to all questions
+-Z password	Supply password to be used for encrypted archives
+file...		can be a project, sandbox, or file
+# return 
+return -- return from shell function or . script
+Usage:	return [expression]
+# rev 
+rev -- reverse character order of input lines
+Usage:	rev [file ...]
+# rlog 
+rlog -- display log messages and other information about RCS archives
+Usage:	rlog [-bBChHIORtTW] [-ddates] [-Ffile...] [-l[lockers]] [-L[lockers]] 
+	[-P[project] [-rrevisions] [-sstates] [-w[logins]] [-Yfile] [-Z passwd] 
+	file ...
+-b		print information about revisions on the default branch
+-B		print the name of the archive
+-C		do not skip archives during recursive operation
+-ddates		print information about revisions in given "dates" range:
+			date		latest revision on or before "date"
+			date1<date2	range between "date1" and "date2"
+			date1>date2	range between "date1" and "date2"
+			<date		dates before "date"
+			>date		dates after "date"
+			range1;range2	dates in range1 or range2
+-Ffile		"file" contains path names of files to be examined
+-h		print RCS name, working name, head, def. branch, access list,
+		locks, symbolic names, and suffix
+-H		display information about head revision only.
+-I		redirect standard input from a file or pipe
+-l[lockers]	print information about locked revisions.  "lockers" is an
+		optional comma-separated list of login names of lockers.
+-L[lockers]	ignore RCS files that have no locks set by "lockers"
+-O		ignore default options found in configuration file
+-P[project]     specify the archive location of files
+-q		operate in quiet mode (no diagnostic output)
+-rrevisions	print information about given "revisions" (comma separated)
+-R		cause rlog to act recursively
+-sstates	print information about revisions that have a state among the
+		comma separated list of "states"
+-t		print -h information plus descriptive text
+-T		display only one line per revision
+-w[authors]	print information about revisions checked in by any author
+		in the comma separated list of login names (default this user)
+-W		print name of working file
+-Yfile		use "file" as the local configuration file
+-Z passwd	specifies passwd as decryption password
+If no options are given, "rlog" prints complete information.
+# rm 
+rm -- remove files
+Usage:	rm [-firRv] path [path ...]
+
+-f	force remove even if no write permission
+-i	interactively ask for confirmation of each file
+-R	remove entire directory structure if "file" is a directory
+-r   	same as -R
+-v	display file names as they are being processed
+# rmail 
+rmail -- handle mail routing
+Usage: rmail [dest-path ...]
+# rmdir 
+rmdir -- remove directory
+Usage:  rmdir [-p] directory ...
+-p	remove all intermediate components
+# rnews 
+rnews -- accept and spool news input
+Usage:	rnews [-nx] [-g grade]
+
+-n	only spool the news, without checking for space or mailing error 
+	information.
+-x	turn on debugging.
+-g grade	classifies news batch files with 'grade'.
+# sccs2rcs 
+sccs2rcs -- SCCS to RCS conversion utility
+Usage:	sccs2rcs [-Ov] [-Ffile...] [-Y file] file ...
+
+-Ffile	"file" contains path names of files to be converted
+-O	ignore any local configuration file
+-v	display additional information about conversion
+-Yfile	use "file" as the local configuration file
+# sed 
+sed -- stream editor (non-interactive) 
+Usage:	sed [-En] [script] [file ...]
+	sed [-En] [-e script]... [-f scriptfile]... [file ...]
+
+-E		use extended regular expressions
+-e script	add argument "script" to end of script
+-n		suppress output except from commands in sed script
+-f scriptfile	add commands in "scriptfile" to script
+
+Each "file" is input; if none, use standard input.
+# set 
+set -- set shell flags and positional parameters
+Usage:	set [-+abCefhiKkLmnpstuvxX-] [-+A name] [-+o option ...] [parameter ...]
+
++A name	 assign the parameter list to name
+-A name	 unset name, then assign parameter list to name
+
+-a	 automatically export subsequently defined parameters
+-b       notify user when background jobs complete
+-C	 redirection doesn't overwrite existing file
+-e	 ERR trap is executed before exiting after failed command
+-f	 file generation disabled
+-h	 all commands become tracked aliases
+-i	 make the shell interactive
+-K	 use KornShell behavior if it differs from POSIX.2
+-k	 all parameter assignment arguments are placed in environment of command
+-L	 make the shell a login shell; effective only at shell invocation
+-m	 background jobs run as separate process and reported on
+-n	 commands are read but not executed
+-o allexport	same as -a
+-o bgnice	background jobs run at lower priority
+-o criterror 
+-o emacs	EMACS style command editing
+-o errexit	same as -e
+-o gmacs	GMACS style command editing
+-o ignoreeof	shell does not exit on end-of-file
+-o interactive  same as -i
+-o keyword	same as -k
+-o korn		same as -K
+-o logical	no effect
+-o login	same as -L option of sh
+-o markdirs	trailing / added to file name generated directories
+-o monitor	same as -m
+-o noclobber	same as -C
+-o noexec	same as -n
+-o noglob	same as -f
+-o nolog	do not save function definitions in history file
+-o notify	same as -b
+-o nounset	same as -u
+-o privileged	same as -p
+-o trackall	same as -h
+-o verbose	same as -v
+-o vi		VI style command editing
+-o xtrace	same as -x
+-p	 reset PATH variable to default
+-s	 sort positional parameters
+-t	 exit after reading and executing one command
+-u	 using unset parameter in a substitution gives an error
+-v	 print shell input lines as they are read
+-x	 print commands and arguments ar they are executed
+-X	 enable DOS-style critical error handling 
+-	 turn off -v and -x flags; following parameters do not set flags
+--	 following parameters do not set flags
+
+Options with + reverse effect of options with -; for example, +a turns off -a.
+# sh, rsh 
+sh, rsh -- POSIX-compliant shell and command interpreter
+Usage:	[r]sh [-o option] [-+abCefhiKkLmnprTtuvXx]
+		[-0 path] [-R addr] [cmd_file [arg ...]]
+	[r]sh -c cmdstring [-o option] [-+abCefhiKkLmnprTtuvXx]
+		[-0 path] [-R addr] [cmd_name [arg ...]]
+	[r]sh -s [-o option] [-+abCefhiKkLmnprTtuvXx]
+		[-0 path] [-R addr] [arg ...]
+
+Options (with named synonyms) are:
+-a	(allexport)	automatic export of all variables
+-b      (notify)        notify user when background jobs complete
+-C      (noclobber)     redirection doesn't overwrite existing file
+-c			execute cmdstring and exit
+-e	(errexit)	exit on errors
+-f	(noglob)	no file name generation
+-h	(trackall)	all commands become tracked aliases
+-i			interactive shell
+-K			use KornShell behavior if it differs from POSIX.2
+-k	(reserved word)	parameters can be intermixed with arguments
+-L			login shell (synonym for naming it -sh)
+-m	(monitor)	enable job control
+-n	(noexec)	do not execute any commands
+-o	Set options by name: synonyms given or
+	bgnice	emacs	gmacs	ignoreeof	markdirs	
+	sort	vi	viraw
+-p	(privileged)	restrictions when effective uid not real uid
+-r			restricted shell (equivalent to rsh)
+-R			Relocate shell text at given address [DOS only]
+-s			do not execute shell file
+-t			execute one command only from standard input
+-T			disable the shell's timer interrupt [DOS & OS/2 only]
+-u	(nounset)	expanding an unset parameter causes an error
+-v	(verbose)	print shell input as read
+-x	(xtrace)	print shell commands as executed
+-X	(criterror)     enable DOS-style critical error handling [DOS & OS/2]
+-0			set shell executable file name [DOS and OS/2 only]
+# shift 
+shift -- shift positional parameters
+Usage:	shift [expression]
+# size 
+size -- display object file sizes
+Usage:	size file ...
+# sleep 
+sleep -- suspend execution for a specified time
+Usage:	sleep seconds
+`seconds' is a number of seconds or a number of the form: 4h32m10s
+where any part may be missing.
+# sort 
+sort -- sort/merge utility
+Usage:	sort [-cmu] [-o outfile] [-t char] [-y[n]] [-zn] [bdfiMnr]  
+             [-k startpos[,endpos]] ... [file...]
+        sort [-cmu] [-o outfile] [-t char] [-yn] [-zn] [bdfiMnr] 
+	     [+startposition [-endposition]] ... [file ...]
+
+-c	Check order of input records.
+-m	Merge pre-sorted input files.
+-u	Output only unique records.
+-o	Write file to the file "outfile".
+-t char	set tab character to "char"; default is white space (blank or tab).
+-y[n]	Size of in-memory buffer is "n" K (1024) bytes.
+-zn	Length of record is "n" bytes (default 400).
+Key positions:
+-k m[.n][options][,p[.q][options]]
+	Start key at the "n"th character of the "m"th field
+	End key at the "q"th character of the "p"th field
++m[.n][options]		Skip "m" fields, "n" characters to start key.
+-m[.n][options]		End of key denoted by skipping "m" fields, "n" chars.
+
+Options also applicable to sort key positions:
+-b	Skip leading white space (blank or tabs) in comparisons.
+-d	Dictionary order--everything but blanks, letters and numbers is ignored.
+-f	Fold uppercase into lowercase for comparison purposes.
+-i	Ignore non-printable characters for comparison.
+-M	Compare by month names (non-months are <JAN)
+-n	Compare field as a number (implies -b).
+-r	Reverse order so output is written from largest to smallest.
+# spell 
+spell -- detect spelling errors
+Usage: spell [-biluvx] [-d hashfile] [-f local] [-h history] [+local] [file ...]
+
+-b		use British spelling
+-d hashfile	use "hashfile" rather than "/etc/hash" for hashed dictionary
+-f local	file "local" contains additional words to "hashfile"
+-h history	maintain a history of misspelled words
+-i		input words (one per line) into hashlist
+-l		print file name and line number for each misspelled word
+-u		accepts any word that is all uppercase
+-v		print any word not in spelling list
+-x		write plausible word stems for all words
++local		file "local" contains additional words to "hashfile"
+# split 
+split -- split a file into manageable pieces
+Usage:	split [-a n] [-l n] [file [prefix]]
+	split -b n[b|k|m] [-a n] [file [prefix]]
+	split [-n] [-a n] file [prefix]
+
+-n	  	number of lines per output file (obsolete)
+-a n	  	number of alphabetic digits after prefix
+-b n	  	binary split by "n" bytes
+-b nb		binary split by "n" 512-byte blocks
+-b nk		binary split by "n" K (1024 bytes)
+-b nm		binary split by "n" megabytes
+-l n	  	number of lines per output file (preferred)
+prefix	  	starting characters in the output file names (default 'x')
+# start 
+start -- start program in another window
+Usage:	start [bhlmnrwx] [-d dir] [-p x y] [-s w h] [-S c r] [-t title] 
+	command [args...]
+# strings 
+strings -- display printable strings in binary files
+Usage:	strings [-aNopx] [-n number] [-t format] [file ...]
+	strings [-] [-Nopx] [-t format] [-number] [file ...]
+-a	   Examine all of executable file
+-N	   Consider extended ASCII characters as printable.
+-n number  Print only strings at least "number" bytes in length
+-o 	   Print offsets in octal
+-p	   Look at only the bottom 7 bits of each byte
+-t format  Print offset in base specified by "format"
+-x	   Print offsets in hex
+-z	   Does not use POSIX definition of strings when searching
+-	   Same as -a
+-number    Same as -n number
+# strip 
+strip -- remove debug information from executable files
+Usage:	strip [-p] file ...
+
+-p	understand PLINK overlay format
+# sum 
+sum -- compute checksum and block count for file 
+Usage:	sum [-ciprt] [file ...]
+
+-c	compute CRC16 instead of default checksum
+-i	compute CRC-CCITT instead of default checksum
+-p	compute POSIX.2 checksum instead of default checksum
+-r	compute alternate (BSD or V7 compatible) checksum
+-t	give a total checksum for all files
+
+If no "file" or "file" is "-", use standard input.  Default is simple
+checksum.
+# switch 
+switch -- print or change DOS option flag character
+Usage:	switch [char]
+# sync 
+sync -- update the disk
+# tail 
+tail -- display last lines of a file
+
+Usage:	tail [-f] [-b|-c|-k|-l|-m|-n [+-]number] [file]
+	tail +[number][b|c|k|l|m|n][f] [file]
+	tail -[number][b|c|k|l|m|n][f] [file]
+
+-f	Follow - print end of file as it grows 
+f	same as -f
+
++number	skip "number" units at start of file, then print the rest
+-number	print starting "number" units from end
+
+b 	"number" is in blocks
+c 	"number" is in bytes
+k	"number" is in kilobytes
+l	"number" is in lines (default)
+m 	"number" is in megabytes
+n	"number" is in lines (default)
+
+When "number" does not appear in the Synopsis line, tail assumes a value of
+10 was specified.
+
+# tar 
+tar -- USTAR-compatible tape archiver to copy and back up files
+Usage:	tar -c[#bfsvwlzUV] [blocksize] [archivefile] [volpat] [file ...]
+[-C pathname] [file...] 
+	tar -r[#bfsvwlzUVC] [blocksize] [archivefile] volpat] [file ...] 
+[-C pathname] [file...]
+	tar -t[#bfsvzUV] [blocksize] [archivefile] volpat] [file ...][pathname] 
+	tar -x[#bfsvwpmozUV] [blocksize] [archivefile] volpat] [[file...] [pathname] 
+Key letters (one of):
+-c	create new (empty tape archive)
+-r	replace at the end of a possibly existing tape archive
+-t	print a table of contents for the archive
+-x	extract named (or all) files from archive
+Secondary options:
+-b	set number of 512 byte blocks for archive I/O (must have blocksize)
+-C	cd to a new directory in the middle of a file list
+-f	set archive name to "tapefile" rather than default
+-l	print an error if link table too large for memory
+-m	do not restore modification time stamp when extracting
+-o	do not set owner/group when extracting; do not record owner/group
+        information when creating
+-p	restores archive, hidden, or system bits, ignoring UMASK
+-U	enable USTAR mode
+-V	multi-volume archive
+-v	verbose
+-w	ask about each operation before proceeding
+-z	compression mode
+-#s	select tape unit ('#' is [0-7]) and density ('s' is [lmh])
+	density is used only on POSIX and UNIX systems
+If any "file" is a directory, it is processed recursively.
+# tee 
+tee -- clone output stream
+Usage:	tee [-ai] [file ...]
+-a	append, rather than overwrite, outputs
+-i	ignore signals (not on DOS, OS/2, or NT)
+Input is copied to each output `file' as well as to the standard output.
+# test 
+test -- test for condition
+Usage:	test expression
+	[ expression ]
+Conditional expression consists of:
+-e file		file exists		 
+-r file		file is readable	-w file		file is writable
+-d file		file is a directory	-f file		file is a regular file
+-x file	[U]	file is executable	-c file	[U]	character special file
+-b file	[U]	block special file	-p file	[U]	named pipe (fifo) file
+-u file		file is setuid/hidden	-g file		file is setgid/system
+-k file		file is sticky/archive	-s file		file size > 0
+-t fd		fd is terminal		-z string	string length is 0
+-n string	string length > 0	str1 = str2	strings are identical
+str1 != str2	strings are different	string		string is not empty
+n1 -eq n2	integers are equal	n1 -ne n2	integers not equal
+n1 -gt n2	integer n1 > n2		n1 -ge n2	integer n1 >= n2
+n1 -lt n2	integer n1 < n2		n1 -le n2	integer n1 <= n2
+-h file	[U]	file is symbolic link 	-L file	[U]	file is symbolic link
+file1 -nt file2	file1 newer than file2	
+file1 -ot file2	file1 older than file2
+file1 -ef file2 [U]	files have the same device and i-node number
+! expression			negation
+expression -a expression	true if both expressions true
+expression -o expression	true if at least one expression is true
+( expression )			grouping expressions
+
+Result is exit status of command.  
+[U] options are meaningful on UNIX only.
+# time 
+time -- display CPU and elapsed times for commands
+Usage:	time command-line
+# time 
+time -- display CPU and elapsed times for commands on DOS
+Usage:	time [-fn] command-line
+
+-fn	Speed up the clock by a factor of 2^n
+# times 
+times --  display user and system times used by the shell and its children
+Usage:	times [-p]
+Output is two lines, each having two fields:
+	shell user time		shell system time
+	child user time		child system time
+# touch 
+touch -- change file modification date
+Usage: touch [-acm] [-f agefile] [-r agefile] [[-t] time] file ...
+       touch [-acm] time file ...
+
+-a	  set only access time
+-c	  do not create file if it does not already exist
+-f file   same as -r file
+-m	  set only modification time
+-r file	  make date the same as date for "file" (default is present)
+-t time   use time instead of current time 
+
+By default, if neither -a nor -m given, both options are enabled.
+# tr 
+tr -- translation filter
+Usage:	tr [-cs] string1 [string2]
+	tr -s [-c] string1
+	tr -d [-c] string1
+	tr -ds [-c] string1 string2
+
+-c	Complement characters in string1
+-d	Delete characters found in string1
+-s	Replace any multiple consecutive occurrences of a character from
+	string1 with a single occurrence of the corresponding character
+	from string2
+# trap 
+trap -- intercept abnormal conditions and interrupts
+Usage:	trap ['handler'] [event ...]
+handler		Command to be executed upon trap
+event		ERR, EXIT or a signal number (for example, 2 for CTRL-BREAK)
+# true	
+true	-- do nothing, successfully
+Usage:  true [argument ...]
+# tsort 
+tsort --  topological sort
+Usage:	tsort [file]
+# tty 
+tty -- display terminal name
+Usage:	tty [-s]
+-s	do not print terminal name, only return exit status
+# type 
+type -- tell how shell interprets name
+Usage:	type name
+name	can be a keyword, alias, function, built-in command or executable
+# typeset 
+typeset -- assign attributes and values to variables 
+Usage:	typeset +-f[tux] name ...
+	typeset [+-Hlprtux] [+-LRZi[number]] [variable[=value] ...]
+
+-f		variables refer to function names
+-H		perform POSIX to host-name file mapping
+-i[number]	marks value of variable as integer base n
+-L[number]	left justify and remove leading blanks; field width n characters
+-l		convert uppercase characters to lowercase 
+-p		output written to two way pipe (not implemented)
+-R[number]	right justify using leading blanks; field width n characters
+-r		set variable readonly
+-t		tag variable
+-u		convert lowercase characters to uppercase
+-x		set variable for export
+-Z[number]	right justify using leading zeroes; field width n characters
+# ucheader 
+ucheader -- produce uncompressed header from compressed RCS file
+Usage:  ucheader infile outfile
+This command should not be called directly by the user.
+# ulimit 
+ulimit -- set process limits on DOS
+Usage:	ulimit [-de] [size]
+-d [size]  print or set amount of data memory for shell, in Kilobytes.
+	   This is usually to accommodate Terminate-Stay-Resident programs.
+-e	   allocate an environment below all programs.
+# umask 
+umask -- get or set the file mode creation mask
+Usage:  umask [-S] [mode]
+-S	symbolic output
+mode	new file mode creation mask
+# unalias 
+unalias -- remove alias definitions
+Usage:	unalias name ...
+	unalias -a
+-a	remove all aliases	
+# uname 
+uname -- display system name information
+Usage:	uname [-amnrsv]
+-a	equivalent to -mnrsv
+-m	print machine type
+-n	print node name
+-r	print operating system release number
+-s	print operating system name (default)
+-v	print operating system version number
+# uncompress 
+uncompress -- undo Lempel-Ziv compression of a file
+Usage:	uncompress [-cDfvV] [file]
+
+-c	write uncompressed output to standard output (like zcat)
+-D	use extra dictionary packing technique on uncompression
+-f 	force file to be uncompressed
+-V	print version number for uncompress
+-v	print name of each file when it is uncompressed
+
+Data read from "file", or standard input, is uncompressed and written to
+standard output.  Actual files are uncompressed in place.
+# unexpand 
+unexpand -- compress spaces into tabs
+Usage:	unexpand [-a] [-t tablist] [file ...]
+-a	      Compress spaces into tabs wherever result would be shorter.
+-t tablist    Specify the tab stops.
+# uniq 
+uniq -- display unique lines of sorted file
+Usage:  uniq [-c|-d|-u] [-f num] [-s num] [input_file [output_file]]
+	uniq [-c|-d|-u] [-num] [+num] [input_file [output_file]]
+-c	Print each line preceded by a count of number occurrences
+-d	Print one copy of the repeated lines
+-f num	Skip number of fields before comparing; field delimited by blank or tab
+-s num	Skip number characters within first compared field before comparing
+-u	Print lines occurring once
+-num	Same as -f num
++num	Same as -s num
+# unpack 
+unpack -- decode Huffman packed files
+Usage:	unpack file ...
+# unset 
+unset -- remove shell variable or function
+Usage:	unset name ...
+      	unset [-fv] name ...
+-f	remove definition of named function
+-v      remove value and attributes of named variable
+# unstrip 
+unstrip -- add symbol table to a DOS executable file
+Usage:	unstrip file.exe [file.map]
+If no `file.map' is given, `.exe' is removed from `file.exe' and `.map'
+is added to generate the map file name.
+# uucheck 
+uucheck -- check UUCP directory structure
+Usage:	uucheck
+
+# uucico 
+uucico -- debug or initiate UUCP file transfer on DOS
+Usage:	uucico [-c] [-l logfile] [-r role] [-s system] [-t timedelay]
+	[-x debug_level]
+	uucico [-g]
+	uucico [-l logfile] [-t timedelay] [-x debug_level]
+	uucico [-P|-p]
+	uucico [-m] [-Q|-q]
+
+-c		call system if work waiting and transfer files
+-g		resume paused mksuucp
+-l logfile      write debug information to specified logfile
+-m		remove mksos from memory
+-P		force pause of mksuucp
+-p		pause mksuucp if not busy
+-Q 		force removal of mksuucp from memory
+-q		remove mksuucp from memory
+-r role		specify host's role: 1 (master) or 0 (slave)
+-s system	call system if there is no work waiting
+-t timedelay	time delay before trying to communicate with TSR
+-x debug_level	set verbosity of debugging information
+# uuclean 
+uuclean -- removes old UUCP file transfer requests and log files
+Usage:	uuclean [-d subdir] [-n hours] [-p prefix]  
+
+-d subdir  clean only the specified subdirectory
+-n hours   delete files that are more than "hours" old if the
+	   prefix test is satisfied
+-p prefix  scan for files with "prefix" as the file prefix
+# uuconfig 
+uuconfig -- UUCP configuration program 
+Usage: uuconfig 
+# uucp 
+uucp -- copy files between remote UUCP sites
+Usage:	uucp [-cCdfjmr] [-g grade] [-n user] [-x debug] site1!sourcefile
+             site2!destfile
+
+-C	   	copy local file to spool directory for transfer
+-c	   	do not copy local file to spool directory for transfer (default)
+-d	    	make all intermediate directories for file copy (default)
+-f	   	do not make intermediate directories for file copy
+-g grade   	set job priority to grade; grade is from A-z
+-j	   	output UUCP job id on standard output
+-m	   	mail job initiator when copy is finished
+-n user	   	notify user on remote site that file was sent
+-r	   	refrain from starting job immediately; just queue it
+-x debug_level	set verbosity of debugging information to debug_level
+# uudecode 
+uudecode - decode file encoded with uuencode
+Usage:	uudecode [file]
+# uuencode 
+uuencode - encode a file in 7-bit characters
+Usage:  uuencode [file] remote
+remote	- intended name of the file after decoding
+# uulog 
+uulog -- display log information on UUCP events
+Usage:	uulog [ -s site ] [ -u user ]
+
+-s site	display log information on events involving site	
+-u user	display log information on events involving user
+# uuname 
+uuname -- display names of known UUCP sites
+Usage:	uuname [-l]
+
+-l	display local system name
+# uustat 
+uustat -- display status of pending UUCP transfers
+Usage:	uustat [-a [-o hours] [-y hours]]
+or	uustat [-q]
+or	uustat [-j jobid]
+or	uustat [-k jobid]
+or	uustat [-r jobid]
+or	uustat [-s system] [-u user]
+
+-a		report all queued jobs.
+-j jobid	specify the UUCP job identified by jobid for output.
+-k jobid	kill the UUCP request identified by jobid.
+-o hours	report status of uucp requests older than hours.
+-q		list the jobs queued for each machine.
+-r jobid	rejuvenate the UUCP request identified by jobid.
+-s site		report status of UUCP transfers requested for site.
+-u user		report status of UUCP transfers requested by user.
+-y hours	report status of uucp requests younger than hours.
+# uux 
+uux -- request command execution on remote site
+Usage:	uux [-bCcjnprz] [-a user] [-g grade] [-x debug_level] 
+	    [site!]commandstring
+
+-a user		specify "user" as the issuer of the request
+-b		send non-executed input back to the initiator
+-C		copy local file to the spool directory
+-c		do not copy local file to the spool directory (default)
+-g grade	set job priority to grade [extension to x/Open]
+-j		output UUCP job id on standard output
+-n		do not notify user if command fails
+-p      	standard input to uux is standard input to commandstring
+-r 		queue the job but do not initiate call
+-x debug_level	set verbosity of debugging information
+-z		notify the owner of uux of success
+# uuxqt 
+uuxqt -- carry out command requests from other sites
+Usage:	uuxqt [-c command_name] [-s site] [-x debug_level]
+
+-c command_name	only perform requests for command_name
+-s site		only run commands from site
+-x debug_level	set verbosity of debugging information
+# vi 
+vi -- display-oriented interactive text editor
+Usage:	vi [-elRsvx] [-c command] [-t tag] [-w size] [file ...]
+Usage:	vi [-elRsvx] [+command] [-t tag] [-w size] [file ...]
+Command line options:
+-c command   run command before any text appears on the screen
+-e      ex mode                 -R      set readonly
+-l	lisp mode
+-s	quiet mode		-t tag	search for tag
+-w size set window=size		-v	visual mode
+-x	encryption used
++command     obsolete version of -c command
+
+Visual commands:
+   Commands are of the form numeric count followed by character; 
+   some commands are then followed by an object.
+
+   Scrolling:
+	^B	Scroll back by page	^D 	Scroll down 1/2 page 
+	^E	Scroll down by line	^F	Scroll forward by page
+	^U	Scroll up 1/2 page 	^Y	Scroll up by line
+	z	Redraw screen placing current line
+
+   Movement:
+	j,^N,^J	Down line		k,^P	Up line
+	^M,+	Down line, to nonblank	-	Up line, to nonblank
+	h,^H	Back column		l,sp	Forward column
+	|	Position column		^	First nonblank column
+	_	First nonblank column of nth-1 column
+	0	First column		$	Last column
+	``	Move previous context	''	... at first non-blank
+	`x	Move to mark		'x	... at first non-blank
+	G	Move to absolute line
+
+	Movement by content:
+	w	Forward word		W	Forward blank delimited word
+	b	Back word		B	Back blank delimited word
+	e	Forward end-word	E	Forward blank delimited end-wd
+	(	Back sentence		)	Forward sentence
+	}	Back paragraph		{	Forward paragraph
+	[[	Back section		]]	Forward section
+	%	Find balancing brace	H	Position top
+	M	Position middle		L	Position bottom
+	f	Find char forward	F	Find char back
+	t	Position before char	T	Position before char back
+	;	Find char repeat	,	Find char repeat opposite
+	/	Search forward pattern	?	Search back pattern
+	n	Search again		N	Search again opposite
+
+	Text insertion & manipulation:
+	a	Append after cursor	i	Insert before cursor
+	A	Append at end-of-line	I	Insert before first nonblank
+	o	Open after line		O	Open before line
+	r	Replace character	R	Replace overlaid
+	C	Change to end-of-line	D	Delete to end-of-line
+	s	Change single character	S	Change line
+	x	Delete under cursor	X	Delete before cursor
+	p	Put after		P	Put before
+	u	Undo last change	U	Undo changes to this line
+	Y	Yank lines		.	Redo last command
+	~	Toggle case under cursor
+
+	Object manipulators [Objects are any Movement command]:
+	d	Delete object		c	Change object
+	<	Shift left object	>	Shift right object
+	y	Yank object		!	Filter object
+
+	Misc:
+	^G	File information	J	Join lines
+	:	Invoke Ex command	&	Invoke Ex & command
+	m	Mark current position	@	Invoke macro
+	Q	Exit to Ex		ZZ	Write and exit
+	^Z	Suspend Vi		^L	Redraw screen
+
+	Insert mode:
+	^H	Backspace		@	Delete inserted line
+	^M	Next line		^Q,^V	Quote next character
+	^D	Delete from autoindent	^T	Add to autoindent
+	ALT-A	Repeat previous text	^W	Backspace word
+
+Ex Commands
+	ab	Set abbreviation	a	Append
+	args	Show arg list		c	Change
+	cd	Change directory 	co	Copy lines		
+	d	Delete 			e	New file
+	f	Show current file info 	g	Global execution	
+	i	Insert 			j	Join			
+	k	Mark line 		l	List unambiguously	
+	map	Define macros for vi 	mark	Mark line		
+	m	Move lines 		n	Edit next file		
+	nu	Display lines numbered 	o 	Enter open mode
+	p	Display lines		pre 	Preserve (not implemented)
+	pu	Put lines from buffer 	q	Quit	
+	r	Read file		rec	Recover (not implemented)
+	rew	Rewind arg list		se	Set parameters
+	sh	Invoke shell		so	Run commands from file
+	st	Suspend editor		su	Suspend editor
+	s	Pattern substitution	t	Copy lines
+	una	Delete abbreviation	u	Undo last change
+	unm	Delete macro		v	Global non-matching execution 
+	ve	Show editor version	vi	Enter visual mode 
+	w	Write file		wn	Write file then edit next
+	x	Write and quit 		ya	Yank lines		
+	z	Display window
+	!	Invoke command		=	Display line number
+	<	Shift left		>	Shift right
+	^D	Scroll			&	Repeat substitute
+	~	Repeat substitute	@	Execute buffer
+# wait 
+wait -- wait for process to complete
+Usage:	wait [pid|job-id ...]
+# wc 
+wc -- count of newlines, words, bytes, and characters
+Usage:	wc [-c|-m][-lw] file ...
+
+-c	count bytes
+-l	count newlines
+-m 	count characters
+-w	count words
+# wcopy 
+wcopy - Copy from a specified file or standard output to Windows clipboard
+
+Options
+
+-q	quiet mode
+# whence 
+whence -- tell how shell interprets command name
+Usage:	whence [-v] name ...
+   
+-v	more verbose report
+# which 
+which -- display full pathname for executable command
+Usage:	which [-a] command ...
+
+-a	Print all possibilities in PATH
+# who 
+who -- display information about current users
+Usage:	who [-AabdHiLlmprsTtuw] file
+	who -q file
+	who am I
+	who am i
+
+-A	print accounting entries
+-a	equivalent to -TulpdbrtA options
+-b	print boot time entries
+-d	print dead process entries
+-H	print column headings above the output
+-i	print idle time for users
+-L	print entries for terminals and daemons waiting for someone to login
+-l	print entries for terminals waiting for someone to login
+-m	print only information about current terminal
+-p	print entries for other processes spawned by init
+-q	print only number of users and list of names; ignore other options
+-r	print run level change entries
+-s	print in squashed format with fewer fields
+-T	print terminal state (not used on DOS or OS/2)
+-t	print time change entries
+-u	print logged in users
+-w	print state of each terminal
+When no options are given, -s and -u are used.
+The default file is "/etc/utmp".
+"who am i" or "who am I" prints the current user.
+# wpaste 
+wpaste - Print clipboard text to standard output or a specified file.
+
+Usage: wpaste [-nq] [file]
+
+Options
+
+-n	ensure final carriage return and newline at end of pasted text
+-q	quiet mode
+
+# xargs 
+xargs -- construct and execute command lines
+Usage:	xargs [-I placeholder] [-i[placeholder]] [-L number] [-l[number]]
+        [-N number] [-n[number]] [-ptx] [-E eofstr] [-e[eofstr]]
+	[-s size] [command [argument ...]]
+
+Only one of the following forms may be given:
+-I placeholder  Replace "placeholder" in args with lines from standard input.
+-i[placeholder] Replace "placeholder" in args with lines from standard input.
+-L[number]  	Read at most "#" lines from standard input when 
+		constructing command.
+-l number  	Read at most "#" lines from standard input when 
+		constructing command.
+-n number  	Read at most "#" arguments from standard input and put them
+		on the end of the command template.
+
+The following options modify the above forms:
+-E eof	   String "eof" indicates end-of-file in standard input
+-e[eof]	   String "eof" indicates end-of-file in standard input
+-p	   Prompt user before executing each command
+-s size	   Maximum number of characters in argument list 
+-t	   Display commands just before execution
+-x	   Terminate if any argument greater than size given by -s option.
+# yacc 
+yacc -- parser generator language
+Usage: yacc [-dhlmqstvw] [-L[CP]] [-b pfx] [-D defn] [-o code] [-p prefix]
+	    [-P parser] [-S statesfile] [-V stats] [-W filename] gram.y
+-b prefix	specify output files to begin with "pfx" rather than "y"
+-d		generate header definitions file (default for C++ or Pascal)
+-D defn		generate header file into "defn"
+-h		print list of options and terminate
+-l		disable generation of #line directives in output parser
+-m		show memory usage and timing statistics for each pass
+-o code		put parser into "code" file instead of default
+-p prefix	all variables will use "prefix" rather than "yy" and "YY"
+-P parser	use parser template in file "parser" rather than default
+-q		quiet mode--no warnings
+-s		generate "states.out" State Description file
+-S statesfile	generate "statesfile" State Description file
+-t		generate code with YYDEBUG enabled
+-v		generate verbose statistics file "y.out" ("y.output" on UNIX)
+-V stats	generate verbose statistics like -v into file "stats"
+-w              generate a Windows compatible resource output file
+-W filename     writes a Windows resource file to the specified "filename"
+
+"gram.y" is the name of any grammar ("-" implies standard input)
+Default code, definitions, and prototype files are:
+	Language	Code		Definitions	Prototype
+	C		ytab.c		ytab.h		/etc/yyparse.c
+	C++		ytab.cpp	ytab.hpp	/etc/yyparse.cpp
+	Pascal		ytab.pas	ytab.hp		/etc/yyparse.pas
+# zcat 
+zcat -- uncompress and display data
+Usage:	zcat [-DVv] [file ...]
+
+-D	uncompress files compressed using the dictionary option
+-V	print version number of uncompress
+-v	print version number of uncompress called by zcat
+# tape 
+tape -- format for SCSI tape device names
+Usage:	/dev/ [n][r]mt[h#][l#][t#][#][s...][b blocksize][d density]
+
+n	specify that the tape should not be rewound after the operation
+r	specify to access the tape in an unbuffered (raw) manner
+h#	specify the SCSI host adapter
+t#	specify the SCSI device target ID
+l#	specify the SCSI logical unit (LUN)
+#	specify which of the tape drives on the system to use
+s	request a modified speed for the selected density
+b blocksize
+	specify the individual block size
+d density
+	specify the density (tape format)
+# active 
+active -- update contents of the active or active.tim file
+Usage:	active [-t] | [-t file] | [-23]
+
+-t	generate active.tim on standard output from active
+-t file	generate active.tim on standard output from file
+-2	rebuild the second field of the active file to match the articles in $NEWSARTS
+-3	rebuild the third field of the active file to match the articles in $NEWSARTS
+# admin 
+admin -- configure news sites on your system, and add or delete newsgroups
+Usage:	admin [-t y|n|m|x] [-a groupname] [-d groupname]
+
+-t y|n|m|x	specify the flag denoting the type of newsgroup
+-a groupname	add the newsgroup called groupname
+-d groupname	delete the newsgroup called groupname
+# canonhdr 
+canonhdr -- canonicalize header keywords
+Usage:	canonhdr [-dm] [file] ...
+
+-d	also canonicalise dates in Date: and Expires: headers
+-m	accept RFC 822 headers and rewrite them as RFC 1036 headers
+# dbz 
+dbz -- create indexed access for a text file
+Usage:	dbz [-acemqux] [-f old] [-l length] [-p parms] [-t char] database file ...
+
+-a	append lines from specified database file to the database
+-c	check the database for internal consistency
+-q	check more quickly but less thoroughly
+-e	interpret the decimal number in -p to be the exact table size
+-m	same as -x except print the keys which are not present in the database
+-q	make -x print input lines instead of database lines
+-u	suppress check of existing keys before adding one
+-x	read keys from the specified database file and prints corresponding lines from the database
+-f old	create the new index based on the database old
+-l length	change the limit of the length of a line
+-p parms	use parms to specify size, case mapping, and tagging
+-t char	set the field-separator character
+# gngp 
+gngp -- search for text strings using newsgroup patterns
+Usage:	gngp [-arv] ngpattern file ...
+
+-a	eligible substrings start at the beginning of the line and end at white space or the end of the line
+-v	print only lines that do not match
+-r	reverse the inputs
+# makehist 
+makehist -- rebuild the history file
+Usage:	makehist [-p parms]
+
+-p parms	use parms for the expected number of entries in history
+# newsboot 
+newsboot -- perform maintenance chores on news system
+Usage:	newsboot
+# queuelen 
+queuelen -- report how many news batches are queued up for site
+Usage:	queuelen site
+# rotate 
+rotate -- perform housekeeping tasks on the news system
+Usage:	rotate
+# setup 
+setup -- configure the news system
+Usage:	setup
+# unsetup 
+unsetup -- reverse actions taken by setup
+Usage:	unsetup
+# sizeof 
+sizeof -- report number of bytes in files
+Usage:	sizeof [-i] file ...
+
+-i	print one line per file, with name and size, and without the total
+# spacefor 
+spacefor -- determine how many files of size can fit in location
+Usage:	spacefor file-size location [site]

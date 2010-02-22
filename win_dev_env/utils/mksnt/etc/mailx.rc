@@ -1,0 +1,5 @@
+# MKS Toolkit sample /etc/mailx.rc -- modify to taste.
+# This is the system wide startup file for mailx.exe.
+# It contains variable values and definitions that should
+# be common to all users.
+#

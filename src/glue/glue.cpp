@@ -1,0 +1,1 @@
+#include "javalog.cpp"

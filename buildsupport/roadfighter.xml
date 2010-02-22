@@ -1,0 +1,28 @@
+<project name = "roadfighter" default = "roadfighter-exe" basedir= "../">
+	<description>
+		Builds RoadFighter Executable
+	</description>
+
+	<property name = "exe-name" value = "roadfighter"/>
+	<property name = "roadfighter-build-dir" value = "${roadfighter}/${arch}" />
+	<target name = "roadfighter-init">
+		<tstamp/>
+		<echo>${os.name}</echo>
+		<echo>${os.arch}</echo>
+	</target>
+	
+	<target name = "roadfighter-compile" depends = "roadfighter-init">
+		<compile-simple-cpp src-dir = "${roadfighter}" src-files = "*.cpp" includes = "-I ${common-includes} -I ${directx-includes}"/>
+	</target>
+	
+	<target name = "roadfighter-exe" depends = "common-lib,roadfighter-compile">
+		<link-exe exe-name ="roadfighter" app-type = "windows" src-dir = "${roadfighter}" obj-files = "*" lib-path = "-libpath:${lib} -libpath:${msdev-lib-path} -libpath:${directx-lib-path}" libs = "${common-lib} ${msdev-libs} ${directx-libs}"/>
+	</target>
+	
+	<target name = "roadfighter-clean">
+		<delete>
+			<fileset dir="${roadfighter-build-dir}" includes="*"/>
+		</delete>
+		<delete file = "${bin}/@{exe-name}.exe"/>
+	</target>
+</project>

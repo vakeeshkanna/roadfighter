@@ -1,0 +1,28 @@
+<project name = "common" default = "common-lib" basedir= "../">
+	<description>
+		Builds Common Library
+	</description>
+	<property name = "common-build-dir" value = "${common}/${arch}" />
+	<property name = "lib-name" value = "common"/>
+	<target name = "common-init">
+		<tstamp/>
+		<echo>${os.name}</echo>
+		<echo>${os.arch}</echo>
+	</target>
+	
+	<target name = "common-compile" depends = "common-init">
+		<compile-lib-cpp src-dir = "${common}" src-files = "common.cpp" includes = " -I ${common-includes}"/>
+	</target>
+	
+	<target name = "common-lib" depends = "common-compile">
+		<link-lib lib-name ="common" src-dir = "${common}" obj-files = "common"/>
+	</target>
+	
+	<target name = "common-clean">
+		<delete>
+			<fileset dir = "${common-build-dir}" includes = "*"/>
+		</delete>
+		<delete file = "${lib}/${lib-name}.lib"/>
+		<delete file = "${lib}/${lib-name}.dll"/>				
+	</target>
+</project>

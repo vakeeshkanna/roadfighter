@@ -1,0 +1,13 @@
+<project name = "MyProject" default = "common-lib" basedir= "../">
+	<description>
+			Builds everything
+		</description>
+	<property name = "propertyfilepath" value = "buildsupport/" />
+	<property name = "propertyfilename" value = "waqqas-desktop.properties/" />
+	<loadproperties srcfile="${propertyfilepath}${propertyfilename}"/>
+	
+	<import file="macro.build.xml"/>
+	<import file="common.xml"/>
+	<import file="test.xml"/>
+	<import file="roadfighter.xml"/>
+</project>

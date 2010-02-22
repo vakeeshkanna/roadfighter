@@ -1,0 +1,28 @@
+<project name = "test" default = "test-exe" basedir= "../">
+	<description>
+		Builds Test Executable
+	</description>
+
+	<property name = "exe-name" value = "test"/>
+	<property name = "test-build-dir" value = "${test}/${arch}" />
+	<target name = "test-init">
+		<tstamp/>
+		<echo>${os.name}</echo>
+		<echo>${os.arch}</echo>
+	</target>
+	
+	<target name = "test-compile" depends = "test-init">
+		<compile-simple-cpp src-dir = "${test}" src-files = "test.cpp" includes = " -I ${common-includes}"/>
+	</target>
+	
+	<target name = "test-exe" depends = "common-lib,test-compile">
+		<link-exe exe-name ="test" src-dir = "${test}" obj-files = "test" lib-path = "-libpath:${lib}" libs = "${common-lib}"/>
+	</target>
+	
+	<target name = "test-clean">
+		<delete>
+			<fileset dir="${test-build-dir}" includes="*"/>
+		</delete>
+		<delete file = "${bin}/${exe-name}.exe"/>
+	</target>
+</project>

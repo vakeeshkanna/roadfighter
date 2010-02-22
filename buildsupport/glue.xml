@@ -1,0 +1,28 @@
+<project name = "glue" default = "glue-lib" basedir= "../">
+	<description>
+		Builds Glue Library
+	</description>
+	<property name = "glue-build-dir" value = "${glue}/${arch}" />
+	<property name = "glue-lib-name" value = "glue"/>
+	<target name = "glue-init">
+		<tstamp/>
+		<echo>${os.name}</echo>
+		<echo>${os.arch}</echo>
+	</target>
+	
+	<target name = "glue-compile" depends = "glue-init">
+		<compile-lib-cpp src-dir = "${glue}" src-files = "glue.cpp" includes = "-I ${common-includes} -I ${java-includes} -I ${java-win32-includes}"/>
+	</target>
+	
+	<target name = "glue-lib" depends = "glue-compile">
+		<link-lib lib-name = "${glue-lib-name}" src-dir = "${glue}" obj-files = "glue" lib-path = "-libpath:${lib}" libs = "${common-lib}"/>
+	</target>
+	
+	<target name = "glue-clean">
+		<delete>
+			<fileset dir = "${glue-build-dir}" includes = "*"/>
+		</delete>
+		<delete file = "${lib}/${glue-lib-name}.lib"/>
+		<delete file = "${lib}/${glue-lib-name}.dll"/>				
+	</target>
+</project>

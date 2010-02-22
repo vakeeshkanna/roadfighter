@@ -1,0 +1,52 @@
+Compiling and installing the CVS server software:
+Mac OS X itself comes with CVS, so no need to do it yourself.
+
+Configuring the CVS repository:
+sudo mkdir /usr/local/CVS/ 
+sudo cvs -d /usr/local/CVS/ init
+
+Configuring and restarting xinetd:
+If the directory /etc/xinetd.d/ exists, then xinetd is installed on your computer and you should use it. 
+Create a file called cvspserver with this inside:
+service cvspserver 
+{
+	disable = no 
+	socket_type = stream 
+	wait = no user = root 
+	server = /usr/bin/cvs 
+	server_args = -f --allow-root=/usr/local/CVS pserver 
+	groups = yes 
+	flags = REUSE 
+}
+If the file /var/run/xinetd.pid exists (xinetd is running), then do this to restart it: 
+	sudo kill -HUP `cat /var/run/xinetd.pid` 
+If the file /var/run/xinetd.pid does not exist (xinetd is not running), then do this to start it: 
+	sudo /System/Library/StartupItems/IPServices/IPServices start 
+	
+Password CVS access: 
+All you need to do, is create a file called passwd in your repository (in this case /usr/local/CVS/CVSROOT/passwd) 
+with entries on each line for each user with their username, hash password
+e.g passwd file
+	name:password
+	waqqas:iy34rf83nfn
+
+Generate hashes using OpenSSL:
+	openssl passwd 
+	Password: 123 
+	Verifying -	 Password: 123
+	yrp85EUNQl01E
+ 
+ Configuring your client
+ 	export CVSROOT=:pserver:username@ipaddress.domain.com:/usr/local/CVS
+ 
+Populating repository:
+	mkdir myproj
+	cd myproj
+	
+Import command usage:
+	cvs -d cvs repository import -m "message" nameofmodule vendortag releasetag
+	cvs -d /usr/local/cvs import -m "My First Project" myproj vendor-tag start
+
+Checkout CVS repository:
+	cvs checkout modulename
+	

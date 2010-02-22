@@ -1,0 +1,6 @@
+LINK_DIRECTORIES ( ${DIRECTX9}/Lib/x86 )
+ADD_LIBRARY (game SHARED gameAll )
+
+USE_COMMON(game)
+USE_RENDERING(game)
+USE_MAPPY(game)

@@ -1,0 +1,276 @@
+. (dot)(1) -- execute shell file in current environment
+: (colon)(1) -- expand arguments and do nothing, successfully
+TK News
+active, admin, canonhdr, dbz, gngp, makehist, newsboot, queuelen, rotate, setup, unsetup, sizeof, spacefor(8) -- infrequently-used or internal news utilities
+alias(1) -- display or create command aliases
+ar(1) -- create and maintain library archives
+asa(1) -- interpret ASA/FORTRAN carriage control
+ascii(5) -- table of ASCII collating sequence
+awk, awkl(1) -- data transformation, report generation language
+awkc(1) -- compile AWK programs into executables
+banner(1) -- display text in large font
+basename(1) -- display file name component of path name
+batcher, comp, via(1) -- news batching to other sites
+batchpar(4) -- file to define batching programs for sites
+bc(1) -- arbitrary-precision arithmetic calculation language
+break(1) -- exit from loop in shell script
+c(1) -- produce multi-column output
+cal(1) -- display a calendar for a month or year
+calendar(1) -- appointment reminder system
+cat(1) -- concatenate and display text files
+cc(1) -- generic C compiler interface
+cc(5) -- cc configuration files.
+cd(1) -- change working directory
+chmod(1) -- change access permissions of a file
+ci(1) -- check a file into an Source Integrity archive
+cksum(1) -- compute checksum and byte count for file
+clear(1) -- clear screen
+cmp(1) -- compare two files
+co(1) -- check out a file under SI control
+col(1) -- remove reverse line-feeds
+comm(1) -- compare sorted files and show differences
+command(1) -- execute a simple command
+compress(1) -- Lempel-Ziv compression of a file
+continue(1) -- skip to next iteration of loop in shell script
+cp(1) -- copy files
+cpio(1) -- archiver to copy and back up files
+cpio(4) -- format of cpio archives
+crypt(1) -- encryption/decryption filter
+csplit(1) -- split a text file according to criteria
+ctags(1) -- produce tags file for ex, more and vi
+cut(1) -- selectively display fields or characters from input lines
+date(1) -- set and display date and time
+dc(1) -- arbitrary precision desk calculator 
+dd(1) -- copy and convert input blocks
+deroff(1) -- remove nroff/troff formatter commands, prepare word list
+dev(1) -- display device driver information
+df(1) -- display amount of free space remaining on disk
+diff, diffh, bdiff(1) -- compare two text files and show differences
+diff3(1) -- compare three text files
+diffb(1) -- compare binary files and show differences
+dircmp(1) -- compare directories
+dirname(1) -- display directory components of path name
+dosexec(5) -- command line calling sequence for DOS
+dosstat(5) -- getting file system information from DOS, OS/2, WNT,
+du(1) -- summarize file space usage
+echo(1) -- display arguments
+ed, red(1) -- line-oriented text editor
+env(1) -- display environment, set environment for process
+environ(5) -- standard environment variables
+eval(1) -- evaluate arguments in shell
+ex(1) -- text editor
+exec(1) -- execute a command in place of the current shell
+exit(1) -- exit from the shell
+expand(1) -- expand tabs to spaces
+expire(1) -- expire old news
+explist(4) -- file to control time of expiry for articles
+export(1) -- mark names for export
+expr(1) -- evaluate expression
+false(1) -- fail, quietly
+fc(1) -- display, fix, edit and re-enter previous commands
+fg(1) -- bring process back into the foreground
+file(1) -- determine file type
+filebox(1) -- display an CWopen file or CWsave file dialogue box
+find(1) -- find files within file tree
+fmt(1) -- simple text formatter
+fold(1) --  break lines into shorter lines
+functions(1) -- display or modify shell functions
+getconf(1) -- display POSIX configuration information
+getopt(1) -- external command to parse shell file options
+getopts(1) -- parse options from shell script command line
+glob(1) -- file name generation (wild cards)
+grep, egrep, fgrep(1) -- match patterns in a file
+gres(1) -- substitute for a pattern in a file
+hash(1) -- create a tracked alias
+head(1) -- display first part of file
+help(1) -- display brief command explanations
+history(1) -- display command history
+iconv(1) -- convert characters from one code set to another
+iconv(5) -- available code sets for conversion
+id(1) -- display user and group names
+ident(1) -- look for keywords in a file
+init(1) -- initial process for DOS
+inittab(4) -- format of inittab file
+injnews(1) -- news-posting front-end for relaynew
+integer(1) -- declare an integer variable
+intro(1) -- introduction to man pages
+intro(2) -- introduction to system calls
+intro(3) -- introduction to the C runtime library
+intro(4) -- introduction to file formats
+intro(5) -- introduction to miscellaneous information
+introrcs(1) -- introduction to MKSSI commands reference
+issue(4) -- format of issue file
+jobs(1) -- display status of jobs in current session
+join(1) -- join two sorted, textual relational databases
+kill(1) -- terminate process
+lc(1) -- list file system elements in categories
+let(1) -- evaluate arithmetic expressions
+lex(1) -- lexical analyzer generator
+lex(5) -- functions used with lex(1) in C
+lexp(5) -- Pascal functions used with lex(1)
+lexplus(5) -- C++ functions used with lex(1)
+line(1) -- copy one line of standard input
+localization(5) -- internationalization and localization overview
+logfile.dat(4) -- format of uucp log file
+login(1) -- authenticate computer user
+login.inf(4) -- format of login.inf file
+logname(1) -- display user name
+look(1) -- find lines in a sorted file which begin with string
+ls(1) -- list file and directory names and attributes
+m4(1) -- macro processing language
+magic(4) -- format of the magic file
+mail(1) -- send or receive electronic mail messages
+mailx(1) -- read electronic mail
+make, makeq(1) -- maintain program-generated and interdependent files
+makefile(5) -- format of MKSM file
+man(1) -- print sections of the online reference manual
+manstrip(1) -- strip the unprintable sequences out of online man pages
+merge(1) -- three-way file merge
+mkdir(1) -- create a new directory
+mksdiag(1) -- check TK configuration
+mksgroup(1) -- create Microsoft Windows group
+mksinfo(1) -- display PN serial number and other MKS information
+mksos(1) -- background interface to the operating system
+mksuucp(1) -- UUCP file transfer program
+mkswind(1) -- MKS Windows TSR
+modems.inf(4) -- format of modems.inf file
+more(1) -- display files on a page-by-page basis
+msgbox(1) -- display a message box
+mt(1) -- magnetic tape control
+mv(1) -- rename and move files and directories
+news(4) -- Usenet network news articles and batches
+newsctl(4) -- Usenet network news control files
+newsdb(4) -- USENET network news database: active, active.tim, history
+newsrun(1) -- prepare news batch files for relaynew
+nl(1) -- number lines
+nm(1) -- display symbol table of object, library, or executable file
+nr(1) -- read news and electronic mail
+od(1) -- formatted file dump
+pack(1) -- compress files by Huffman encoding
+passwd(1) -- change user login password
+passwd(4) -- format of passwd file
+paste(1) -- horizontally concatenate lines
+patch(1) -- change file using diff output
+pathchk(1) -- check path names
+pax(1) -- archiver for data interchange and file backup
+pax(4) -- format of pax archives
+pcat(1) -- display Huffman packed files on standard output
+pg(1) -- interactively display files 
+pj(1) -- MKSSI project journal
+pmrun(1) -- launch a program as a new Presentation Manager session
+postnews(1) -- simple interactive news-posting interface
+pr(1) -- display and format files
+print(1) -- display arguments from the shell
+printf(1) -- display a formatted string
+process(1) -- process all news
+prof(1) -- profile execution times on DOS
+ps(1) -- display process and memory block status on DOS
+ps(1) -- display process status Windows WNT and PX compliant systems
+ps(1) -- display process status on OS/2
+ps(1) -- display process status on W95
+pvcs2rcs(1) -- PVCS to MKSSI conversion utility
+pwd(1) -- display working directory
+r(1) -- edit and re-execute previous command
+rcs(1) -- change RCS archive attributes
+rcsclean --unlock and delete unchanged working files
+rcsdiff(1) -- compare SI revisions
+rcsedit(5) -- MKS RCS editing facilities for descriptions and log messages
+rcsfile(5) -- format of RCS file
+rcsmerge(1) -- merge SI revisions
+read(1) -- input a line to the shell
+readonly(1) -- mark variable as readonly
+references(5) -- related books and articles
+regexp(5) -- syntax of regular expression patterns
+registry(1) -- display and modify the Windows Registry Database
+relaynew(8) -- store and forward netnews articles
+report(1) -- generate database tables from project or archive data
+return(1) -- return from shell function or . (dot) script
+rev(1) -- reverse character order of input lines
+rlog(1) -- display information about RCS archives
+rm(1) -- remove files
+rmail(1) -- handle mail routing
+rmdir(1) -- remove directory
+rnews(1) -- accept and spool news input
+sccs2rcs(1) -- SCCS to MKS RCS conversion utility
+sed(1) -- stream editor (non-interactive)
+set(1) -- set shell flags and positional parameters
+sh, rsh(1) -- POSIX-compliant (Korn) shell and command interpreter
+shedit(5) -- interactive command and history editing in the shell
+shift(1) -- shift positional parameters
+shpc(5) -- DOS, OS/2, WNT and W95 specific features of the MKSH
+site.sts(4) -- format of uucp status file
+size(1) -- display object file sizes
+sleep(1) -- suspend execution for a specified time
+sort(1) -- sort/merge utility
+spell(1) -- detect spelling errors
+split(1) -- split a file into manageable pieces
+start(1) -- start a new program in another window
+strings(1) -- display printable strings in binary files
+strip(1) -- remove debug information from executable files
+sum(1) -- compute checksum and block count for file
+switch(1) -- print or change DOS option flag character
+symbol(5) -- C functions for symbol table management
+sync(1) -- update the disk
+sys(4) -- Usenet network news sys (neighbors) file
+tags(4) -- format of tags file
+tail(1) -- display last lines of a file
+tape(4) --  format for SCSI tape device names
+tar(1) -- USTAR-compatible tape archiver to copy and back up files 
+tar(4) -- format of tar archives
+tee(1) -- clone output stream
+test(1) -- test for condition
+time(1) -- display CPU and elapsed times for commands
+time(1) -- display CPU and elapsed times for commands on DOS
+times(1) -- display user and system times used by the shell and its children
+timezone(5) -- setting local time zone
+touch(1) -- change file modification date
+tr(1) -- translation filter
+trap(1) -- intercept abnormal conditions and interrupts
+true(1) -- do nothing, successfully
+tsort(1) -- topological sort
+tty(1) -- display terminal name
+type(1) -- tell how shell interprets name
+typeset(1) -- assign attributes and values to variables
+ucheader(1) -- produce uncompressed header from compressed RCS file
+ulimit(1) -- set process limits on DOS
+umask(1) -- get or set the file mode creation mask
+unalias(1) -- remove alias definitions
+uname(1) -- display system name information
+uncompress(1) -- Undo Lempel-Ziv compression of a file
+unexpand(1) -- compress spaces into tabs
+uniq(1) -- display unique lines of sorted file
+unpack(1) -- decode Huffman packed files
+unset(1) -- remove shell variable or function
+unstrip(1) -- add symbol table to a DOS executable file
+utmp(4) -- login accounting file format
+uucheck(1) -- check UUCP directory structure
+uucheck.dat(4) -- format of uucheck.dat file
+uucico(1) -- initiate or debug UUCP file transfer on DOS
+uuclean(1) -- remove old UUCP working files 
+uuconfig(1) -- UUCP configuration program
+uucp(1) -- copy files between remote UUCP sites
+uucp(4) -- format of UUCP working files
+uucpcfg.dat(4) -- format of uucpcfg.dat file
+uudecode(1) -- decode file encoded with uuencode
+uuencode(1) -- encode a file in 7-bit characters
+uulog(1) -- display log information on UUCP events
+uuname(1) -- display names of known UC sites
+uustat(1) -- display the status of pending UUCP transfers
+uux(1) -- request command execution on remote site
+uuxqt(1) -- carry out command requests from other sites
+vi(1) -- display-oriented interactive text editor
+vipc(5) -- PC specific set options to vi
+wait(1) -- wait for process to complete
+wc(1) -- count of newlines, words, bytes, and characters
+wcopy(1) -- copy from a specified file or standard input to the Windows clipboard
+whence(1) -- tell how shell interprets command name
+which(1) -- display full pathname for executable command
+who(1) -- display information about current users
+wpaste(1) -- print clipboard text to standard output or a specified file
+xargs(1) -- construct and execute command lines
+yacc(1) -- parser generator language
+yacc(5) -- C interface to the parser produced by yacc
+yaccp(5) -- Pascal functions used with yacc(1)
+yaccplus(5) -- C++ functions used with yacc(1)
+yycurses(5) -- C and C++ CURSES library
+zcat(1) -- uncompress and display data

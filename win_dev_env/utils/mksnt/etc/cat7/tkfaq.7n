@@ -1,0 +1,226 @@
+                  MKS Toolkit for Windows NT and Windows 95
+                                Release 4.4
+                        Frequently Asked Questions
+
+
+
+Before you call MKS Technical support, read this!
+
+This section addresses some of the problems and questions that
+you may encounter using MKS Toolkit. If you are having a problem
+with our software, we hope you will look here first for answers
+to your questions.
+
+MKS Technical Support
+
+If you cannot find a solution here, contact MKS Technical Support
+Monday through Friday: 8:30 a.m. to 6:00 p.m. (Eastern Standard
+Time).
+
+                   Mortice Kern Systems Inc.,
+                    185 Columbia Street West
+                   Waterloo, Ontario  N2J 5Z5
+                             CANADA
+
+                    Telephone: (519) 884-2251
+              North American Sales: (800) 265-2797
+                  Other orders: (519) 884-2251
+                 ______________________________
+
+                      MKS Technical Support
+
+Please include your product name, release number, and serial number with all
+Technical Support Correspondence. To obtain these numbers, check your product
+        label or type mksinfo at the command line prompt.
+
+                    Internet: support@mks.com
+              CompuServe: >INTERNET:support@mks.com
+                     CompuServe: 73260,1043
+                       BIX User Name: mks
+                    Telephone: (519) 884-2270
+                       Fax: (519) 884-8861
+                       BBS: (519) 884-2861
+
+    Some simple answers to common questions about MKS Toolkit
+
+Question: Can I install MKS Toolkit in a subdirectory, such as
+c:/mks?
+
+Answer: Yes; if you specify the subdirectory for the installation
+program, this will be handled automatically.  If you manually
+install MKS Toolkit, you must set up the ROOTDIR environment
+variable correctly.  See the discussion of ROOTDIR in the
+Configuration Manual.
+
+                      ____________________
+
+
+Question: Why doesn't your xyz utility behave the same as the one
+on my UNIX/SunOS/AIX/Ultrix/HP-UX/Berkeley/whatever system?
+
+Answer: The behavior of MKS Toolkit programs is governed by the
+following (in order):
+
+ 1. POSIX.2
+
+ 2. Existing Practice (notably System V and BSD)
+
+There may be additional differences due to limitations of NT.
+
+                      ____________________
+
+
+Question: Why is MKS Toolkit awk different from the one on my
+UNIX system?
+
+Answer: There have been two major versions of awk written by Aho,
+Weinberger, and Kernighan (the original authors).  The second
+version, sometimes called `new awk', is, with minor exceptions, a
+superset of the first.  New awk is described in The AWK
+Programming Language by Alfred V. Aho, Peter J. Weinberger, and
+Brian W. Kernighan, Addison-Wesley, 1987.  MKS AWK is based on
+the version described in this book, and includes all of the new
+features that have been added.  Unlike new awk, however, MKS AWK
+is designed to run almost all `old awk' scripts without change.
+
+                      ____________________
+
+
+Question: My makefiles don't seem to work, and I can't find
+anything wrong with their contents.  Why does this happen?
+
+Answer: Make requires each line in a recipe to start with a
+literal TAB character.  Some editors automatically expand TAB
+characters to spaces when saving a file.  If your editor does
+this, you can try one of three things:
+
+  * Many editors allow you to disable the TAB expansion feature.
+
+  * You can use an editor such as Vi or ED which saves TAB
+    characters as TABs.
+
+  * The MKS Toolkit command unexpand converts spaces into TAB
+    characters.
+
+                      ____________________
+
+
+Question: Why can't I find the ex editor, the egrep program, or
+the fgrep programs?
+
+Answer: ex is the same program as vi.  vi knows that when it is
+called under the name of ex, it should run as a line-oriented
+editor; when it is started as vi, it runs as a screen editor.
+
+Similarly, fgrep and egrep are the same program as grep.  Like
+vi, the programs check to see how they were called, to determine
+the way they should behave.  The automatic installation program
+writes a copy of the vi program to both $ROOTDIR/bin/vi.exe and
+ROOTDIR/bin/ex.exe .  Similarly, the other programs we've
+discussed are installed under all the appropriate names.
+Therefore if you have used the automatic installation procedure,
+you should already have the appropriate copies in your
+$ROOTDIR/bin directory.
+
+If you do not have all the programs you expected, you probably
+used the manual installation procedure.  We recommend that you
+refer back to the manual installation process (Configuration
+Manual) and follow the instructions given there for installing
+programs under multiple names.
+
+                      ____________________
+
+
+Question: When I try to send mail to a user on my machine, why do
+I get the message: "Unable to open mailbox"?
+
+Answer: The most common reason that a user's mailbox cannot be
+opened is that there is a directory with the same name as the
+user's system mailbox.  For instance, mail to the user terry is
+normally stored in the file terry in the system mailbox, usually
+c:/usr/mail.  If terry is a directory, the mail programs cannot
+open it for writing, as they would a file.
+
+Remove the directory with the user's name from the system
+mailbox.
+
+                      ____________________
+
+
+Question: I installed MKS Toolkit, everything appears to be fine.
+Now when I type bc to start Borland C++, the machine appears to
+hang.
+
+Answer: The machine is probably not hung.  There is a new utility
+bc as of MKS Toolkit 3.2.  bc is a programming language which can
+perform arithmetic calculations to arbitrary precision.  Use the
+command:
+
+   which bc
+
+to determine which file is actually executed when the command is
+typed.  Change the PATH variable or rename one of the files to
+get the desired behavior.
+
+                      ____________________
+
+
+Question: The speaker on my machine is loud.  This is
+annoying since any error in vi results in a loud beep.
+Can I turn it off?
+
+Answer: Yes. In your ex.rc file, add this line:
+
+   set noerrorbells
+
+or
+
+   set noeb
+
+
+                   ____________________
+
+
+Question: Why do I get a `temporary file error' when I try
+to use vi?
+
+Answer: More often than not, this occurs when vi cannot
+find a place to create its temporary work file.  The
+normal place for vi's work file is in the directory
+specified by the TMPDIR environment variable.  When vi
+attempts to create a work file, it first looks for the
+directory specified by the TMPDIR environment variable; if
+TMPDIR is not specified, vi looks for a TMP environment
+variable.  If TMP is not defined, vi checks for the
+directory $ROOTDIR/tmp, and then for /tmp on the current
+drive.  If none of those exist, vi gives the error message
+and terminates.
+
+If you have several drives on your system, you should
+consider defining the variable TMPDIR.
+
+                   ____________________
+
+
+Question: Is there any way to speed up tar commands?
+
+Answer: It is often possible to speed up a tar command by
+specifying a block size for the command.
+
+The best results seem to occur when the block size is
+equal to the capacity of a single diskette cylinder.  In
+other words, tar will read an entire cylinder at a time
+from the diskette.  For example, a 360K diskette contains
+nine sectors per track, and two sides, giving 18 blocks
+(sectors) per cylinder.
+
+The following table gives example tar commands for the
+common diskette densities:
+
+
+            Size   Capacity  Command Line
+            _____________________________________
+            5.25"    360K    tar -tv -b 18 -f a:
+            5.25"    1.2M    tar -tv -b 30 -f a:
+            3.5"     720K    tar -tv -b 18 -f a:
+            3.5"    1.44M    tar -tv -b 36 -f a:

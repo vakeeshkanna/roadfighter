@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+
+<project name = "macros" default = "" basedir = ".">
+
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+	
+	<macrodef name = "compile-exe-cpp" description = "Compile executable source files">
+		<attribute name = "flags"  default = "-nologo -MDd -W3 -Gm -GX -ZI -Od -D WIN32 -D _DEBUG -D _WINDOWS -D _MBCS -YX -Fo -Fd -FD -GZ -c" />
+		<attribute name = "extra-flags" default = "-D EXPORT=__declspec(dllexport)"/>
+		<attribute name = "src-dir"/>
+		<attribute name = "src-files" default = "*.cpp"/>
+		<attribute name = "includes"/>
+		<attribute name = "build-dir" default = "@{src-dir}/${arch}"/>		
+		<sequential>
+			<mkdir dir = "@{build-dir}"/>
+			<echo>cl @{flags} @{src-dir}/@{src-files} @{includes}</echo>
+			<exec failonerror = "true" dir = "@{build-dir}" executable = "cl">
+				<arg line = "@{flags} @{extra-flags} @{src-dir}/@{src-files} @{includes}"/>
+			</exec>
+		</sequential>
+	</macrodef>
+	
+	<macrodef name = "compile-lib-cpp" description = "Compile library source files and create library">
+		<attribute name = "flags" default = "-nologo -MDd -W3 -GX -O2 -D WIN32 -D NDEBUG -D _WINDOWS -D _MBCS -D _USRDLL -Fp -FD -c"/>
+		<attribute name = "extra-flags" default = "-D EXPORT=__declspec(dllexport)"/>
+		<attribute name = "src-dir"/>
+		<attribute name = "src-files" default = "*.cpp"/>
+		<attribute name = "includes"/>
+		<attribute name = "build-dir" default = "@{src-dir}/${arch}"/>		
+		<sequential>
+			<mkdir dir = "@{build-dir}"/>
+			<echo>cl @{flags} @{src-dir}/@{src-files} @{includes}</echo>
+			<exec failonerror = "true" dir = "@{build-dir}" executable = "cl">
+				<arg line = "@{flags} @{extra-flags} @{src-dir}/@{src-files} @{includes}"/>
+			</exec>
+		</sequential>
+	</macrodef>
+					
+	<macrodef name = "link-exe" description = "Link executable">
+		<attribute name = "exe-name"/>
+		<attribute name = "app-type" default = "console"/>
+		<attribute name = "flags"  default = "-nologo -subsystem:@{app-type} -incremental:yes -pdb:@{exe-name}.pdb -debug -machine:I386 -out:@{exe-name}.exe -pdbtype:sept" />
+		<attribute name = "src-dir"/>
+		<attribute name = "obj-files" default = "*"/>
+		<attribute name = "lib-path"/>
+		<attribute name = "libs"/>
+		<attribute name = "build-dir" default = "@{src-dir}/${arch}"/>
+		<sequential>
+			<echo>link @{flags} @{build-dir}/@{obj-files}.obj @{libs} @{lib-path}</echo>
+			<exec dir = "@{build-dir}" failonerror = "true" executable = "link">
+				<arg line = "@{flags} @{build-dir}/@{obj-files}.obj @{libs} @{lib-path}"/>
+			</exec>
+			
+			<move todir = "${bin}">
+				<fileset dir = "@{build-dir}">
+					<include name = "@{exe-name}.exe"/>
+				</fileset>
+			</move>
+		</sequential>
+	</macrodef>
+	
+	<macrodef name = "link-lib" description = "Link library">
+		<attribute name = "lib-name"/>
+		<attribute name = "flags"  default = "-nologo -dll -incremental:no -pdb:@{lib-name}.pdb -machine:I386 -def:@{lib-name}.def -out:@{lib-name}.dll -implib:@{lib-name}.lib"/>
+		<attribute name = "src-dir"/>
+		<attribute name = "obj-files" default = "*"/>
+		<attribute name = "lib-path" default = ""/>
+		<attribute name = "libs" default = ""/>
+		<attribute name = "build-dir" default = "@{src-dir}/${arch}"/>
+		<sequential>
+			<!--Create the def file-->
+			<echo file = "@{build-dir}/@{lib-name}.def">LIBRARY @{lib-name}</echo>
+			
+			<echo>lib @{flags} @{build-dir}/@{obj-files}.obj @{libs} @{lib-path}</echo>
+			<exec dir = "@{build-dir}" failonerror = "true" executable = "link">
+				<arg line = "@{flags} @{build-dir}/@{obj-files}.obj @{libs} @{lib-path}"/>
+			</exec>
+			<move todir = "${lib}">
+				<fileset dir = "@{build-dir}">
+					<include name = "@{lib-name}.lib"/>
+					<include name = "@{lib-name}.dll"/>
+				</fileset>
+			</move>
+		</sequential>
+	</macrodef>
+	
+	<macrodef name = "compile-java" description = "Compiles java">
+		<attribute name = "flags"  default = ""/>
+		<attribute name = "src-dir"/>
+		<attribute name = "build-dir" default = "@{src-dir}/${arch}"/>
+		<sequential>
+			<mkdir dir = "@{build-dir}"/>
+			<javac srcdir = "@{src-dir}" nowarn = "on" destdir = "@{build-dir}"/>
+			<copy todir = "${classes}">
+			    <fileset dir = "@{build-dir}" includes = "*.class"/>
+			</copy>
+			<!--<move todir = "${classes}">
+				<fileset dir = "@{build-dir}">
+					<include name = "@{lib-name}.class"/>
+				</fileset>
+			</move>-->
+		</sequential>
+	</macrodef>
+	
+	<macrodef name = "java-jar" description = "Jars class files into jar file">
+		<attribute name = "jar-name"/>
+		<attribute name = "manifest-name"/>				
+		<attribute name = "flags"  default = ""/>
+		<attribute name = "class-dir"/>
+		<attribute name = "dest-dir" default = "${lib}"/>
+		<sequential>
+		    <jar jarfile = "@{dest-dir}/@{jar-name}.jar" basedir = "@{class-dir}">
+		  		<manifest>
+		  			<attribute name="Main-Class" value="@{manifest-name}"/>
+		  	    </manifest>
+		  	</jar>
+			<!--<copy todir = "${classes}">
+			    <fileset dir = "@{build-dir}" includes = "*.class"/>
+			</copy>-->
+			<!--<move todir = "${classes}">
+				<fileset dir = "@{build-dir}">
+					<include name = "@{lib-name}.class"/>
+				</fileset>
+			</move>-->
+		</sequential>
+	</macrodef>
+</project>
+<!--
+<if>
+	<equals arg1= "@{app-type}" arg2 = "console"/>
+	<then>
+		<var name = "flags" value = "-nologo -subsystem:@{app-type} -incremental:yes -pdb:${exe-name}.pdb -debug -machine:I386 -out:@{exe-name}.exe -pdbtype:sept"/>
+	</then>
+	<else>
+		<var name = "flags" value = "-nologo -subsystem:@{app-type} -incremental:yes -pdb:@{exe-name}.pdb -debug -machine:I386 -out:@{exe-name}.exe -pdbtype:sept"/>
+	</else>
+</if>
+-->
