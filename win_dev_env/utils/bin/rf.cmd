@@ -1,1 +1,1 @@
-cd /d d:\dev\src\roadfighter
+cd /d %DEVROOT%\src\roadfighter

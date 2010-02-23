@@ -1,1 +1,1 @@
-cd /d \dev\src\libsrc
+cd /d %DEVROOT%\src\libsrc

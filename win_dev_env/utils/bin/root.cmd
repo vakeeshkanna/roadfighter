@@ -1,1 +1,1 @@
-cd /d d:\dev\
+cd /d %DEVROOT%

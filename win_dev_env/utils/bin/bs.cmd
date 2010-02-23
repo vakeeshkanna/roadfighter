@@ -1,1 +1,1 @@
-cd /d d:\dev\buildsupport
+cd /d %DEVROOT%\buildsupport

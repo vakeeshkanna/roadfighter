@@ -1,1 +1,1 @@
-cd /d d:\dev\src
+cd /d %DEVROOT%\src
