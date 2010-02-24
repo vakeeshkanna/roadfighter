@@ -20,7 +20,7 @@
 @rem *
 @rem *   The C/C++ include files are assumed to be at:
 
-@set MSDEVROOT=C:\MSV
+@set MSDEVROOT=D:\apps\VS9.0
 
 @rem *----------------------------------------------------------------------
 @rem *
@@ -34,7 +34,7 @@
 @rem * Directory in which installed utilities may be found.
 @rem *
 
-@set UTILDIR=D:\dev\win_dev_env\utils
+@set UTILDIR=D:\mercurial\source_cmake_2.6\win_dev_env\utils
 
 @rem *----------------------------------------------------------------------
 @rem *
@@ -117,7 +117,7 @@
 @set PATH=C:\Apps\grand-ui-0.7.2;%PATH%
 @set PATH=%UTILDIR%\mksnt;%PATH%
 @set PATH="C:\Program Files\Microsoft DirectX 9.0 SDK (April 2005)\Lib\x86";%PATH%
-@set PATH="C:\Apps\boost-jam-3.1.16\bin.ntx86";%PATH%
+@set PATH="D:\apps\CMake 2.6\bin";"D:\Program Files\Programmer's Notepad";"D:\apps\VS9.0\Common7\IDE";"D:\apps\VS9.0\VC\bin";"D:\apps\apache-maven-2.2.1\bin";%PATH%
 
 
 
