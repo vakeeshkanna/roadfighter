@@ -69,3 +69,20 @@ MACRO(USE_SOUND TARGET)
     LINK_DIRECTORIES ( ${BUILD_SOURCE_DIR}/src/libsrc/sound )
     TARGET_LINK_LIBRARIES( ${TARGET} sound )
 ENDMACRO(USE_SOUND)
+
+macro(configure_files srcDir destDir)
+    message(STATUS "Configuring directory ${destDir}")
+    make_directory(${destDir})
+
+    file(GLOB templateFiles RELATIVE ${srcDir} ${srcDir}/*)
+    foreach(templateFile ${templateFiles})
+        set(srcTemplatePath ${srcDir}/${templateFile})
+        if(NOT IS_DIRECTORY ${srcTemplatePath})
+            message(STATUS "Configuring file ${templateFile}")
+            configure_file(
+                    ${srcTemplatePath}
+                    ${destDir}/${templateFile}
+                    COPYONLY)
+        endif(NOT IS_DIRECTORY ${srcTemplatePath})
+    endforeach(templateFile)
+endmacro(configure_files)
