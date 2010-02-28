@@ -147,7 +147,7 @@ void TrackFour::init()
 
 TrackFour::TrackFour(string trackName, int cellSize):Track(trackName, cellSize)
 {
-	addImage(ImageInfo("Flying Route 4","flying_route_track_4.bmp"));
+	addImage(ImageInfo("Flying Route 4", ROADFIGHTER_IMAGES_DIR, "flying_route_track_4.bmp"));
 }
 
 void TrackFour::generateTable()

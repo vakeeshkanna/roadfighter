@@ -34,7 +34,7 @@ RoadFighter::~RoadFighter()
 }
 void RoadFighter::init()
 {
-	titleScreen = new Screen(ImageInfo("Title Screen","titlescreen.bmp"), VP->buffer, 0, 0, 256, 224);
+	titleScreen = new Screen(ImageInfo("Title Screen",ROADFIGHTER_IMAGES_DIR, "titlescreen.bmp"), VP->buffer, 0, 0, 256, 224);
 	titleScreen->setWaitForKeyPress(yes);
 }
 
@@ -111,12 +111,12 @@ void RoadFighter::showScoreScreen()
 
 	if(courseScreen == NULL)
 	{
-		courseScreen = new Screen(ImageInfo(name, image), VP->buffer, 0, 0, 256, 224);
+		courseScreen = new Screen(ImageInfo(name, ROADFIGHTER_IMAGES_DIR, image), VP->buffer, 0, 0, 256, 224);
 		courseScreen->setWaitForKeyPress(yes);
 	}
 	else
 	{
-		courseScreen->reinit(ImageInfo(name, image));
+		courseScreen->reinit(ImageInfo(name, ROADFIGHTER_IMAGES_DIR, image));
 	}
 
 	//clear everything
@@ -806,30 +806,30 @@ void RoadFighter::startFirstStage()
 void RoadFighter::initSounds()
 {
 	//roadfighter
-	SM->addSound(ROADFIGHER_INTRO, "roadfighter_intro.wav");
-	SM->addSound(ROADFIGHER_STAGE_CLEAR, "roadfighter_stage_clear.wav");
-	SM->addSound(ROADFIGHER_GAME_CLEAR, "roadfighter_game_clear.wav");
-	SM->addSound(ROADFIGHER_GAMEOVER, "roadfighter_gameover.wav");
-	SM->addSound(ROADFIGHER_PAUSE, "roadfighter_pause.wav");
-	SM->addSound(ROADFIGHTER_START_PREPARE, "roadfighter_start_prepare.wav");
-	SM->addSound(ROADFIGHTER_START_GO, "roadfighter_start_go.wav");
+	SM->addSound(ROADFIGHER_INTRO, ROADFIGHTER_SOUNDS_DIR, "roadfighter_intro.wav");
+	SM->addSound(ROADFIGHER_STAGE_CLEAR, ROADFIGHTER_SOUNDS_DIR, "roadfighter_stage_clear.wav");
+	SM->addSound(ROADFIGHER_GAME_CLEAR, ROADFIGHTER_SOUNDS_DIR, "roadfighter_game_clear.wav");
+	SM->addSound(ROADFIGHER_GAMEOVER, ROADFIGHTER_SOUNDS_DIR, "roadfighter_gameover.wav");
+	SM->addSound(ROADFIGHER_PAUSE, ROADFIGHTER_SOUNDS_DIR, "roadfighter_pause.wav");
+	SM->addSound(ROADFIGHTER_START_PREPARE, ROADFIGHTER_SOUNDS_DIR, "roadfighter_start_prepare.wav");
+	SM->addSound(ROADFIGHTER_START_GO, ROADFIGHTER_SOUNDS_DIR, "roadfighter_start_go.wav");
 
 	//player
-	SM->addSound(ROADFIGHER_BRAKES, "roadfighter_brakes.wav");
-	SM->addSound(ROADFIGHTER_ENGINE_SOUND_RUNNING, "roadfighter_engine_sound_running.wav");
-	SM->addSound(ROADFIGHER_ENGINE_SOUND_LOW, "roadfighter_engine_sound_low.wav");
-	SM->addSound(ROADFIGHER_ENGINE_SOUND_HIGH, "roadfighter_engine_sound_high.wav");
-	SM->addSound(ROADFIGHER_FUEL_LOW, "roadfighter_fuel_low.wav");
-	SM->addSound(ROADFIGHER_BONUS_CAR_TAKEN, "roadfighter_bonus_car_taken.wav");
-	SM->addSound(ROADFIGHER_SUPERMAN_BONUS, "roadfighter_superman_bonus.wav");
+	SM->addSound(ROADFIGHER_BRAKES, ROADFIGHTER_SOUNDS_DIR, "roadfighter_brakes.wav");
+	SM->addSound(ROADFIGHTER_ENGINE_SOUND_RUNNING, ROADFIGHTER_SOUNDS_DIR, "roadfighter_engine_sound_running.wav");
+	SM->addSound(ROADFIGHER_ENGINE_SOUND_LOW, ROADFIGHTER_SOUNDS_DIR, "roadfighter_engine_sound_low.wav");
+	SM->addSound(ROADFIGHER_ENGINE_SOUND_HIGH, ROADFIGHTER_SOUNDS_DIR, "roadfighter_engine_sound_high.wav");
+	SM->addSound(ROADFIGHER_FUEL_LOW, ROADFIGHTER_SOUNDS_DIR, "roadfighter_fuel_low.wav");
+	SM->addSound(ROADFIGHER_BONUS_CAR_TAKEN, ROADFIGHTER_SOUNDS_DIR, "roadfighter_bonus_car_taken.wav");
+	SM->addSound(ROADFIGHER_SUPERMAN_BONUS, ROADFIGHTER_SOUNDS_DIR, "roadfighter_superman_bonus.wav");
 
 	//truck
-	SM->addSound(ROADFIGHER_TRUCK, "roadfighter_truck.wav");
+	SM->addSound(ROADFIGHER_TRUCK, ROADFIGHTER_SOUNDS_DIR, "roadfighter_truck.wav");
 
 	//cars
-	SM->addSound(ROADFIGHER_COLLISION, "roadfighter_collision.wav");
-	SM->addSound(ROADFIGHER_CAR_DESTORY, "roadfighter_car_destroy.wav");
-	SM->addSound(ROADFIGHER_CAR_SLIPPING, "roadfighter_car_slipping.wav");
+	SM->addSound(ROADFIGHER_COLLISION, ROADFIGHTER_SOUNDS_DIR, "roadfighter_collision.wav");
+	SM->addSound(ROADFIGHER_CAR_DESTORY, ROADFIGHTER_SOUNDS_DIR, "roadfighter_car_destroy.wav");
+	SM->addSound(ROADFIGHER_CAR_SLIPPING, ROADFIGHTER_SOUNDS_DIR, "roadfighter_car_slipping.wav");
 }
 
 void RoadFighter::setSkipCurrentFrame(Logical skip)

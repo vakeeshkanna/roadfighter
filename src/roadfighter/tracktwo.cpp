@@ -20,7 +20,7 @@ void TrackTwo::init()
 
 TrackTwo::TrackTwo(string trackName, int cellSize):Track(trackName, cellSize)
 {
-	addImage(ImageInfo("Flying Route 2","flying_route_track_2.bmp"));
+	addImage(ImageInfo("Flying Route 2", ROADFIGHTER_IMAGES_DIR, "flying_route_track_2.bmp"));
 }
 
 void TrackTwo::generateTable()

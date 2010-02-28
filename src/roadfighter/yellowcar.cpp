@@ -8,7 +8,7 @@ YellowCar::YellowCar()
 YellowCar::YellowCar(char *name)
 :NonRivalCar(name)
 {
-	addImage(ImageInfo("yellowcar","yellowcar.bmp", 4, 32));
+	addImage(ImageInfo("yellowcar", ROADFIGHTER_IMAGES_DIR, "yellowcar.bmp", 4, 32));
 	myType = YELLOW_CAR;
 	init();
 	setWidth(16);

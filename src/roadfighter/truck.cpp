@@ -8,7 +8,7 @@ Truck::Truck()
 Truck::Truck(char *name)
 :NonRivalCar(name)
 {
-	addImage(ImageInfo("truck","truck.bmp", 4, 32, 64));
+	addImage(ImageInfo("truck", ROADFIGHTER_IMAGES_DIR, "truck.bmp", 4, 32, 64));
 	myType = TRUCK_CAR;
 	init();
 	setWidth(32);

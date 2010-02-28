@@ -1,32 +1,32 @@
 #include "imageinfo.h"
 
-ImageInfo::ImageInfo(string n, string p, int nf, int csx)
+ImageInfo::ImageInfo(string n, string fp, string fn,int nf, int csx)
 {
-	path = p;
+	path = fp + fn;
 	name = n;
 	numFrames = nf;
 	cellSizeX = csx;
 	cellSizeY = csx;
 }
 
-ImageInfo::ImageInfo(string n, string p, int nf, int csx, int csy)
+ImageInfo::ImageInfo(string n, string fp, string fn, int nf, int csx, int csy)
 {
-	path = p;
+	path = fp + fn;
 	name = n;
 	numFrames = nf;
 	cellSizeX = csx;
 	cellSizeY = csy;
 }
 
-ImageInfo::ImageInfo(string n, string p)
+ImageInfo::ImageInfo(string n, string fp, string fn)
 {
-	path = p;
+	path = fp + fn;
 	name = n;
 }
 
-ImageInfo::ImageInfo(string n, string p, int nf)
+ImageInfo::ImageInfo(string n, string fp, string fn, int nf)
 {
-	path = p;
+	path = fp + fn;
 	name = n;
 	numFrames = nf;
 }

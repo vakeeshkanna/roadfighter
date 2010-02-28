@@ -25,9 +25,10 @@ SoundManager* SoundManager::getInstance()
 	return sManager;
 }
 
-void SoundManager::addSound(int id, string fname)
+void SoundManager::addSound(int id, string fpath, string fname)
 {
-	LPDIRECTSOUNDBUFFER soundBuffer = SE->createSoundBuffer(fname.c_str());
+	fpath += fname;
+	LPDIRECTSOUNDBUFFER soundBuffer = SE->createSoundBuffer(fpath.c_str());
 	lpDSSOUNDS[id] = soundBuffer;
 }
 

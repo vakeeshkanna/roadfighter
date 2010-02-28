@@ -73,6 +73,11 @@ enum roadfighterStages
 	ROADFIGHTER_STAGE_3,
 	ROADFIGHTER_STAGE_4
 };
+
+#define ROADFIGHTER_MAPS_DIR "../maps/"
+#define ROADFIGHTER_IMAGES_DIR "../images/"
+#define ROADFIGHTER_SOUNDS_DIR "../sounds/"
+
 using namespace std;
 
 class RoadFighter : public Game

@@ -17,41 +17,41 @@ RoadFighterNonInteractiveObjectManager::~RoadFighterNonInteractiveObjectManager(
 void RoadFighterNonInteractiveObjectManager::init()
 {
 	NonInteractiveObject *finishFlag = new NonInteractiveObject("finish flag");
-	finishFlag->addImage(ImageInfo("finishflag","finishflag.bmp",1));
+	finishFlag->addImage(ImageInfo("finishflag", ROADFIGHTER_IMAGES_DIR, "finishflag.bmp",1));
 	finishFlag->init();
 	finishFlag->setX(START_FLAG_X);
 	finishFlag->setY(START_FLAG_Y);
 	objects.push_back(finishFlag);
 
 	NonInteractiveObject *startFlag = new NonInteractiveObject("start flag");
-	startFlag->addImage(ImageInfo("startflag","startflag.bmp",1));
+	startFlag->addImage(ImageInfo("startflag", ROADFIGHTER_IMAGES_DIR, "startflag.bmp",1));
 	startFlag->init();
 	startFlag->setX(FINISH_FLAG_X);
 	startFlag->setY(FINISH_FLAG_Y);
 	objects.push_back(startFlag);
 
 	progressCar = new NonInteractiveObject("progress car");
-	progressCar->addImage(ImageInfo("progresscar","progresscar.bmp",1));
+	progressCar->addImage(ImageInfo("progresscar", ROADFIGHTER_IMAGES_DIR, "progresscar.bmp",1));
 	progressCar->init();
 	progressCar->setX(PROGRESS_CAR_X);
 	progressCar->setY(PROGRESS_CAR_Y);
 	objects.push_back(progressCar);
 
 	superman = new NonInteractiveObject("super man");
-	superman->addImage(ImageInfo("superman","superman.bmp",1));
+	superman->addImage(ImageInfo("superman", ROADFIGHTER_IMAGES_DIR, "superman.bmp",1));
 	superman->init();
 	superman->setX(40);
 	superman->setY(224);
 	objects.push_back(superman);
 
 	checkpoint = new NonInteractiveObject("checkpoint");
-	checkpoint->addImage(ImageInfo("checkpoint","checkpoint.bmp",1));
+	checkpoint->addImage(ImageInfo("checkpoint", ROADFIGHTER_IMAGES_DIR, "checkpoint.bmp",1));
 	checkpoint->init();
 	checkpoint->setX(90);
 	checkpoint->setY(75);
 
 	goal = new NonInteractiveObject("goal");
-	goal->addImage(ImageInfo("goal","goal.bmp",1));
+	goal->addImage(ImageInfo("goal", ROADFIGHTER_IMAGES_DIR, "goal.bmp",1));
 	goal->init();
 	goal->setX(109);
 	goal->setY(75);

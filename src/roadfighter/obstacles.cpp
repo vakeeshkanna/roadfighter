@@ -14,15 +14,15 @@ Obstacles::Obstacles(char *n,obstacleType obs):InteractiveObject(n)
 	switch(obsType)
 	{
 	case WATER_SPOTS:
-		addImage(ImageInfo("waterspot","waterspot.bmp",1));
+		addImage(ImageInfo("waterspot", ROADFIGHTER_IMAGES_DIR, "waterspot.bmp",1));
 		break;
 
 	case OIL_SPOTS:
-		addImage(ImageInfo("oilspot","oilspot.bmp",1));
+		addImage(ImageInfo("oilspot", ROADFIGHTER_IMAGES_DIR, "oilspot.bmp",1));
 		break;
 
 	case MAIN_HOLE:
-		addImage(ImageInfo("mainhole","mainhole.bmp",1));
+		addImage(ImageInfo("mainhole", ROADFIGHTER_IMAGES_DIR, "mainhole.bmp",1));
 		break;
 
 	}

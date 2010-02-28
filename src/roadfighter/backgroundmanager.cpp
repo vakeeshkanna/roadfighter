@@ -21,25 +21,30 @@ void BackGroundManager::init()
 
 void BackGroundManager::load(int id)
 {
+	string mapLocation = ROADFIGHTER_MAPS_DIR;
 	switch(id)
 	{
 	case 1:
-		currentBackGround->load("stage1.fmp");
+		mapLocation += "stage1.fmp";
+		currentBackGround->load(mapLocation);
 		break;
 
 	case 2:
-		currentBackGround->load("stage2.fmp");
+		mapLocation += "stage2.fmp";
+		currentBackGround->load(mapLocation);
 		break;
 
 	case 3:
-		currentBackGround->load("stage3.fmp");
+		mapLocation += "stage3.fmp";
+		currentBackGround->load(mapLocation);
 		//cell size is 32 for stage 3
 		currentBackGround->setNumCellsX(currentBackGround->getNumCellsX() * 2);
 		currentBackGround->setNumCellsY(currentBackGround->getNumCellsY() * 2);
 		break;
 
 	case 4:
-		currentBackGround->load("stage4.fmp");
+		mapLocation += "stage4.fmp";
+		currentBackGround->load(mapLocation);
 		break;
 
 	default:

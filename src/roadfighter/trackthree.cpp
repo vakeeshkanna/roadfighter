@@ -175,7 +175,7 @@ void TrackThree::init()
 
 TrackThree::TrackThree(string trackName, int cellSize):Track(trackName, cellSize)
 {
-	addImage(ImageInfo("Flying Route 3","flying_route_track_3.bmp"));
+	addImage(ImageInfo("Flying Route 3", ROADFIGHTER_IMAGES_DIR, "flying_route_track_3.bmp"));
 }
 
 void TrackThree::generateTable()

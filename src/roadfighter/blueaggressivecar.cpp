@@ -8,7 +8,7 @@ BlueAggressiveCar::BlueAggressiveCar()
 BlueAggressiveCar::BlueAggressiveCar(char *name)
 :RivalCar(name)
 {
-	addImage(ImageInfo("blueaggressivecar","blueaggressivecar.bmp", 4, 32));
+	addImage(ImageInfo("blueaggressivecar", ROADFIGHTER_IMAGES_DIR, "blueaggressivecar.bmp", 4, 32));
 	myType = BLUEAGGRESSIVE_CAR;
 	init();
 	setWidth(16);

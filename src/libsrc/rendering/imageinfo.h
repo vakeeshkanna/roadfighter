@@ -9,10 +9,10 @@ using namespace std;
 class EXPORT ImageInfo
 {
 public:
-	ImageInfo(string name, string path,int numFrames,int cellSize);
-	ImageInfo(string name, string path,int numFrames,int cellSizex,int cellsizey);
-	ImageInfo(string n,string p);
-	ImageInfo(string name, string path,int numFrames);
+	ImageInfo(string name, string filePath, string fileName, int numFrames, int cellSize);
+	ImageInfo(string name, string filePath, string fileName, int numFrames, int cellSizex, int cellsizey);
+	ImageInfo(string name, string filePath, string fileName);
+	ImageInfo(string name, string filePath, string fileName, int numFrames);
 	ImageInfo();
 	~ImageInfo();
 	void setCellSizeX(int cellsize);
@@ -27,7 +27,7 @@ public:
 	string getPath();
 
 private:
-	int numFrames,cellSizeX,cellSizeY;
+	int numFrames, cellSizeX, cellSizeY;
 	string name;
 	string path;
 };

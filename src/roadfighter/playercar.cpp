@@ -24,7 +24,7 @@ PlayerCar::PlayerCar(char *n):Car(n,0.0)
 	canDeductFuel = no;
 	currentStage = 1;
 	setViewPort((RoadFighterViewport*)VP);
-	addImage(ImageInfo("playercar","playercarimages.bmp",25,32));
+	addImage(ImageInfo("playercar", ROADFIGHTER_IMAGES_DIR, "playercarimages.bmp",25,32));
 
 	init();
 	setWidth(16);
@@ -58,7 +58,7 @@ void PlayerCar::initMe()
 	int startY = (vp->getNumCellsY() - getNumCellsY() * 4) + 2;
 	flawless = yes;
 	fuel = 500;
-	VP->setCurPixLine(9000);
+	//VP->setCurPixLine(9000);
 	stageCompleted = no;
 	completingStage = no;
 	atFinishLine = no;

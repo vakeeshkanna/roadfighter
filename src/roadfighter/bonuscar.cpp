@@ -8,7 +8,7 @@ BonusCar::BonusCar()
 BonusCar::BonusCar(char *name)
 :NonRivalCar(name)
 {
-	addImage(ImageInfo("bonuscar","bonuscar.bmp", 1, 32));
+	addImage(ImageInfo("bonuscar", ROADFIGHTER_IMAGES_DIR, "bonuscar.bmp", 1, 32));
 	myType = BONUS_CAR;
 	init();
 	setWidth(16);

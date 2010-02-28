@@ -13,7 +13,7 @@ public:
 	SoundManager();
 	~SoundManager();
 	static SoundManager* getInstance();
-	void addSound(int id, string fname);
+	void addSound(int id, string fpath, string fname);
 	void play(int id, Logical async = yes, Logical looping = no);
 	void stop(int id);
 	Logical isPlaying(int id);

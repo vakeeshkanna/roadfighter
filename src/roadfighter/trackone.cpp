@@ -29,7 +29,7 @@ void TrackOne::init()
 
 TrackOne::TrackOne(string trackName, int cellSize):Track(trackName, cellSize)
 {
-	addImage(ImageInfo("Flying Route","flying_route_track.bmp"));
+	addImage(ImageInfo("Flying Route", ROADFIGHTER_IMAGES_DIR, "flying_route_track.bmp"));
 }
 
 void TrackOne::generateTable()
