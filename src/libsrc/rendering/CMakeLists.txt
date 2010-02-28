@@ -5,3 +5,4 @@ ADD_LIBRARY (rendering SHARED rendering )
 USE_COMMON(rendering)
 USE_DIRECTX(rendering)
 
+install(TARGETS rendering RUNTIME DESTINATION bin COMPONENT applications)

@@ -5,3 +5,4 @@ ADD_LIBRARY (sound SHARED soundAll)
 USE_COMMON(sound)
 USE_DIRECTX(sound)
 
+install(TARGETS sound RUNTIME DESTINATION bin COMPONENT applications)

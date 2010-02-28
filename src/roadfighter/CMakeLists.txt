@@ -10,6 +10,24 @@ USE_GAME(roadfighter)
 USE_MATH(roadfighter)
 USE_MAPPY(roadfighter)
 
-IF (WIN32)
 SET_TARGET_PROPERTIES ( roadfighter PROPERTIES LINK_FLAGS "-subsystem:windows" )
-ENDIF (WIN32)
+
+install(TARGETS roadfighter 
+        RUNTIME 
+		DESTINATION bin
+		COMPONENT applications)
+
+install(DIRECTORY  ${RESOURCES_DIR}/maps
+		DESTINATION .
+		COMPONENT resources
+		FILES_MATCHING PATTERN "*.fmp")
+
+install(DIRECTORY  ${RESOURCES_DIR}/images
+		DESTINATION .
+		COMPONENT resources
+		FILES_MATCHING PATTERN "*.bmp")
+
+install(DIRECTORY  ${RESOURCES_DIR}/sounds
+		DESTINATION .
+		COMPONENT resources
+		FILES_MATCHING PATTERN "*.wav")

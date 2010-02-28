@@ -4,3 +4,5 @@ ADD_LIBRARY (game SHARED gameAll )
 USE_COMMON(game)
 USE_RENDERING(game)
 USE_MAPPY(game)
+
+install(TARGETS game RUNTIME DESTINATION bin COMPONENT applications)

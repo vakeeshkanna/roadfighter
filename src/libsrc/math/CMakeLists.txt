@@ -1,3 +1,5 @@
 #LINK_DIRECTORIES ( ${DIRECTX9}/Lib/x86 )
 ADD_LIBRARY (math SHARED mathAll )
 USE_COMMON(math)
+
+install(TARGETS math RUNTIME DESTINATION bin COMPONENT applications)
