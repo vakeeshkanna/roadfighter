@@ -34,7 +34,7 @@ RoadFighter::~RoadFighter()
 }
 void RoadFighter::init()
 {
-	titleScreen = new Screen(ImageInfo("Title Screen",ROADFIGHTER_IMAGES_DIR, "titlescreen.bmp"), VP->buffer, 0, 0, 256, 224);
+	titleScreen = new Screen(ImageInfo("Title Screen", ROADFIGHTER_IMAGES_DIR, "titlescreen.bmp"), VP->buffer, 0, 0, 256, 224);
 	titleScreen->setWaitForKeyPress(yes);
 }
 
@@ -75,6 +75,9 @@ int RoadFighter::getCurrentStage()
 
 void RoadFighter::showTitleScreen()
 {
+	//clear everything
+	RE->clearBuffer(RE->DDrawBack);
+
 	titleScreen->display();
 	renderFrame();
 	RE->flipBuffers(hwnd);
