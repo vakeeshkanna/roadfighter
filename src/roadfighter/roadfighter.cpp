@@ -21,6 +21,7 @@ RoadFighter::RoadFighter()
 	screenTopLeft.setXY(GetSystemMetrics(SM_CXSCREEN) * 35 / 100, GetSystemMetrics(SM_CYSCREEN) * 30 / 100);
 	initSounds();
 	startingFirstStage = yes;
+	stageLoaded = no;
 }
 
 RoadFighter::~RoadFighter()
@@ -40,15 +41,10 @@ void RoadFighter::init()
 
 void RoadFighter::reinit()
 {
+	startingFirstStage = yes;
 	showingSuperman = no;
-	supermanShownOnce = no;
 	setRoadFighterStatus(TITLE_SCREEN);
 	showTitleScreen();
-	showScoreScreen();
-	setRoadFighterStatus(STAGE1_SCREEN);
-	loadStage(1);
-	loadPlayer();
-	loadObjects();
 }
 
 void RoadFighter::setViewableArea(int left, int top, int right, int bottom)
@@ -237,6 +233,7 @@ void RoadFighter::loadPlayer()
 	else
 	{
 		playerManager->reinit();
+		player = playerManager->getPlayer();
 	}
 }
 
@@ -628,8 +625,8 @@ void RoadFighter::processPlayerState()
 		VPBufferToDXBuffer();
 		RE->flipBuffers(hwnd);
 		SM->play(ROADFIGHER_GAMEOVER, no, no);
-		reinit();
-		startingFirstStage = yes;
+		stageLoaded = no;
+		return;
 	}
 	int tElapsed = fuelTimer.getTicks();
 
@@ -843,4 +840,14 @@ void RoadFighter::setSkipCurrentFrame(Logical skip)
 Logical RoadFighter::isSkipCurrentFrame()
 {
 	return skipCurrentFrame == yes;
+}
+
+void RoadFighter::setStageLoaded(Logical loaded)
+{
+	stageLoaded = loaded;
+}
+
+Logical RoadFighter::isStageLoaded()
+{
+	return stageLoaded == yes;
 }

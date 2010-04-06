@@ -44,7 +44,6 @@ void PlayerManager::reinit()
 {
 	if(player != NULL)
 	{
-		player->setViewPort((RoadFighterViewport*)VP);
 		player->initMe();
 	}
 }

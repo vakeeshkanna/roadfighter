@@ -55,8 +55,6 @@ int WINAPI WinMain(HINSTANCE hinstance,HINSTANCE hPrevInstance,PSTR szCmdLine,in
 	//set the current viewable area, i.e the clipper for the main buffer (viewport)
 	rf->setViewableArea(0,0,VIEWPORT_WIDTH,VIEWPORT_HEIGHT);
 	rf->init();
-	rf->setRoadFighterStatus(TITLE_SCREEN);
-	rf->showTitleScreen();
 	Timer timer;
 	Timer myTimer;
 	//AllocateMemory
@@ -64,7 +62,6 @@ int WINAPI WinMain(HINSTANCE hinstance,HINSTANCE hPrevInstance,PSTR szCmdLine,in
 	//BuildTables
 	FR->init(40);
 	rf->frameTimer->start();
-	Logical stageLoaded = no;
 	while(notDone)
 	{
 		//MapDrawBG (VP->buffer, 0, 0);
@@ -85,10 +82,11 @@ int WINAPI WinMain(HINSTANCE hinstance,HINSTANCE hPrevInstance,PSTR szCmdLine,in
 		else
 		{
 			PlayerCar *player = rf->getPlayer();
-			if(!stageLoaded)
+			if(!rf->isStageLoaded())
 			{
-				rf->prepareStage(ROADFIGHTER_STAGE_2);
-				stageLoaded = yes;
+				rf->reinit();
+				rf->prepareStage(ROADFIGHTER_STAGE_1);
+				rf->setStageLoaded(yes);
 			}
 			else if(player->isStageCompleted())
 			{

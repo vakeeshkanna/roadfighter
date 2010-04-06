@@ -12,7 +12,7 @@ PlayerCar::PlayerCar(char *n):Car(n,0.0)
 {
 	mode = SPEED_MODE_A;
 	slideDirection = DIRECTION_NONE;
-	fuel = 100;
+	fuel = 500;
 	score = 0;
 	lastSpeed = 401;
 	cell = NULL;
@@ -66,12 +66,12 @@ void PlayerCar::initMe()
 	canControl = no;
 	canDeductFuel = no;
 	currentFrame = frames[PLAYER_CAR_ALIVE_FRAME];
-	slideDirection = DIRECTION_NONE;
-
+	mode = SPEED_MODE_A;
+	straightenCar();
 	setPinnedToViewport(yes);
+	setYPosWC(48);
 
 	double left = vp->track->guardRail[vp->getTotalRows() - getCurRow() - 1].left.getX(), right = vp->track->guardRail[vp->getTotalRows() - getCurRow() - 1].right.getX();
-	setYPosWC(48);
 	setXPosWC(left + (((right - left) / 2) - 2) - 20);
 	setYPosSC(startY * BOUNDARY_CELL_SIZE);
 	//setXPosWC(230);
@@ -122,7 +122,7 @@ void PlayerCar::moveLeft()
 	{
 		if(vp->track->leftSideBarrier[i].intersectsRect(rect))
 		{
-			if(speed > 100.0 || getCarState() == CAR_SLIDING || getCarState() == CAR_SPINNING)
+			if(speed > 50.0 || getCarState() == CAR_SLIDING || getCarState() == CAR_SPINNING)
 			{
 				destroy();
 			}
@@ -143,7 +143,7 @@ void PlayerCar::moveRight()
 	{
 		if(vp->track->rightSideBarrier[i].intersectsRect(rect))
 		{
-			if(speed > 100.0 || getCarState() == CAR_SLIDING || getCarState() == CAR_SPINNING)
+			if(speed > 50.0 || getCarState() == CAR_SLIDING || getCarState() == CAR_SPINNING)
 			{
 				destroy();
 			}
@@ -170,7 +170,7 @@ void PlayerCar::move()
 			{
 				if(vp->track->leftSideBarrier[i].intersectsRect(leftRect))
 				{
-					if(speed > 100.0)
+					if(speed > 50.0)
 					{
 						destroy();
 						return;
@@ -186,7 +186,7 @@ void PlayerCar::move()
 			{
 				if(vp->track->rightSideBarrier[i].intersectsRect(rightRect))
 				{
-					if(speed > 100.0)
+					if(speed > 50.0)
 					{
 						destroy();
 						return;

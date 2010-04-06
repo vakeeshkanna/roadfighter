@@ -125,6 +125,8 @@ public:
 	void startFirstStage();
 	void setSkipCurrentFrame(Logical skip);
 	Logical isSkipCurrentFrame();
+	void setStageLoaded(Logical loaded);
+	Logical isStageLoaded();
 
 	RoadFighterViewport *vp;
 	Screen *titleScreen, *courseScreen;
@@ -143,6 +145,7 @@ private:
 	Logical showingSuperman, supermanShownOnce;
 	Logical startingFirstStage;
 	Logical skipCurrentFrame;
+	Logical stageLoaded;
 
 	void showProgress();
 	void showScore();
