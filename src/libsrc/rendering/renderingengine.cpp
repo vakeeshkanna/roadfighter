@@ -550,7 +550,7 @@ LPDIRECTDRAWCLIPPER RenderingEngine::DDrawAttachClipper(LPDIRECTDRAWSURFACE7 lpd
 		if(clip_list[index].bottom > region_data->rdh.rcBound.bottom)
 			region_data->rdh.rcBound.bottom = clip_list[index].bottom;
 	}
-	lprintf("top = %d, left = %d, right = %d, bottom = %d",region_data->rdh.rcBound.top,region_data->rdh.rcBound.left,region_data->rdh.rcBound.right,region_data->rdh.rcBound.bottom);
+	lprintf("top = %d, left = %d, right = %d, bottom = %d\n",region_data->rdh.rcBound.top,region_data->rdh.rcBound.left,region_data->rdh.rcBound.right,region_data->rdh.rcBound.bottom);
 	ddrval = lpddclipper->SetClipList(region_data, 0);
 	if(ddrval != DD_OK)
 	{

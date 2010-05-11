@@ -5,13 +5,14 @@
 
 Timer::Timer()
 {
-	startTicks = 0;
+	lastTicks = 0;
 	pausedTicks = 0;
 	timerScale = 0.0;
 	timeCount = 0;
 	fps = 120;
 	started = no;
 	paused = no;
+	tickBasedTimer = yes;
 	isHighPerformanceCounter = no;
 	isLowResTimer = no;
 }
@@ -44,11 +45,11 @@ void Timer::start()
 	paused = no;
 	if(isHighPerformanceCounter && !isLowResTimer)
 	{
-		QueryPerformanceCounter((LARGE_INTEGER*)&startTicks);
+		QueryPerformanceCounter((LARGE_INTEGER*)&lastTicks);
 	}
 	else
 	{
-		startTicks = timeGetTime();
+		lastTicks = timeGetTime();
 	}
 }
 
@@ -65,7 +66,7 @@ void Timer::pause()
 	{
 		paused = yes;
 		current = getCurrentTick();
-		pausedTicks = current - startTicks;
+		pausedTicks = current - lastTicks;
 	}
 }
 
@@ -75,9 +76,14 @@ void Timer::unpause()
 	if(isPaused())
 	{
 		paused = no;
-		startTicks = current - pausedTicks;
+		lastTicks = current - pausedTicks;
 		pausedTicks = 0;
 	}
+}
+
+void Timer::forceTickBasedTimer()
+{
+	tickBasedTimer = yes;
 }
 
 Logical Timer::isPaused()
@@ -115,7 +121,7 @@ LONGLONG Timer::getCurrentTick()
 
 LONGLONG Timer::getTicks()
 {
-	LONGLONG current;
+	LONGLONG current, ticks = 0;
 	if( started == yes )
 	{
 		if( paused == yes )
@@ -125,10 +131,14 @@ LONGLONG Timer::getTicks()
 		else
 		{
 			current = getCurrentTick();
-			return current - startTicks;
+			ticks = current - lastTicks;
+			if(!tickBasedTimer)
+			{
+				lastTicks = current;
+			}
 		}
 	}
-	return 0;
+	return ticks;
 }
 
 double Timer::getTimerScale()

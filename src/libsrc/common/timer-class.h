@@ -7,11 +7,11 @@
 class EXPORT Timer
 {
 private:
-	LONGLONG startTicks,pausedTicks,timerFrequency;
+	LONGLONG lastTicks,pausedTicks,timerFrequency;
 	double timeCount;
 	double timerScale, fps;
 	Logical isHighPerformanceCounter,isLowResTimer;
-	Logical paused,started;
+	Logical paused,started, tickBasedTimer;
 public:
 	Timer();
 	~Timer();
@@ -29,6 +29,6 @@ public:
 	double getTimerScale();
 	double getTimeCount();
 	void forceLowResTimer();
-	//void static sayHello();
+	void forceTickBasedTimer();
 };
 #endif

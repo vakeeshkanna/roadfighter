@@ -597,6 +597,7 @@ void RoadFighter::processPlayerState()
 {
 	//fuel management
 	static Timer fuelTimer;
+	fuelTimer.forceTickBasedTimer();
 	static Logical stageCompletionSoundPlayed = no;
 	static Logical timerInitialized = no;
 	if(!timerInitialized)
