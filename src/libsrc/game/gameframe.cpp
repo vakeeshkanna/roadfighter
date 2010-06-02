@@ -9,7 +9,7 @@ GameFrame::GameFrame()
 	nextTime = timer.getCurrentTick();
 	lastTime = nextTime;
 	timeScale = timer.getTimerScale();
-	timeCount = timer.getTimeCount();
+	timeCount = timeScale / fps;
 }
 
 GameFrame::~GameFrame()
@@ -20,7 +20,6 @@ GameFrame::~GameFrame()
 void GameFrame::setFPS(double frameps)
 {
 	fps = frameps;
-	timer.setFPS(fps);
 	timer.init();
 }
 
@@ -35,7 +34,7 @@ void GameFrame::init()
 	nextTime = timer.getCurrentTick();
 	lastTime = nextTime;
 	timeScale = timer.getTimerScale();
-	timeCount = timer.getTimeCount();
+	timeCount = timeScale / fps;
 }
 
 double GameFrame::getTimeElapsed()

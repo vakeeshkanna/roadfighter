@@ -8,8 +8,6 @@ Timer::Timer()
 	lastTicks = 0;
 	pausedTicks = 0;
 	timerScale = 0.0;
-	timeCount = 0;
-	fps = 120;
 	started = no;
 	paused = no;
 	tickBasedTimer = yes;
@@ -28,14 +26,13 @@ void Timer::init()
 	{
 		//lprintf("inside high perf\n");
 		isHighPerformanceCounter = yes;
-		timerScale = 1.0 / timerFrequency;
+		timerScale = 1.0 / timerFrequency; // 1 microsecond usually
 	}
 	else
 	{
 		isHighPerformanceCounter = no;
-		timerScale = 0.001;
+		timerScale = 1 / 1000.0;  // 1 millisecond
 	}
-	timeCount = (1.0 / timerScale) / fps;
 	//lprintf("timerScale = %lf timecount = %lf\n", timerScale, timeCount);
 }
 
@@ -96,16 +93,6 @@ Logical Timer::isStarted()
 	return started;
 }
 
-void Timer::setFPS(double framePerSecond)
-{
-	fps = framePerSecond;
-}
-
-double Timer::getFPS()
-{
-	return fps;
-}
-
 LONGLONG Timer::getCurrentTick()
 {
 	LONGLONG current;
@@ -144,11 +131,6 @@ LONGLONG Timer::getTicks()
 double Timer::getTimerScale()
 {
 	return timerScale;
-}
-
-double Timer::getTimeCount()
-{
-	return timeCount;
 }
 
 void Timer::forceLowResTimer()
