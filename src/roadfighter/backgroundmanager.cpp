@@ -37,9 +37,6 @@ void BackGroundManager::load(int id)
 	case 3:
 		mapLocation += "stage3.fmp";
 		currentBackGround->load(mapLocation);
-		//cell size is 32 for stage 3
-		currentBackGround->setNumCellsX(currentBackGround->getNumCellsX() * 2);
-		currentBackGround->setNumCellsY(currentBackGround->getNumCellsY() * 2);
 		break;
 
 	case 4:
