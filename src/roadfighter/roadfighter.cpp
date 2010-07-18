@@ -131,6 +131,7 @@ void RoadFighter::showScoreScreen()
 void RoadFighter::prepareStage(int stageNum)
 {
 	supermanShownOnce = no;
+	showingSuperman = no;
 	setCurrentStage(stageNum);
 	setRoadFighterStatus(SCORE_SCREEN);
 	showScoreScreen();
