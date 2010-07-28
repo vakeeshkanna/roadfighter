@@ -122,7 +122,9 @@ void Car::move()
 	if(getCarState() == CAR_READY || getCarState() == CAR_RUNNING || getCarState() == CAR_SLIDING || getCarState() == CAR_DODGING)
 	{
 		int i;
-		double timeElapsed = 0.0;
+		unsigned int deltaTime = FR->getTimeElapsed();
+		double speedInMilliseconds = (speed / 1.25) / 1000; // pixels per millisecond
+		double distanceTraveled = deltaTime * speedInMilliseconds; // distance = speed * time
 		RoadFighterViewport *vp = (RoadFighterViewport*)VP;
 
 		//top of car
@@ -139,7 +141,7 @@ void Car::move()
 				}
 				else
 				{
-					setXPosWC(getXPosWC() + 1);
+					setXPosWC(getXPosWC() + 1 * deltaTime);
 				}
 			}
 		}
@@ -155,19 +157,17 @@ void Car::move()
 				}
 				else
 				{
-					setXPosWC(getXPosWC() - 1);
+					setXPosWC(getXPosWC() - 1 * deltaTime);
 				}
 			}
 		}
 
-		timeElapsed = frameTimer.getTimeElapsed();
-		if(timeElapsed > 0.0)
+		if(deltaTime > 0.0)
 		{
 			if(getCarState() != CAR_READY)
 			{
-				double multiplier = 85;
-				double moveRate = multiplier * timeElapsed * (1.25) * speed / 100.0;
-				moveRate = FR->getSpeedFactor() * 2 * speed / 100.0;
+				double moveRate = distanceTraveled;//speed / 100.0;
+				moveRate *= 1.3;
 				//if(yPos < vp->getTotalPixLine() + 100)
 				//Even not on screen, still have to prevent car from going outside road
 				if(getOnScreen())
@@ -197,6 +197,7 @@ void Car::moveLeft(double howMuch)
 
 	int i;
 	RECT ex = getFullExtents();
+	double timeElapsed = FR->getTimeElapsed() / 11;
 
 	RectangleClass rect(ex.left - howMuch, ex.top, ex.right - howMuch, ex.bottom);
 	RoadFighterViewport *vp = (RoadFighterViewport*)VP;
@@ -217,13 +218,15 @@ void Car::moveLeft(double howMuch)
 			return;
 		}
 	}
-	setXPosWC(getXPosWC() - howMuch);
+	setXPosWC(getXPosWC() - howMuch * timeElapsed);
 }
 
 void Car::moveRight(double howMuch)
 {
 	int i;
 	RECT ex = getFullExtents();
+	double timeElapsed = FR->getTimeElapsed() / 11;
+
 	RectangleClass rect(ex.left + howMuch, ex.top, ex.right + howMuch, ex.bottom);
 	RoadFighterViewport *vp = (RoadFighterViewport*)VP;
 
@@ -243,7 +246,7 @@ void Car::moveRight(double howMuch)
 			return;
 		}
 	}
-	setXPosWC(getXPosWC() + howMuch);
+	setXPosWC(getXPosWC() + howMuch * timeElapsed);
 }
 
 void Car::slide()
@@ -296,20 +299,30 @@ void Car::destroy()
 void Car::destroying()
 {
 	static int count = -1;
-	static GameFrame myFrametimer;
+	static Timer frameTimer;
+	static Logical timerInitialized = no;
+
+	frameTimer.forceTickBasedTimer();
+	if(!timerInitialized)
+	{
+		frameTimer.start();
+		timerInitialized = yes;
+	}
+
+	int timeElapsed = frameTimer.getTicks();
+
 	if(count == -1)
 	{
-		myFrametimer.setFPS(10);
-		myFrametimer.init();
 		count = 0;
 	}
 
-	//Stop the car
+	//Stop the player car
 	speed = 0.0;
-	lprintf("destroying car\n");
-	double timeElapsed = myFrametimer.getTimeElapsed();
-	if(timeElapsed > 0.0)
+
+	if(count == 0 && timeElapsed > 100 || timeElapsed > 300)
 	{
+		timerInitialized = no;
+		lprintf("destroying\n");
 		if(count < CAR_DESTROY_FRAME_END - CAR_DESTROY_FRAME_START + 1)
 		{
 			currentFrame = destroyFrames[count++];
@@ -317,7 +330,6 @@ void Car::destroying()
 		else
 		{
 			myState = CAR_DESTROYED;
-			setSlideDirection(DIRECTION_NONE);
 			count = -1;
 		}
 	}

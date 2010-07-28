@@ -5,6 +5,8 @@ class Game
 {
 	virtual void init() = 0;
 	virtual void initSounds() = 0;
+	virtual void processNextFrame() = 0;
+	virtual void updateGameLogic(unsigned int ms) = 0;
 	virtual void processUserInput(double milliseconds) = 0;
 	virtual void applyGameLogic(double milliseconds) = 0;
 	virtual void applyGameAI(double milliseconds) = 0;
@@ -12,6 +14,9 @@ class Game
 	virtual void applyGamePhysics(double milliseconds) = 0;
 	virtual void renderFrame() = 0;
 	virtual void processPlayerState() = 0;
+	virtual Logical paint() = 0;
+	virtual Logical draw() = 0;
+	virtual Logical present() = 0;
 
 
 //	void startGame() = 0;

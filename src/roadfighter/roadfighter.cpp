@@ -392,6 +392,56 @@ void RoadFighter::showSuperman()
 	}
 }
 
+const unsigned int SCREEN_REFRESH_RATE(1000/60);
+
+void RoadFighter::processNextFrame()
+{
+	// The wise C++ programmer would put these nasty static variables in
+	// a nice class.
+
+	static DWORD currTick = 0;        // time right now
+	static DWORD lastUpdate = 0;      // previous time
+	static DWORD lastDraw = 0;        // last time the game rendered
+	static bool runFullSpeed = false; // set to true if you want to run full speed
+
+	// Figure how much time has passed since the last time
+	currTick = timeGetTime();
+
+	updateGameLogic(currTick - lastUpdate);
+	lastUpdate = currTick;
+
+	// It is time to draw ?
+	if( runFullSpeed || ( (currTick - lastDraw) > SCREEN_REFRESH_RATE) )
+	{
+		if(paint())
+		{
+			// record the last successful paint
+			lastDraw = currTick;
+		}
+	}
+
+	//return S_OK;
+
+}
+
+void RoadFighter::updateGameLogic(unsigned int ms)
+{
+	//lprintf("ms = %d\n", ms);
+	FR->setTimeElapsed(ms);
+   //PollInputDevices();
+   //HandleUserInput(ms);
+	processUserInput(ms);
+	applyGameAI(ms);
+	applyGameLogic(ms);
+	applyCollisionDetection();
+	processPlayerState();
+   //CalculateAI(ms);
+   //ReticulateSplines(ms);
+   //RunPhysicsSimulation(ms);
+   //PokeAudioSystem(ms);
+   //UpdateDisplayList(ms);
+}
+
 void RoadFighter::processUserInput(double milliseconds)
 {
 	if(player->isCanControl())
@@ -593,6 +643,64 @@ void RoadFighter::renderFrame()
 			frames++;
 	}
 	VPBufferToDXBuffer();
+}
+
+Logical RoadFighter::paint()
+{
+	if(!draw() || !present())
+	{
+		// insert code to handle drawing problems hereÖsuch as mode changes…
+		return no;
+	}
+
+	return yes;
+
+}
+
+Logical RoadFighter::draw()
+{
+	if(getRoadFighterStatus() != TITLE_SCREEN && getRoadFighterStatus() != SCORE_SCREEN)
+	{
+		//RenderFrame
+		//bm->currentBackGround->display();
+		bm->currentBackGround->setOffsetXY(0, VP->getCurPixLine());
+		bm->currentBackGround->display();
+
+		//vp->display2();
+		tm->currentTrack->display();
+
+		showHUD();
+
+		playerManager->display();
+		interactiveObjManager->display();
+		nonInteractiveObjManager->display();
+
+		if(player->isCompletingStage())
+		{
+			if(getCurrentStage() == ROADFIGHTER_STAGE_4)
+			{
+				nonInteractiveObjManager->displayGoal();
+			}
+			else
+			{
+				nonInteractiveObjManager->displayCheckpoint();
+			}
+		}
+
+		if(SM->isPlaying(ROADFIGHER_BONUS_CAR_TAKEN))
+		{
+			static int lastX = player->getXPosSC(), lastY = player->getYPosSC() - 50;
+
+			RenderingEngine::outputText(VP->buffer, lastX, lastY, C_WHITE, "1000", 5, 14, TRANSPARENT);
+		}
+	}
+	return yes;
+}
+
+Logical RoadFighter::present()
+{
+	VPBufferToDXBuffer();
+	return yes;
 }
 
 void RoadFighter::processPlayerState()

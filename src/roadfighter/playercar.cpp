@@ -23,6 +23,7 @@ PlayerCar::PlayerCar(char *n):Car(n,0.0)
 	canControl = no;
 	canDeductFuel = no;
 	currentStage = 1;
+	spinFrameIndex = -1;
 	setViewPort((RoadFighterViewport*)VP);
 	addImage(ImageInfo("playercar", ROADFIGHTER_IMAGES_DIR, "playercarimages.bmp",25,32));
 
@@ -67,6 +68,7 @@ void PlayerCar::initMe()
 	canDeductFuel = no;
 	currentFrame = frames[PLAYER_CAR_ALIVE_FRAME];
 	mode = SPEED_MODE_A;
+	spinFrameIndex = -1;
 	straightenCar();
 	setPinnedToViewport(yes);
 	setYPosWC(48);
@@ -115,6 +117,7 @@ void PlayerCar::moveLeft()
 {
 	int i;
 	RECT ex = getFullExtents();
+	double timeElapsed = FR->getTimeElapsed() / 11;
 
 	RectangleClass rect(ex.left - 0.25, ex.top, ex.right - 0.25, ex.bottom);
 
@@ -129,13 +132,14 @@ void PlayerCar::moveLeft()
 			return;
 		}
 	}
-	setXPosWC(getXPosWC() - 0.25);
+	setXPosWC(getXPosWC() - 0.25 * timeElapsed);
 }
 
 void PlayerCar::moveRight()
 {
 	int i;
 	RECT ex = getFullExtents();
+	double timeElapsed = FR->getTimeElapsed() / 11;
 
 	RectangleClass rect(ex.left  + 0.25, ex.top, ex.right + 0.25, ex.bottom);
 
@@ -150,13 +154,16 @@ void PlayerCar::moveRight()
 			return;
 		}
 	}
-	setXPosWC(getXPosWC() + 0.25);
+	setXPosWC(getXPosWC() + 0.25 * timeElapsed);
 }
 
 void PlayerCar::move()
 {
 	int i;
-	double timeElapsed = 0.0;
+	unsigned int deltaTime = FR->getTimeElapsed();
+	double speedInMilliseconds = (speed / 1.25) / 1000; // pixels per millisecond
+	double distanceTraveled = deltaTime * speedInMilliseconds; // distance = speed * time
+
 	if(!completingStage)
 	{
 		SM->play(ROADFIGHER_ENGINE_SOUND_LOW, yes, yes);
@@ -175,7 +182,7 @@ void PlayerCar::move()
 						destroy();
 						return;
 					}
-					setXPosWC(getXPosWC() + 1.5);
+					setXPosWC(getXPosWC() + 1.5 * deltaTime);
 				}
 			}
 
@@ -191,20 +198,13 @@ void PlayerCar::move()
 						destroy();
 						return;
 					}
-					setXPosWC(getXPosWC() - 1.5);
+					setXPosWC(getXPosWC() - 1.5 * deltaTime);
 				}
 			}
 
-			timeElapsed = frameTimer.getTimeElapsed();
-			if(timeElapsed > 0.0)
+			if(deltaTime > 0.0)
 			{
-				double multiplier = 85*2;
-				if(getSpeedMode() != SPEED_MODE_A)
-				{
-					multiplier = 65;
-				}
-				double moveRate = multiplier * timeElapsed * (1.25) * speed / 100.0;
-				moveRate = FR->getSpeedFactor() * 2 * speed / 100.0;
+				double moveRate = distanceTraveled;//speed / 100.0;
 				if(getSpeedMode() == SPEED_MODE_A)
 				{
 					moveRate *= 1.5;
@@ -228,7 +228,6 @@ void PlayerCar::move()
 			setSlideDirection(DIRECTION_NONE);
 			setCarState(CAR_RUNNING);
 			setCompletingStage(yes);
-			timeElapsed = frameTimer.getTimeElapsed();
 			lastY = getYPosWC();
 		}
 	}
@@ -237,11 +236,11 @@ void PlayerCar::move()
 		static Logical firstTime = yes;
 		speed = 150;
 
+		speedInMilliseconds = (speed / 1.5) / 1000; // pixels per millisecond
+		distanceTraveled = deltaTime * speedInMilliseconds; // distance = speed * time
+
 		//stop playercar at the finish line, wait and then let the playercar go
-		timeElapsed = frameTimer.getTimeElapsed();
-		double multiplier = 65;
-		double moveRate;// = multiplier * timeElapsed * (1.25) * speed / 100.0;
-		moveRate = FR->getSpeedFactor() * 2 * speed / 100.0;
+		double moveRate = distanceTraveled;
 
 		if(firstTime)
 		{
@@ -466,36 +465,35 @@ void PlayerCar::slide()
 
 void PlayerCar::sliding()
 {
-	static int count = -1;
-	static GameFrame myFrametimer;
+	static Timer frameTimer;
+	static Logical timerInitialized = no;
 
-	if(count == -1)
+	frameTimer.forceTickBasedTimer();
+	if(!timerInitialized)
 	{
-		myFrametimer.setFPS(60);
-		myFrametimer.init();
-		count = 0;
+		frameTimer.start();
+		timerInitialized = yes;
 	}
 
-	double timeElapsed = myFrametimer.getTimeElapsed();
-	if(timeElapsed > 0.0)
+	int timeElapsed = frameTimer.getTicks();
+
+	if(timeElapsed > 30)
 	{
+		timerInitialized = no;
 		if(getSlideDirection() == DIRECTION_LEFT)
 		{
 			moveLeft();
 			currentFrame = slideFrames[0];
-			if(getXPosWC() == lastX - 15)
+			if(getXPosWC() <= lastX - 15)
 				spin();
 		}
 		else if(getSlideDirection() == DIRECTION_RIGHT)
 		{
 			moveRight();
 			currentFrame = slideFrames[1];
-			if(getXPosWC() == lastX + 15)
+			if(getXPosWC() >= lastX + 15)
 				spin();
 		}
-		count++;
-		if(count > 5)
-			count = -1;
 		decSpeed(2);
 	}
 }
@@ -513,53 +511,58 @@ void PlayerCar::spin()
 
 void PlayerCar::spinning()
 {
-	static int count = -1;
-	static GameFrame myFrametimer;
+	static Timer frameTimer;
 	static Logical clockwise = no;
+	static Logical timerInitialized = no;
 
-	if(count == -1)
+	frameTimer.forceTickBasedTimer();
+	if(!timerInitialized)
 	{
-		myFrametimer.setFPS(12);
-		myFrametimer.init();
+		frameTimer.start();
+		timerInitialized = yes;
+	}
 
+	int timeElapsed = frameTimer.getTicks();
+
+	if(spinFrameIndex == -1)
+	{
 		if(getSlideDirection() == DIRECTION_RIGHT)
 		{
-			count = 0;
+			spinFrameIndex = 0;
 			clockwise = yes;
 		}
 		else if(getSlideDirection() == DIRECTION_LEFT)
 		{
-			count = PLAYER_CAR_SPIN_FRAME_END - PLAYER_CAR_SPIN_FRAME_START;
+			spinFrameIndex = PLAYER_CAR_SPIN_FRAME_END - PLAYER_CAR_SPIN_FRAME_START;
 			clockwise = no;
 		}
 	}
 
-	double timeElapsed = myFrametimer.getTimeElapsed();
-
-	if(timeElapsed > 0.0 && count != -1)
+	if(timeElapsed > 30)
 	{
+		timerInitialized = no;
 		if(clockwise)
 		{
-			if(count < PLAYER_CAR_SPIN_FRAME_END - PLAYER_CAR_SPIN_FRAME_START)
+			if(spinFrameIndex < PLAYER_CAR_SPIN_FRAME_END - PLAYER_CAR_SPIN_FRAME_START)
 			{
-				currentFrame = spinFrames[count++];
+				currentFrame = spinFrames[spinFrameIndex++];
 				Car::moveRight(0.75);
 			}
 			else
 			{
-				count = -1;
+				spinFrameIndex = 0;
 			}
 		}
 		else
 		{
-			if(count > 0)
+			if(spinFrameIndex > 0)
 			{
-				currentFrame = spinFrames[count--];
+				currentFrame = spinFrames[spinFrameIndex--];
 				Car::moveLeft(0.75);
 			}
 			else
 			{
-				count = -1;
+				spinFrameIndex = PLAYER_CAR_SPIN_FRAME_END - PLAYER_CAR_SPIN_FRAME_START;
 			}
 		}
 		decSpeed(5);
@@ -567,7 +570,6 @@ void PlayerCar::spinning()
 		if(getSpeed() == 0)
 		{
 			straightenCar();
-			count = -1;
 		}
 	}
 }
@@ -599,21 +601,29 @@ void PlayerCar::destroy()
 void PlayerCar::destroying()
 {
 	static int count = -1;
-	static GameFrame myFrametimer;
+	static Timer frameTimer;
+	static Logical timerInitialized = no;
+
+	frameTimer.forceTickBasedTimer();
+	if(!timerInitialized)
+	{
+		frameTimer.start();
+		timerInitialized = yes;
+	}
+
+	int timeElapsed = frameTimer.getTicks();
 
 	if(count == -1)
 	{
-		myFrametimer.setFPS(2);
-		myFrametimer.init();
 		count = 0;
 	}
 
 	//Stop the player car
 	speed = 0.0;
 
-	double timeElapsed = myFrametimer.getTimeElapsed();
-	if(timeElapsed > 0.0)
+	if(count == 0 && timeElapsed > 100 || timeElapsed > 300)
 	{
+		timerInitialized = no;
 		lprintf("destroying\n");
 		if(count < PLAYER_CAR_DESTROY_FRAME_END - PLAYER_CAR_DESTROY_FRAME_START + 1)
 		{
@@ -683,6 +693,7 @@ void PlayerCar::spawn()
 	currentFrame = frames[PLAYER_CAR_ALIVE_FRAME];
 	speed = 0.0;
 	mode = SPEED_MODE_A;
+	spinFrameIndex = -1;
 
 	double left = vp->track->guardRail[vp->getTotalRows() - getCurRow()].left.getX(), right = vp->track->guardRail[vp->getTotalRows() - getCurRow()].right.getX();
 
@@ -760,4 +771,5 @@ void PlayerCar::straightenCar()
 	setCarState(CAR_RUNNING);
 	setSlideDirection(DIRECTION_NONE);
 	currentFrame = frames[PLAYER_CAR_ALIVE_FRAME];
+	spinFrameIndex = -1;
 }

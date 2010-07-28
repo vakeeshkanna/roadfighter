@@ -91,12 +91,17 @@ public:
 	virtual void init();
 	virtual void initSounds();
 	virtual void reinit();
+	virtual void processNextFrame();
+	virtual void updateGameLogic(unsigned int ms);
 	virtual void processUserInput(double milliseconds);
 	virtual void applyGameLogic(double milliseconds);
 	virtual void applyGameAI(double milliseconds);
 	virtual void applyCollisionDetection();
 	virtual void applyGamePhysics(double milliseconds);
 	virtual void renderFrame();
+	virtual Logical paint();
+	virtual Logical draw();
+	virtual Logical present();
 	void VPBufferToDXBuffer();
 	virtual void processPlayerState();
 	void setViewableArea(int left, int top, int right, int bottom);

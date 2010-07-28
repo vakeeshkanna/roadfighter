@@ -54,6 +54,7 @@ class PlayerCar : public Car
 	LPDIRECTDRAWSURFACE7 slideFrames[2];
 	Logical canControl;
 	Logical canDeductFuel;
+	int spinFrameIndex;
 
 
 public:

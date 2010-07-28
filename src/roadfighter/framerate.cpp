@@ -5,6 +5,7 @@ FrameRate* FrameRate::fRate = NULL;
 FrameRate::FrameRate()
 {
 	speedFactor = 0.0;
+	timeElapsed = 0;
 }
 
 void FrameRate::init(float tfps)
@@ -30,6 +31,16 @@ void FrameRate::setSpeedFactor()
 float FrameRate::getSpeedFactor()
 {
   return speedFactor;
+}
+
+void FrameRate::setTimeElapsed(unsigned int ms)
+{
+  timeElapsed = ms;
+}
+
+unsigned int FrameRate::getTimeElapsed()
+{
+  return timeElapsed;
 }
 
 FrameRate* FrameRate::getInstance()

@@ -55,18 +55,13 @@ int WINAPI WinMain(HINSTANCE hinstance,HINSTANCE hPrevInstance,PSTR szCmdLine,in
 	//set the current viewable area, i.e the clipper for the main buffer (viewport)
 	rf->setViewableArea(0,0,VIEWPORT_WIDTH,VIEWPORT_HEIGHT);
 	rf->init();
-	Timer timer;
-	Timer myTimer;
 	//AllocateMemory
 	//LoadFiles
 	//BuildTables
-	FR->init(40);
-	rf->frameTimer->start();
+	//FR->init(40);
 	while(notDone)
 	{
 		//MapDrawBG (VP->buffer, 0, 0);
-		timer.start();
-		myTimer.start();
 		if(PeekMessage(&msg,NULL,0,0,PM_REMOVE))
 		{
 			if(msg.message == WM_QUIT)
@@ -109,7 +104,9 @@ int WINAPI WinMain(HINSTANCE hinstance,HINSTANCE hPrevInstance,PSTR szCmdLine,in
 			}
 			else
 			{
-				//Control
+				rf->processNextFrame();
+
+				/*//Control
 				rf->processUserInput(0.0);
 
 				//Game Logic
@@ -126,19 +123,12 @@ int WINAPI WinMain(HINSTANCE hinstance,HINSTANCE hPrevInstance,PSTR szCmdLine,in
 
 				//Process Player State
 				rf->processPlayerState();
+				*/
 			}
 
 			//RenderFrame
-			rf->renderFrame();
+			//rf->renderFrame();
 			RE->flipBuffers(hwnd);
-
-			FR->setSpeedFactor();
-
-			LONGLONG myTimeElapsed = myTimer.getTicks();
-			//RenderingEngine::outputText(VP->buffer,800,700,C_RED,(int)(1000.0 / (myTimeElapsed / 1000000)),15,20);
-			//RenderingEngine::outputText(VP->buffer, 205,100,C_WHITE,"FPS",5,9);
-			frame++;
-			LONGLONG timeElapsedFrame = timer.getTicks();
 			if(rf->isStartingFirstStage())
 			{
 				rf->startFirstStage();
