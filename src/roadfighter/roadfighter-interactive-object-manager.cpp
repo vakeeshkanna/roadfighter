@@ -19,6 +19,7 @@ RoadFighterInteractiveObjectManager::~RoadFighterInteractiveObjectManager()
 void RoadFighterInteractiveObjectManager::init()
 {
 	unsigned int i;
+	carManager->setCurrentStage(getCurrentStage());
 	carManager->init();
 	for(i = 0; i < carManager->cars.size(); i++)
 	{

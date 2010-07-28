@@ -210,6 +210,7 @@ void RoadFighter::loadObjects()
 	if(interactiveObjManager == NULL)
 	{
 		interactiveObjManager  = new RoadFighterInteractiveObjectManager();
+		interactiveObjManager->setCurrentStage(getCurrentStage());
 		interactiveObjManager->init();
 		interactiveObjManager->spawn();
 	}
