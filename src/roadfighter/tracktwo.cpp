@@ -2,7 +2,7 @@
 
 TrackInfo TrackTwo::trackInfo[TRACK_TWO_TURNS] =
 {
-	{1750,NONE,11}
+	{2800,NONE,11}
 };
 
 TrackTwo::TrackTwo()
