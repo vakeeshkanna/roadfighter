@@ -6,7 +6,7 @@ TrackInfo TrackThree::trackInfoLeft[TRACK_THREE_TURNS] =
 //	{3280, NONE, 6},
 
 //straight
-	{170, NONE, 6},
+	{160, NONE, 6},
 
 //turn7
 	{2, NONE, 6},
@@ -86,7 +86,7 @@ TrackInfo TrackThree::trackInfoRight[TRACK_THREE_TURNS] =
 //	{3280, NONE, 6},
 
 //straight
-	{170, NONE, 6},
+	{160, NONE, 6},
 
 //turn7
 	{2, NONE, 6},
@@ -306,15 +306,22 @@ void TrackThree::generateTable(TrackInfo *trackInfoLeft, TrackInfo *trackInfoRig
 				}
 			}
 
-			guardRail[count].left.setX(x);
-			guardRail[count].left.setY(y);
+			if(count < 0)
+			{
+				lprintf("total count of numcells in trackInfoLeft are inconsistent with count\n");
+				assert(0);
+			}
+			else
+			{
+				guardRail[count].left.setX(x);
+				guardRail[count].left.setY(y);
+			}
 
 			y += BOUNDARY_CELL_SIZE;
 			count--;
 		}
 		leftSideBarrier[i].setP2(x + 1, y);
 	}
-
 
 	//right side
 	currentTrackInfo = trackInfoRight;
@@ -358,8 +365,16 @@ void TrackThree::generateTable(TrackInfo *trackInfoLeft, TrackInfo *trackInfoRig
 				break;
 			}
 
-			guardRail[count].right.setX(x);
-			guardRail[count].right.setY(y);
+			if(count < 0)
+			{
+				lprintf("total count of numcells in trackInfoRight are inconsistent with count\n");
+				assert(0);
+			}
+			else
+			{
+				guardRail[count].right.setX(x);
+				guardRail[count].right.setY(y);
+			}
 
 			guardRail[count].roadWidth = (guardRail[count].right.getX() - guardRail[count].left.getX()) / BOUNDARY_CELL_SIZE;
 			//don't show road strip while on turns

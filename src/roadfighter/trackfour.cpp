@@ -285,9 +285,16 @@ void TrackFour::generateTable(TrackInfo *trackInfoLeft, TrackInfo *trackInfoRigh
 				break;
 			}
 
-			guardRail[count].left.setX(x);
-			guardRail[count].left.setY(y);
-
+			if(count < 0)
+			{
+				lprintf("total count of numcells in trackInfoLeft are inconsistent with count\n");
+				assert(0);
+			}
+			else
+			{
+				guardRail[count].left.setX(x);
+				guardRail[count].left.setY(y);
+			}
 			y += BOUNDARY_CELL_SIZE;
 			count--;
 		}
@@ -337,8 +344,16 @@ void TrackFour::generateTable(TrackInfo *trackInfoLeft, TrackInfo *trackInfoRigh
 				break;
 			}
 
-			guardRail[count].right.setX(x);
-			guardRail[count].right.setY(y);
+			if(count < 0)
+			{
+				lprintf("total count of numcells in trackInfoRight are inconsistent with count\n");
+				assert(0);
+			}
+			else
+			{
+				guardRail[count].right.setX(x);
+				guardRail[count].right.setY(y);
+			}
 
 			guardRail[count].roadWidth = (guardRail[count].right.getX() - guardRail[count].left.getX()) / BOUNDARY_CELL_SIZE;
 			y += BOUNDARY_CELL_SIZE;
