@@ -47,6 +47,7 @@ protected:
 	Logical active;
 	slideDirectionType slideDirection;
 	double lastX, lastY;
+	int startTurnIndex, endTurnIndex;
 	LPDIRECTDRAWSURFACE7 destroyFrames[CAR_DESTROY_FRAME_END - CAR_DESTROY_FRAME_START + 1];
 
 
@@ -82,6 +83,9 @@ public:
 	virtual void bumpAction() = 0;
 	Logical isRivalCar();
 	virtual void spawnAt(double xPos, double yPos);
+	void calculateTurnIndex();
+	int getStartTurnIndex();
+	int getEndTurnIndex();
 };
 #endif
 

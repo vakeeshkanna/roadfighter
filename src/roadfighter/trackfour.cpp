@@ -251,6 +251,7 @@ void TrackFour::generateTable(TrackInfo *trackInfoLeft, TrackInfo *trackInfoRigh
 	y = trackStartY;
 	for (i = numTurns; i >= 0; i--)
 	{
+		currentTrackInfo[i].startTurnY = y;
 		numBlocks = currentTrackInfo[i].numCells;
 		turnAngle = currentTrackInfo[i].curve;
 		roadWidth = currentTrackInfo[i].roadWidth;
@@ -298,6 +299,7 @@ void TrackFour::generateTable(TrackInfo *trackInfoLeft, TrackInfo *trackInfoRigh
 			y += BOUNDARY_CELL_SIZE;
 			count--;
 		}
+		currentTrackInfo[i].endTurnY = y;
 		leftSideBarrier[i].setP2(x + 1, y);
 	}
 

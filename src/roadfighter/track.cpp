@@ -100,6 +100,7 @@ void Track::generateTable(TrackInfo *trackInfo, int trackStartX, int trackStartY
 	y = trackStartY;
 	for (i = numTurns; i >= 0; i--)
 	{
+		currentTrackInfo[i].startTurnY = y;
 		numBlocks = currentTrackInfo[i].numCells;
 		turnAngle = currentTrackInfo[i].curve;
 		roadWidth = currentTrackInfo[i].roadWidth;
@@ -145,6 +146,7 @@ void Track::generateTable(TrackInfo *trackInfo, int trackStartX, int trackStartY
 			y += BOUNDARY_CELL_SIZE;
 			count--;
 		}
+		currentTrackInfo[i].endTurnY = y;
 		leftSideBarrier[i].setP2(x + 1, y);
 		rightSideBarrier[i].setP2(BOUNDARY_CELL_SIZE * roadWidth + x - 1, y);
 	}

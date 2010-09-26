@@ -243,6 +243,7 @@ void CarManager::update()
 	for(i = 0; i < cars.size(); i++)
 	{
 		car = cars.at(i);
+		car->calculateTurnIndex();
 //		lprintf("car %d x = %f y = %f\n", i, car->getXPosWC(), car->getYPosWC());
 		if(car->getCarState() == CAR_RUNNING && car->getYPosSC() != NOT_INSIDE_VIEWPORT && !car->getOnScreen())
 		{

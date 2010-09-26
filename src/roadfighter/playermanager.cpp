@@ -58,6 +58,7 @@ void PlayerManager::display()
 
 void PlayerManager::update()
 {
+	player->calculateTurnIndex();
 	if(player->getCarState() == CAR_SLIDING)
 	{
 		player->sliding();

@@ -17,6 +17,8 @@ Car::Car(char *n,double s)
 	myState = CAR_READY;
 	active = no;
 	objectType = "Car";
+	startTurnIndex = 0;
+	endTurnIndex = 0;
 }
 
 Car::~Car()
@@ -131,7 +133,7 @@ void Car::move()
 		LineClass carTopLine(getXPosWC(), getYPosWC(),getXPosWC() + getWidth(), getYPosWC());
 
 		//check left side
-		for (i = vp->track->getNumTurns(); i >= 0; i--)
+		for (i = getStartTurnIndex(); i >= getEndTurnIndex(); i--)
 		{
 			if(carTopLine.intersects(vp->track->leftSideBarrier[i]))
 			{
@@ -147,7 +149,7 @@ void Car::move()
 		}
 
 		//check right side
-		for (i = vp->track->getNumTurns(); i >= 0; i--)
+		for (i = getStartTurnIndex(); i >= getEndTurnIndex(); i--)
 		{
 			if(carTopLine.intersects(vp->track->rightSideBarrier[i]))
 			{
@@ -210,7 +212,7 @@ void Car::moveLeft(double howMuch)
 		}
 	}
 
-	for (i = vp->track->getNumTurns(); i >= 0; i--)
+	for (i = getStartTurnIndex(); i >= getEndTurnIndex(); i--)
 	{
 		if(vp->track->leftSideBarrier[i].intersectsRect(rect))
 		{
@@ -238,7 +240,7 @@ void Car::moveRight(double howMuch)
 		}
 	}
 
-	for (i = vp->track->getNumTurns(); i >= 0; i--)
+	for (i = getStartTurnIndex(); i >= getEndTurnIndex(); i--)
 	{
 		if(vp->track->rightSideBarrier[i].intersectsRect(rect))
 		{
@@ -350,4 +352,91 @@ void Car::spawnAt(double x, double y)
 	currentFrame = frames[CAR_ALIVE_FRAME];
 	setXPosWC(x);
 	setYPosWC(y);
+}
+
+int Car::getStartTurnIndex()
+{
+	return startTurnIndex;
+}
+
+int Car::getEndTurnIndex()
+{
+	return endTurnIndex;
+}
+
+void Car::calculateTurnIndex()
+{
+	int i;
+	int yPosCarStart, yPosCarEnd;
+	int currentTurnStart, currentTurnEnd;
+	int nextTurnStart, nextTurnEnd;
+	RoadFighterViewport *vp = (RoadFighterViewport*)VP;
+	int currentStage = PC->getCurrentStage();
+	TrackInfo *currentTrackInfo;
+
+	switch(currentStage)
+	{
+		case 1:
+			currentTrackInfo = TrackOne::trackInfo;
+		break;
+
+		case 2:
+			currentTrackInfo = TrackTwo::trackInfo;
+		break;
+
+		case 3:
+			currentTrackInfo = TrackThree::trackInfoLeft;
+		break;
+
+		case 4:
+			currentTrackInfo = TrackFour::trackInfoLeft;
+		break;
+
+		default:
+			assert(0);
+		break;
+	}
+
+	RECT rct = getFullExtents();
+
+	yPosCarStart = rct.top;
+	yPosCarEnd = rct.bottom;
+
+	for (i = vp->track->getNumTurns(); i >= 0; i--)
+	{
+		currentTurnStart = currentTrackInfo[i].startTurnY;
+		currentTurnEnd = currentTrackInfo[i].endTurnY;
+
+		//case 1 where the car is within only one turn
+		if(yPosCarEnd <= currentTurnEnd && yPosCarStart >= currentTurnStart)
+		{
+			startTurnIndex = i;
+			endTurnIndex = startTurnIndex;
+			break;
+		}
+		else
+		{
+			//see if nextTurn is available
+			if(i - 1 > -1)
+			{
+				nextTurnStart = currentTrackInfo[i - 1].startTurnY;
+				nextTurnEnd = currentTrackInfo[i - 1].endTurnY;
+			}
+			else
+			{
+				//this is the last turn so we will end up with startTurnIndex equal to endTurnIndex;
+				startTurnIndex = i;
+				endTurnIndex = startTurnIndex;
+				break;
+			}
+
+			//case 2 where the car is within two turns
+			if(yPosCarEnd >= currentTurnStart && yPosCarStart <= nextTurnStart)
+			{
+				startTurnIndex = i;
+				endTurnIndex = startTurnIndex - 1;
+				break;
+			}
+		}
+	}
 }

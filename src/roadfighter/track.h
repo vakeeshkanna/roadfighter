@@ -19,6 +19,7 @@ enum trackTurnType
 typedef struct
 {
 	short int numCells,curve,roadWidth;
+	int startTurnY,endTurnY;
 }
 TrackInfo;
 

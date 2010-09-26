@@ -123,7 +123,7 @@ void PlayerCar::moveLeft()
 
 	RectangleClass rect(ex.left - 0.25, ex.top, ex.right - 0.25, ex.bottom);
 
-	for (i = vp->track->getNumTurns(); i >= 0; i--)
+	for (i = getStartTurnIndex(); i >= getEndTurnIndex(); i--)
 	{
 		if(vp->track->leftSideBarrier[i].intersectsRect(rect))
 		{
@@ -145,7 +145,7 @@ void PlayerCar::moveRight()
 
 	RectangleClass rect(ex.left  + 0.25, ex.top, ex.right + 0.25, ex.bottom);
 
-	for (i = vp->track->getNumTurns(); i >= 0; i--)
+	for (i = getStartTurnIndex(); i >= getEndTurnIndex(); i--)
 	{
 		if(vp->track->rightSideBarrier[i].intersectsRect(rect))
 		{
@@ -175,7 +175,7 @@ void PlayerCar::move()
 			RECT ex = getFullExtents();
 			RectangleClass leftRect(ex.left  - 0.25, ex.top, ex.right - 0.25, ex.bottom);
 
-			for (i = vp->track->getNumTurns(); i >= 0; i--)
+			for (i = getStartTurnIndex(); i >= getEndTurnIndex(); i--)
 			{
 				if(vp->track->leftSideBarrier[i].intersectsRect(leftRect))
 				{
@@ -191,7 +191,7 @@ void PlayerCar::move()
 			//check right side
 			RectangleClass rightRect(ex.left  + 0.25, ex.top, ex.right + 0.25, ex.bottom);
 
-			for (i = vp->track->getNumTurns(); i >= 0; i--)
+			for (i = getStartTurnIndex(); i >= getEndTurnIndex(); i--)
 			{
 				if(vp->track->rightSideBarrier[i].intersectsRect(rightRect))
 				{
