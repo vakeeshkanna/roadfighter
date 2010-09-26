@@ -71,7 +71,7 @@ void RoadFighterInteractiveObjectManager::update()
 		carManager->spawn();
 	}
 
-	if(getStageCompletedPercentage() % 20 == 0)
+	if(getStageCompletedPercentage() % 33 == 0)
 	{
 		carManager->spawnBonusCar();
 	}
