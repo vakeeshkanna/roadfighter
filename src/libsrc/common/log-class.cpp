@@ -74,17 +74,20 @@ int Log::vpf (const char *format, va_list args)
 }
 int lprintf (const char *format, ...)
 {
-	int r;
+	int r = 0;
 	va_list	vargs;
 #ifdef WIN32
 	// Since these lines go into a logfile, zap any log comments which
 	// have a carriage return but no linefeed.
 	if(strchr(format,'\r') != NULL) return -1;
 #endif
+//only do logging in DEBUG mode
+#ifdef _DEBUG
 	Log *log = Log::getInstance();
 	va_start (vargs, format) ;
 	r = log->vpf (format, vargs) ;
 	va_end(vargs) ;
+#endif
 	return r ;
 }
 
