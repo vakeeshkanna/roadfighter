@@ -12,7 +12,7 @@ PlayerCar::PlayerCar(char *n):Car(n,0.0)
 {
 	mode = SPEED_MODE_A;
 	slideDirection = DIRECTION_NONE;
-	fuel = 500;
+	fuel = 100;
 	score = 0;
 	lastSpeed = 401;
 	cell = NULL;
@@ -24,6 +24,7 @@ PlayerCar::PlayerCar(char *n):Car(n,0.0)
 	canDeductFuel = no;
 	currentStage = 1;
 	spinFrameIndex = -1;
+	counterSteeringButtonsWereReleased = no;
 	setViewPort((RoadFighterViewport*)VP);
 	addImage(ImageInfo("playercar", ROADFIGHTER_IMAGES_DIR, "playercarimages.bmp",25,32));
 
@@ -58,7 +59,7 @@ void PlayerCar::initMe()
 	int startX = (vp->getNumCellsX() / 2) - 1;// - getNumCellsX();
 	int startY = (vp->getNumCellsY() - getNumCellsY() * 4) + 2;
 	flawless = yes;
-	fuel = 500;
+	fuel = 100;
 	//VP->setCurPixLine(9000);
 	stageCompleted = no;
 	completingStage = no;
@@ -69,6 +70,7 @@ void PlayerCar::initMe()
 	currentFrame = frames[PLAYER_CAR_ALIVE_FRAME];
 	mode = SPEED_MODE_A;
 	spinFrameIndex = -1;
+	counterSteeringButtonsWereReleased = no;
 	straightenCar();
 	setPinnedToViewport(yes);
 	setYPosWC(48);
@@ -450,6 +452,13 @@ void PlayerCar::slowDown()
 
 void PlayerCar::slide()
 {
+	//if having a collision while sliding then set the car to be spinning
+	if(isSliding())
+	{
+		spin();
+		return;
+	}
+
 	myState = CAR_SLIDING;
 	lastX = getXPosWC();
 	lastY = getYPosWC();
@@ -467,6 +476,22 @@ void PlayerCar::sliding()
 {
 	static Timer frameTimer;
 	static Logical timerInitialized = no;
+	static Logical counterSteeringStatus = no;
+
+	if(getSlideDirection() == DIRECTION_LEFT)
+	{
+		if(KEY_UP(VK_RIGHT) && KEY_UP(VK_UP) || KEY_UP(VK_DOWN))
+		{
+			counterSteeringButtonsWereReleased = yes;
+		}
+	}
+	else if(getSlideDirection() == DIRECTION_RIGHT)
+	{
+		if(KEY_UP(VK_LEFT) && KEY_UP(VK_UP) || KEY_UP(VK_DOWN))
+		{
+			counterSteeringButtonsWereReleased = yes;
+		}
+	}
 
 	frameTimer.forceTickBasedTimer();
 	if(!timerInitialized)
@@ -772,4 +797,14 @@ void PlayerCar::straightenCar()
 	setSlideDirection(DIRECTION_NONE);
 	currentFrame = frames[PLAYER_CAR_ALIVE_FRAME];
 	spinFrameIndex = -1;
+}
+
+Logical PlayerCar::AreCounterSteeringButtonsWereReleased()
+{
+	return counterSteeringButtonsWereReleased;
+}
+
+void PlayerCar::setCounterSteeringButtons(Logical released)
+{
+	counterSteeringButtonsWereReleased = released;
 }

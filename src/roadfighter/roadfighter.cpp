@@ -476,20 +476,25 @@ void RoadFighter::processUserInput(double milliseconds)
 	}
 
 	//if sliding check look for counter-steering
-	if(player->isSliding() && (player->getYPosWC() - player->getLastY()) > 35 && (abs(player->getLastX() - player->getXPosWC())) < 3)
+	if(player->isSliding() && !player->isSpinning() && (player->getYPosWC() - player->getLastY()) > 20 && (abs(player->getLastX() - player->getXPosWC())) < 3)
 	{
-		if(player->getSlideDirection() == DIRECTION_LEFT)
+		if(player->AreCounterSteeringButtonsWereReleased())
 		{
-			if(KEY_DOWN(VK_RIGHT) && KEY_DOWN(VK_DOWN))
+			if(player->getSlideDirection() == DIRECTION_LEFT)
 			{
-				player->straightenCar();
+				if(KEY_DOWN(VK_RIGHT) && KEY_DOWN(VK_DOWN))
+				{
+					player->straightenCar();
+					player->setCounterSteeringButtons(no);
+				}
 			}
-		}
-		else if(player->getSlideDirection() == DIRECTION_RIGHT)
-		{
-			if(KEY_DOWN(VK_LEFT) && KEY_DOWN(VK_DOWN))
+			else if(player->getSlideDirection() == DIRECTION_RIGHT)
 			{
-				player->straightenCar();
+				if(KEY_DOWN(VK_LEFT) && KEY_DOWN(VK_DOWN))
+				{
+					player->straightenCar();
+					player->setCounterSteeringButtons(no);
+				}
 			}
 		}
 	}

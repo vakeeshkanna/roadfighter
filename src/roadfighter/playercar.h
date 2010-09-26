@@ -54,6 +54,7 @@ class PlayerCar : public Car
 	LPDIRECTDRAWSURFACE7 slideFrames[2];
 	Logical canControl;
 	Logical canDeductFuel;
+	Logical counterSteeringButtonsWereReleased;
 	int spinFrameIndex;
 
 
@@ -117,6 +118,8 @@ public:
 	void setCurrentStage(int stage);
 	int getCurrentStage();
 	void straightenCar();
+	void setCounterSteeringButtons(Logical released);
+	Logical AreCounterSteeringButtonsWereReleased();
 
 private:
 	static PlayerCar* playercar;
