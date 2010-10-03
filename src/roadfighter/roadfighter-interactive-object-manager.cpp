@@ -68,7 +68,10 @@ void RoadFighterInteractiveObjectManager::update()
 	//after every five perc of stage completed see if there is a new car to be spawned
 	//if(getStageCompletedPercentage() % 1 == 0)
 	{
-		carManager->spawn();
+		if(carManager->isCanSpawnNewCars())
+		{
+			carManager->spawn();
+		}
 	}
 
 	if(getStageCompletedPercentage() % 33 == 0)

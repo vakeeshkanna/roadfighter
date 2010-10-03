@@ -49,6 +49,9 @@ protected:
 	double lastX, lastY;
 	int startTurnIndex, endTurnIndex;
 	LPDIRECTDRAWSURFACE7 destroyFrames[CAR_DESTROY_FRAME_END - CAR_DESTROY_FRAME_START + 1];
+	int destroyFrameIndex;
+	Timer destroyFrameTimer;
+	Logical destroyTimerInitialized;
 
 
 public:

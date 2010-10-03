@@ -239,7 +239,6 @@ void CarManager::update()
 {
 	unsigned int i;
 	Car *car;
-
 	for(i = 0; i < cars.size(); i++)
 	{
 		car = cars.at(i);
@@ -270,8 +269,10 @@ void CarManager::update()
 			else if(car->getCarState() == CAR_DESTROYED)
 			{
 				car->setOnScreen(no);
-				car->setCarState(CAR_READY);
-				spawn();
+				if(isCanSpawnNewCars())
+				{
+					car->setCarState(CAR_READY);
+				}
 			}
 			else if(car->getCarState() == CAR_SLIDING)
 			{
@@ -296,12 +297,6 @@ void CarManager::update()
 		}
 		car->move();
 	}
-
-//		if(cars.at(i)->getState() == CAR_DESTROYING)
-//		{
-//			//cars.at(i)->destroying();
-//		}
-//		else
 }
 
 void CarManager::cleanup()
@@ -332,7 +327,6 @@ void CarManager::checkCollision(vector< InteractiveObject* > &objectsonScreen)
 			Logical colliding = car->isCollidingWith(interactiveObj);
 			if(colliding && interactiveObj->getOnScreen())
 			{
-				lprintf("collision detected\n");
 				//Handle all obstacle cases.
 				if(interactiveObj->getObectType().compare("Obstacle") == 0)
 				{
@@ -400,12 +394,7 @@ Logical CarManager::allCarsDestroyed()
 	for(i = 0; i < totalCars; i++)
 	{
 		car = cars.at(i);
-	}
-
-	for(i = 0; i < totalCars; i++)
-	{
-		car = cars.at(i);
-		if(car->getCarState() != CAR_RUNNING && car->getCarType() != BONUS_CAR)
+		if(car->getCarState() != CAR_DESTROYED && car->getOnScreen() && car->getCarType() != BONUS_CAR)
 		{
 			return no;
 		}

@@ -625,39 +625,33 @@ void PlayerCar::destroy()
 
 void PlayerCar::destroying()
 {
-	static int count = -1;
-	static Timer frameTimer;
-	static Logical timerInitialized = no;
-
-	frameTimer.forceTickBasedTimer();
-	if(!timerInitialized)
+	if(!destroyTimerInitialized)
 	{
-		frameTimer.start();
-		timerInitialized = yes;
+		destroyFrameTimer.start();
+		destroyTimerInitialized = yes;
 	}
 
-	int timeElapsed = frameTimer.getTicks();
+	int timeElapsed = destroyFrameTimer.getTicks();
 
-	if(count == -1)
+	if(destroyFrameIndex == -1)
 	{
-		count = 0;
+		destroyFrameIndex = 0;
 	}
 
 	//Stop the player car
 	speed = 0.0;
 
-	if(count == 0 && timeElapsed > 100 || timeElapsed > 300)
+	if(timeElapsed > 300)
 	{
-		timerInitialized = no;
-		lprintf("destroying\n");
-		if(count < PLAYER_CAR_DESTROY_FRAME_END - PLAYER_CAR_DESTROY_FRAME_START + 1)
+		destroyTimerInitialized = no;
+		if(destroyFrameIndex < PLAYER_CAR_DESTROY_FRAME_END - PLAYER_CAR_DESTROY_FRAME_START + 1)
 		{
-			currentFrame = destroyFrames[count++];
+			currentFrame = destroyFrames[destroyFrameIndex++];
 		}
 		else
 		{
 			myState = CAR_DESTROYED;
-			count = -1;
+			destroyFrameIndex = -1;
 			deductFuel(5);
 		}
 	}
