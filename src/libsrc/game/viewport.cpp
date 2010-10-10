@@ -143,6 +143,8 @@ int Viewport::getTotalRows()
 
 void Viewport::update(double moverate)
 {
-	if(curPixLine > 0)
+	if(curPixLine - moverate >= 0)
 		curPixLine -= moverate;
+	else
+		curPixLine = 0;
 }
