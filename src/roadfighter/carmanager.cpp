@@ -343,7 +343,16 @@ void CarManager::checkCollision(vector< InteractiveObject* > &objectsonScreen)
 
 					if(otherCar->isActive())
 					{
-						if(car->getCarType() != TRUCK_CAR && otherCar->getCarType() != TRUCK_CAR)
+						if(car->getCarType() == BONUS_CAR && otherCar->getCarType() != TRUCK_CAR)
+						{
+							otherCar->destroy();
+						}
+						else if(otherCar->getCarType() == BONUS_CAR && car->getCarType() != TRUCK_CAR)
+						{
+							car->destroy();
+						}
+						else
+							if(car->getCarType() != TRUCK_CAR && otherCar->getCarType() != TRUCK_CAR)
 						{
 							otherCar->destroy();
 						}
