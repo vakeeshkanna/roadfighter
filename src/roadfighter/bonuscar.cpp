@@ -34,5 +34,6 @@ void BonusCar::initMe()
 
 void BonusCar::bumpAction()
 {
-	destroy();
+	active = no;
+	myState = CAR_DESTROYED;
 }
