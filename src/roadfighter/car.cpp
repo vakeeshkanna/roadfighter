@@ -182,7 +182,7 @@ void Car::move()
 		}
 		if(getCarType() == TRUCK_CAR)
 		{
-			if(getOnScreen())
+			if(getOnScreen() && isFullyInside())
 			{
 				SM->play(ROADFIGHER_TRUCK, yes, yes);
 			}
@@ -299,6 +299,8 @@ void Car::destroy()
 {
 	active = no;
 	myState = CAR_DESTROYING;
+	if(getOnScreen())
+		SM->play(ROADFIGHER_CAR_DESTORY, yes, no);
 }
 
 void Car::destroying()

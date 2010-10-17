@@ -80,7 +80,7 @@ int WINAPI WinMain(HINSTANCE hinstance,HINSTANCE hPrevInstance,PSTR szCmdLine,in
 			if(!rf->isStageLoaded())
 			{
 				rf->reinit();
-				rf->prepareStage(ROADFIGHTER_STAGE_1);
+				rf->prepareStage(ROADFIGHTER_STAGE_3);
 				rf->setStageLoaded(yes);
 			}
 			else if(player->isStageCompleted())
