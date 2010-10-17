@@ -146,7 +146,10 @@ void Car::move()
 				}
 				else
 				{
-					setXPosWC(getXPosWC() + 1 * deltaTime);
+					if(getOnScreen())
+						destroy();
+					else
+						setXPosWC(getXPosWC() + 3);
 				}
 			}
 		}
@@ -162,7 +165,10 @@ void Car::move()
 				}
 				else
 				{
-					setXPosWC(getXPosWC() - 1 * deltaTime);
+					if(getOnScreen())
+						destroy();
+					else
+						setXPosWC(getXPosWC() - 3);
 				}
 			}
 		}

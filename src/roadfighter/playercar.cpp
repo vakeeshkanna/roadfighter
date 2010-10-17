@@ -12,7 +12,7 @@ PlayerCar::PlayerCar(char *n):Car(n,0.0)
 {
 	mode = SPEED_MODE_A;
 	slideDirection = DIRECTION_NONE;
-	fuel = 120;
+	fuel = 100;
 	score = 0;
 	lastSpeed = 401;
 	cell = NULL;
@@ -59,7 +59,7 @@ void PlayerCar::initMe()
 	int startX = (vp->getNumCellsX() / 2) - 1;// - getNumCellsX();
 	int startY = (vp->getNumCellsY() - getNumCellsY() * 4) + 2;
 	flawless = yes;
-	fuel = 120;
+	fuel = 100;
 	//VP->setCurPixLine(9000);
 	stageCompleted = no;
 	completingStage = no;
