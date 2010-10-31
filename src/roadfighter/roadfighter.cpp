@@ -103,6 +103,11 @@ void RoadFighter::showScoreScreen()
 		score = player->getScore();
 	}
 
+	if(getCurrentStage() == 1)
+	{
+		score = 0;
+	}
+
 	RE->clearBuffer(VP->buffer);
 	RE->clearAllInternalBuffer();
 	RenderingEngine::outputText(VP->buffer, 90, 90, C_WHITE, courseMsg, 6, 13);
@@ -785,6 +790,17 @@ void RoadFighter::processPlayerState()
 	if(tElapsed > 1000 / (100 / 60) && player->isCanDeductFuel())
 	{
 		player->deductFuel(1);
+		if(player->getCarState() == CAR_RUNNING && player->getSpeed() > 0	)
+		{
+			if(player->getSpeedMode() == SPEED_MODE_A)
+			{
+				player->setScore(player->getScore() + 50);
+			}
+			else
+			{
+				player->setScore(player->getScore() + 100);
+			}
+		}
 		timerInitialized = no;
 	}
 	if(player->isRunningLowOnFuel() && player->isCanDeductFuel())

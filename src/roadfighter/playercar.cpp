@@ -708,7 +708,7 @@ spinDirectionType PlayerCar::getSpinDirection()
 
 void PlayerCar::spawn()
 {
-	myState = CAR_READY;
+	myState = CAR_RUNNING;
 	slideDirection = DIRECTION_NONE;
 	currentFrame = frames[PLAYER_CAR_ALIVE_FRAME];
 	speed = 0.0;
