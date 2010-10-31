@@ -16,6 +16,7 @@
 #include "roadfighter-non-interactive-object-manager.h"
 #include "roadfighter-interactive-object-manager.h"
 #include "screen-class.h"
+#include "credit-class.h"
 
 enum gameStatus
 {
@@ -90,6 +91,7 @@ public:
 	~RoadFighter();
 	virtual void init();
 	virtual void initSounds();
+	virtual void initCredits();
 	virtual void reinit();
 	virtual void processNextFrame();
 	virtual void updateGameLogic(unsigned int ms);
@@ -124,6 +126,8 @@ public:
 	void showScoreScreen();
 	void showEndScreen();
 	void showCreditsScreen();
+	void showBorder();
+	void showCredits();
 	Logical isShowingSuperman();
 	void setStartingFirstStage(Logical starting);
 	Logical isStartingFirstStage();
@@ -147,6 +151,7 @@ private:
 	PlayerManager *playerManager;
 	RoadFighterInteractiveObjectManager *interactiveObjManager;
 	RoadFighterNonInteractiveObjectManager *nonInteractiveObjManager;
+	Credit *credits;
 	Logical showingSuperman, supermanShownOnce;
 	Logical startingFirstStage;
 	Logical skipCurrentFrame;

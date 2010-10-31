@@ -59,6 +59,7 @@ public:
 	void flipBuffers(HWND hWnd);
 	void tempToFront();
 	void clearBuffer(LPDIRECTDRAWSURFACE7 buffer);
+	void clearAllInternalBuffer();
 	void fillBuffer(LPDIRECTDRAWSURFACE7 buffer,int colorCode);
 	static RenderingEngine* getInstance();
 	LPDIRECTDRAWSURFACE7 getPrimary();
@@ -68,7 +69,7 @@ public:
 	static void outputText(LPDIRECTDRAWSURFACE7 surface, int x,int y,int color,int value,int fontWidth,int fontHeight, int bgcolor = C_BLACK);
 	static void outputText(LPDIRECTDRAWSURFACE7 surface, int x, int y,int color,double value,int fontWidth,int fontHeight, int bgcolor = C_BLACK);
 	static void outputText(LPDIRECTDRAWSURFACE7 surface, int x,int y,int color,int value,int fontWidth,int fontHeight,char* strFormat, int bgcolor = C_BLACK);
-	static void outputText(LPDIRECTDRAWSURFACE7 surface, int x,int y,int color,String &str,int fontWidth,int fontHeight, int bgcolor = C_BLACK);
+	static void outputText(LPDIRECTDRAWSURFACE7 surface, int x,int y,int color,string str,int fontWidth,int fontHeight, int bgcolor = C_BLACK);
 	static void plotPixel(LPDIRECTDRAWSURFACE7 surface, int x,int y,int color);
 	static void drawLine(LPDIRECTDRAWSURFACE7 surface, int x0,int y0, int x1, int y1, int color);
 

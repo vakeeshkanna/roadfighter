@@ -64,6 +64,15 @@ void RenderingEngine::clearBuffer(LPDIRECTDRAWSURFACE7 buf)
 	buf->Blt(NULL, NULL, NULL,DDBLT_COLORFILL, &fx);
 }
 
+void RenderingEngine::clearAllInternalBuffer()
+{
+	DDBLTFX fx;
+	fx.dwSize = sizeof(fx);
+	fx.dwFillColor = 0x000000;
+	DDrawPrimary->Blt(NULL, NULL, NULL,DDBLT_COLORFILL, &fx);
+	DDrawBack->Blt(NULL, NULL, NULL,DDBLT_COLORFILL, &fx);
+}
+
 void RenderingEngine::fillBuffer(LPDIRECTDRAWSURFACE7 buf,int colorCode)
 {
 	DDBLTFX fx;
@@ -366,7 +375,9 @@ void RenderingEngine::outputText(LPDIRECTDRAWSURFACE7 surface,int x, int y,int c
 	HDC hdc;
 	if(surface == NULL)
 		assert(0);
-	if(DD_OK == surface->GetDC(&hdc)) {
+
+	if(DD_OK == surface->GetDC(&hdc))
+	{
 		LOGFONT lf;
 		memset (&lf, 0, sizeof (lf));
 		lf.lfWidth= fontWidth;
@@ -390,18 +401,21 @@ void RenderingEngine::outputText(LPDIRECTDRAWSURFACE7 surface,int x, int y,int c
 	}
 }
 
-void RenderingEngine::outputText(LPDIRECTDRAWSURFACE7 surface,int x, int y,int color,String &str,int fontWidth,int fontHeight, int bgcolor)
+void RenderingEngine::outputText(LPDIRECTDRAWSURFACE7 surface,int x, int y,int color,string str,int fontWidth,int fontHeight, int bgcolor)
 {
 	HDC hdc;
 	if(surface == NULL)
 		assert(0);
-	if(DD_OK == surface->GetDC(&hdc)) {
+
+	if(DD_OK == surface->GetDC(&hdc))
+	{
 		LOGFONT lf;
 		memset (&lf, 0, sizeof (lf));
 		lf.lfWidth = fontWidth;
 		lf.lfHeight = fontHeight;
 		HFONT font = CreateFontIndirect (&lf);
 		SelectObject (hdc, font);
+		SetTextColor(hdc,color);
 
 		if(bgcolor != TRANSPARENT)
 		{
@@ -412,8 +426,7 @@ void RenderingEngine::outputText(LPDIRECTDRAWSURFACE7 surface,int x, int y,int c
 			SetBkMode(hdc, TRANSPARENT);
 		}
 
-		str = str + " via String Class";
-		TextOut(hdc,x,y,str.str(),strlen(str.str()));
+		TextOut(hdc,x,y,str.c_str(),strlen(str.c_str()));
 		DeleteObject(font);
 		surface->ReleaseDC(hdc);
 	}

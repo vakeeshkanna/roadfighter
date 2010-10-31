@@ -90,49 +90,53 @@ int WINAPI WinMain(HINSTANCE hinstance,HINSTANCE hPrevInstance,PSTR szCmdLine,in
 				if(currentStage == ROADFIGHTER_STAGE_4)
 				{
 					//show credits
-					exit(0);
+					rf->showCredits();
 				}
-				if(currentStage < NUM_STAGES)
+				else if(currentStage < NUM_STAGES)
 				{
 					rf->prepareStage(currentStage + 1);
 				}
 			}
-
-			if(rf->isSkipCurrentFrame())
-			{
-				rf->setSkipCurrentFrame(no);
-			}
 			else
 			{
-				rf->processNextFrame();
 
-				/*//Control
-				rf->processUserInput(0.0);
+				if(rf->isSkipCurrentFrame())
+				{
+					rf->setSkipCurrentFrame(no);
+				}
+				else
+				{
+					rf->processNextFrame();
 
-				//Game Logic
-				rf->applyGameLogic(0.0);
+					/*//Control
+					rf->processUserInput(0.0);
 
-				//Game AI
-				rf->applyGameAI(0.0);
+					//Game Logic
+					rf->applyGameLogic(0.0);
 
-				//Collision Detection
-				rf->applyCollisionDetection();
+					//Game AI
+					rf->applyGameAI(0.0);
 
-				//Game Physics
-				rf->applyGamePhysics(0.0);
+					//Collision Detection
+					rf->applyCollisionDetection();
 
-				//Process Player State
-				rf->processPlayerState();
-				*/
+					//Game Physics
+					rf->applyGamePhysics(0.0);
+
+					//Process Player State
+					rf->processPlayerState();
+					*/
+				}
+
+				//RenderFrame
+				//rf->renderFrame();
+				RE->flipBuffers(hwnd);
+				if(rf->isStartingFirstStage())
+				{
+					rf->startFirstStage();
+				}
 			}
 
-			//RenderFrame
-			//rf->renderFrame();
-			RE->flipBuffers(hwnd);
-			if(rf->isStartingFirstStage())
-			{
-				rf->startFirstStage();
-			}
 		}
 	}
 	return msg.wParam;

@@ -20,6 +20,7 @@ RoadFighter::RoadFighter()
 	courseScreen = NULL;
 	screenTopLeft.setXY(GetSystemMetrics(SM_CXSCREEN) * 35 / 100, GetSystemMetrics(SM_CYSCREEN) * 30 / 100);
 	initSounds();
+	initCredits();
 	startingFirstStage = yes;
 	stageLoaded = no;
 }
@@ -267,12 +268,7 @@ void RoadFighter::showHUD()
 	showSpeed();
 	showFuel();
 	showSuperman();
-
-	//border around the viewport
-	RE->drawLine(RE->getPrimary(), screenTopLeft.getX() - BORDER_GAP, screenTopLeft.getY() - BORDER_GAP, screenTopLeft.getX() + STAGE_WIDTH * SCALE_FACTOR + BORDER_GAP, screenTopLeft.getY() - BORDER_GAP, C_WHITE);
-	RE->drawLine(RE->getPrimary(), screenTopLeft.getX() - BORDER_GAP, screenTopLeft.getY() + STAGE_HEIGHT * SCALE_FACTOR + BORDER_GAP, screenTopLeft.getX() + STAGE_WIDTH * SCALE_FACTOR + BORDER_GAP, screenTopLeft.getY() + STAGE_HEIGHT * SCALE_FACTOR + BORDER_GAP, C_WHITE);
-	RE->drawLine(RE->getPrimary(), screenTopLeft.getX() - BORDER_GAP, screenTopLeft.getY() - BORDER_GAP, screenTopLeft.getX() - BORDER_GAP, screenTopLeft.getY() + STAGE_HEIGHT * SCALE_FACTOR + BORDER_GAP, C_WHITE);
-	RE->drawLine(RE->getPrimary(), screenTopLeft.getX() + STAGE_WIDTH * SCALE_FACTOR + BORDER_GAP, screenTopLeft.getY() - BORDER_GAP, screenTopLeft.getX() + STAGE_WIDTH * SCALE_FACTOR + BORDER_GAP, screenTopLeft.getY() + STAGE_HEIGHT * SCALE_FACTOR + BORDER_GAP, C_WHITE);
+	showBorder();
 }
 
 void RoadFighter::showProgress()
@@ -392,6 +388,59 @@ void RoadFighter::showSuperman()
 	}
 }
 
+void RoadFighter::showBorder()
+{
+	//border around the viewport
+	RE->drawLine(RE->getPrimary(), screenTopLeft.getX() - BORDER_GAP, screenTopLeft.getY() - BORDER_GAP, screenTopLeft.getX() + STAGE_WIDTH * SCALE_FACTOR + BORDER_GAP, screenTopLeft.getY() - BORDER_GAP, C_WHITE);
+	RE->drawLine(RE->getPrimary(), screenTopLeft.getX() - BORDER_GAP, screenTopLeft.getY() + STAGE_HEIGHT * SCALE_FACTOR + BORDER_GAP, screenTopLeft.getX() + STAGE_WIDTH * SCALE_FACTOR + BORDER_GAP, screenTopLeft.getY() + STAGE_HEIGHT * SCALE_FACTOR + BORDER_GAP, C_WHITE);
+	RE->drawLine(RE->getPrimary(), screenTopLeft.getX() - BORDER_GAP, screenTopLeft.getY() - BORDER_GAP, screenTopLeft.getX() - BORDER_GAP, screenTopLeft.getY() + STAGE_HEIGHT * SCALE_FACTOR + BORDER_GAP, C_WHITE);
+	RE->drawLine(RE->getPrimary(), screenTopLeft.getX() + STAGE_WIDTH * SCALE_FACTOR + BORDER_GAP, screenTopLeft.getY() - BORDER_GAP, screenTopLeft.getX() + STAGE_WIDTH * SCALE_FACTOR + BORDER_GAP, screenTopLeft.getY() + STAGE_HEIGHT * SCALE_FACTOR + BORDER_GAP, C_WHITE);
+}
+
+void RoadFighter::showCredits()
+{
+	int i = 0, j =0;
+	int gapBetweenNames = 20;
+	int y = 90;
+
+	vector<string> keys;
+
+	string lastKey = "";
+	string currentKey = "";
+
+	for (multimap<string, string>::iterator it = credits->creditMap.begin(); it != credits->creditMap.end(); ++it)
+	{
+		currentKey = (*it).first;
+
+		if(currentKey.compare(lastKey) != 0)
+		{
+			keys.push_back(currentKey);
+		}
+		lastKey = currentKey;
+	}
+
+	Screen dummyScreen;
+	dummyScreen.setWaitForKeyPress(yes);
+
+	for(i = 0; i < keys.size(); i++)
+	{
+		currentKey = keys.at(i);
+		y = 90;
+		int numValuesForThisKey = credits->getNumValuesForAKey(currentKey);
+		RE->clearBuffer(VP->buffer);
+		RE->clearAllInternalBuffer();
+		RenderingEngine::outputText(VP->buffer, 90, y, C_WHITE, currentKey, 6, 16);
+
+		for(j = 0; j < numValuesForThisKey; j++)
+		{
+			RenderingEngine::outputText(VP->buffer, 104, y + (j + 1) * 20, C_WHITE, credits->getValue(currentKey, j).c_str(), 5, 14);
+		}
+		VPBufferToDXBuffer();
+		RE->flipBuffers(hwnd);
+		Sleep(3000);
+	}
+	setStageLoaded(no);
+}
 const unsigned int SCREEN_REFRESH_RATE(1000/60);
 
 void RoadFighter::processNextFrame()
@@ -946,6 +995,47 @@ void RoadFighter::initSounds()
 	SM->addSound(ROADFIGHER_COLLISION, ROADFIGHTER_SOUNDS_DIR, "roadfighter_collision.wav");
 	SM->addSound(ROADFIGHER_CAR_DESTORY, ROADFIGHTER_SOUNDS_DIR, "roadfighter_car_destroy.wav");
 	SM->addSound(ROADFIGHER_CAR_SLIPPING, ROADFIGHTER_SOUNDS_DIR, "roadfighter_car_slipping.wav");
+}
+
+void RoadFighter::initCredits()
+{
+	credits = new Credit();
+
+	//Original Concept
+	credits->addNewEntry("Original Concept", "Waqqas Sharif");
+
+	//Artwork
+	credits->addNewEntry("Artwork", "Fahad Yousuf");
+	credits->addNewEntry("Artwork", "Afnan Ahmed");
+
+	//AI
+	credits->addNewEntry("AI", "Waqqas Sharif");
+
+	//2D Rendering Engine
+	credits->addNewEntry("2D Rendering Engine", "Waqqas Sharif");
+
+	//Programming
+	credits->addNewEntry("Programming", "Waqqas Sharif");
+
+	//Sound Engine
+	credits->addNewEntry("Sound Engine", "Waqqas Sharif");
+
+	//Level Design
+	credits->addNewEntry("Level Design", "Waqqas Sharif");
+
+	//Interface Design
+	credits->addNewEntry("Interface Design", "Waqqas Sharif");
+
+	//Build Management
+	credits->addNewEntry("Build Management", "Waqqas Sharif");
+
+	//Source Management
+	credits->addNewEntry("Source Management", "Waqqas Sharif");
+
+	//Testing
+	credits->addNewEntry("Testing", "Waqqas Sharif");
+	credits->addNewEntry("Testing", "Fahad Yousuf");
+	credits->addNewEntry("Testing", "Naveed Ghafoor");
 }
 
 void RoadFighter::setSkipCurrentFrame(Logical skip)

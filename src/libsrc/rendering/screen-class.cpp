@@ -2,7 +2,7 @@
 
 Screen::Screen()
 {
-
+	internalBuffer = NULL;
 }
 
 Screen::~Screen()

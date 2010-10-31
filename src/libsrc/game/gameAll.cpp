@@ -9,3 +9,4 @@
 #include "helper-class.cpp"
 #include "gameframe.cpp"
 #include "background.cpp"
+#include "credit-class.cpp"
