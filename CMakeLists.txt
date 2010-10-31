@@ -59,7 +59,7 @@ IF(MSVC90)
 	MESSAGE( "VC FOUND" )
 ENDIF(MSVC90)
 
-configure_file( "${ROOT_DIR}/Roadfighter-0.1.1-win32.exe" "${ROOT_DIR}/build/installers" COPYONLY)
-#configure_files ( "${ROOT_DIR}/Roadfighter-0.1.1-win32.exe" "${ROOT_DIR}/build/installers")
+configure_file( "${ROOT_DIR}/Roadfighter-1.0.0-win32.exe" "${ROOT_DIR}/build/installers" COPYONLY)
+#configure_files ( "${ROOT_DIR}/Roadfighter-1.0.0-win32.exe" "${ROOT_DIR}/build/installers")
 
 INCLUDE(CPack)
