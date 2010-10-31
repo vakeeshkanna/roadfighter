@@ -60,6 +60,7 @@ void PlayerCar::initMe()
 	int startY = (vp->getNumCellsY() - getNumCellsY() * 4) + 2;
 	flawless = yes;
 	fuel = 100;
+	score = 0;
 	//VP->setCurPixLine(9000);
 	stageCompleted = no;
 	completingStage = no;

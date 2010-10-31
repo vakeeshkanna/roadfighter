@@ -84,49 +84,35 @@ void RoadFighter::showTitleScreen()
 
 void RoadFighter::showScoreScreen()
 {
-	string name = "";
-	string image = "";
-	switch(getCurrentStage())
+	int score = 0;
+	Screen dummyScreen;
+	dummyScreen.setWaitForKeyPress(yes);
+	string courseMsg = "COURSE       ";
+	string scoreMsg = "HI       ";
+	char buffer[100];
+
+	itoa(getCurrentStage(), buffer, 10);
+	courseMsg += buffer;
+
+	if(player == NULL)
 	{
-	case 1:
-		name = "Course Screen 1";
-		image = "course1.bmp";
-		break;
-
-	case 2:
-		name = "Course Screen 2";
-		image = "course2.bmp";
-		break;
-
-	case 3:
-		name = "Course Screen 3";
-		image = "course3.bmp";
-		break;
-
-	case 4:
-		name = "Course Screen 4";
-		image = "course4.bmp";
-		break;
-	}
-
-	if(courseScreen == NULL)
-	{
-		courseScreen = new Screen(ImageInfo(name, ROADFIGHTER_IMAGES_DIR, image), VP->buffer, 0, 0, 256, 224);
-		courseScreen->setWaitForKeyPress(yes);
+		score = 0;
 	}
 	else
 	{
-		courseScreen->reinit(ImageInfo(name, ROADFIGHTER_IMAGES_DIR, image));
+		score = player->getScore();
 	}
 
-	//clear everything
-	RE->clearBuffer(RE->DDrawBack);
+	RE->clearBuffer(VP->buffer);
+	RE->clearAllInternalBuffer();
+	RenderingEngine::outputText(VP->buffer, 90, 90, C_WHITE, courseMsg, 6, 13);
+	RenderingEngine::outputText(VP->buffer, 90, 120, C_WHITE, scoreMsg, 6, 13);
+	RenderingEngine::outputText(VP->buffer, 126, 120, C_WHITE, score, 6, 13, "%06d");
 
-	courseScreen->display();
-	renderFrame();
+	VPBufferToDXBuffer();
 	RE->flipBuffers(hwnd);
 	Sleep(500);
-	courseScreen->wait();
+	dummyScreen.wait();
 }
 
 void RoadFighter::prepareStage(int stageNum)
@@ -1036,6 +1022,13 @@ void RoadFighter::initCredits()
 	credits->addNewEntry("Testing", "Waqqas Sharif");
 	credits->addNewEntry("Testing", "Fahad Yousuf");
 	credits->addNewEntry("Testing", "Naveed Ghafoor");
+
+	//Produced By
+	credits->addNewEntry("Produced By", "Waqqas Sharif");
+
+	//Directed By
+	credits->addNewEntry("Directed By", "Waqqas Sharif");
+
 }
 
 void RoadFighter::setSkipCurrentFrame(Logical skip)
