@@ -5,3 +5,4 @@
 #include "log-class.cpp"
 #include "point-class.cpp"
 #include "linkedlist.cpp"
+#include "path-class.cpp"
