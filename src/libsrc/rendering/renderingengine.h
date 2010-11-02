@@ -16,6 +16,16 @@
 #define C_BLUE 0x0000FF
 #define C_MAGENTA 0xDECD48
 
+
+//COLORREF
+#define CREF_WHITE RGB(255,255,255)
+#define CREF_BLACK RGB(0,0,0)
+#define CREF_RED RGB(255,0,0)
+#define CREF_GREEN RGB(0,254,0)
+#define CREF_BLUE RGB(0,0,255)
+
+
+
 bool bExclusive = true;
 
 //Global Handle to RenderingEngine
