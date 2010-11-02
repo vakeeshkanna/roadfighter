@@ -2,6 +2,7 @@
 
 Credit::Credit()
 {
+	keys.clear();
 	creditMap.clear();
 }
 
@@ -12,6 +13,24 @@ Credit::~Credit()
 
 void Credit::addNewEntry(string key, string value)
 {
+	int i = 0;
+
+	Logical addthisKey = yes;
+
+	for(i = 0; i < keys.size(); i++)
+	{
+		if(key.compare(keys.at(i)) == 0)
+		{
+			addthisKey = no;
+			break;
+		}
+	}
+
+	if(addthisKey)
+	{
+		keys.push_back(key);
+	}
+
 	creditMap.insert(pair<string, string>(key, value));
 }
 
@@ -43,4 +62,9 @@ string Credit::getValue(string key, int index)
 int Credit::getNumValuesForAKey(string key)
 {
 	return creditMap.count(key);
+}
+
+vector<string> Credit::getKeys()
+{
+	return keys;
 }

@@ -12,8 +12,10 @@ public:
 	~Credit();
 	void addNewEntry(string key, string value);
 	string getValue(string key, int index);
+	vector<string> getKeys();
 	int getNumValuesForAKey(string key);
 
+	vector<string> keys;
 	multimap<string, string> creditMap;
 };
 #endif
