@@ -36,9 +36,8 @@ static BOOL Init(HINSTANCE hInstance,int cCmdShow);
 int WINAPI WinMain(HINSTANCE hinstance,HINSTANCE hPrevInstance,PSTR szCmdLine,int iCmdShow)
 {
 	MSG msg;
-	BOOL notDone = true;
+	Logical notDone = yes;
 	int frame = 0;
-	//RE->setScreenDimensions(640,480);
 
 	if(!Init(hinstance,iCmdShow))
 	{
@@ -46,11 +45,9 @@ int WINAPI WinMain(HINSTANCE hinstance,HINSTANCE hPrevInstance,PSTR szCmdLine,in
 		return false;
 	}
 
-	//MapSetVal(MPY_8BITTOPINK, 0);
-	//MapLoad ("mymap.fmp", RE->DDraw);
-	//MapSetDrawArea (0, 0, 256, 224);
 	//Initialization stuff comes here
 	RoadFighter *rf = new RoadFighter();
+
 
 	//set the current viewable area, i.e the clipper for the main buffer (viewport)
 	rf->setViewableArea(0,0,VIEWPORT_WIDTH,VIEWPORT_HEIGHT);
@@ -61,14 +58,12 @@ int WINAPI WinMain(HINSTANCE hinstance,HINSTANCE hPrevInstance,PSTR szCmdLine,in
 	//FR->init(40);
 	while(notDone)
 	{
-		//MapDrawBG (VP->buffer, 0, 0);
 		if(PeekMessage(&msg,NULL,0,0,PM_REMOVE))
 		{
 			if(msg.message == WM_QUIT)
 			{
-				notDone = false;
-				//if(rf != NULL)
-					//delete rf;
+				lprintf("quiting\n");
+				notDone = no;
 				RE->cleanUp();
 			}
 			TranslateMessage(&msg);
@@ -79,6 +74,7 @@ int WINAPI WinMain(HINSTANCE hinstance,HINSTANCE hPrevInstance,PSTR szCmdLine,in
 			PlayerCar *player = rf->getPlayer();
 			if(!rf->isStageLoaded())
 			{
+				SM->stopAllSounds();
 				rf->reinit();
 				rf->prepareStage(ROADFIGHTER_STAGE_1);
 				rf->setStageLoaded(yes);
@@ -90,7 +86,7 @@ int WINAPI WinMain(HINSTANCE hinstance,HINSTANCE hPrevInstance,PSTR szCmdLine,in
 				if(currentStage == ROADFIGHTER_STAGE_4)
 				{
 					//show credits
-					rf->showCredits();
+					rf->showCredits(yes);
 				}
 				else if(currentStage < NUM_STAGES)
 				{

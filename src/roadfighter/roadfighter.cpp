@@ -1,5 +1,6 @@
 #include "renderingengine.h"
 #include "bluecar.h"
+#include "path-class.h"
 
 RoadFighter::RoadFighter()
 {
@@ -33,6 +34,37 @@ RoadFighter::~RoadFighter()
 		delete frameTimer;
 		frameTimer = NULL;
 	}
+}
+
+Logical RoadFighter::resourcesAreTampered()
+{
+	int i = 0;
+
+	int baseSizeOfAllFiles = 740804, sizeOfAllFiles = 0;
+	string imagesDir = ROADFIGHTER_IMAGES_DIR;
+
+	imagesDir += "./*";
+
+	vector<string> names = Path::namesOfFilesInsideADirectory(imagesDir);
+
+	//go through all file names inside the IMAGES_DIR, sum up there sizes and test against the expected size
+	for(i = 0; i < names.size(); i++)
+	{
+		string fileName = names.at(i);
+		string filePath = ROADFIGHTER_IMAGES_DIR;
+		filePath += "/";
+		filePath += fileName;
+
+//		lprintf("%s = %d\n", fileName.c_str(), Path::getFileSize(filePath));
+
+		sizeOfAllFiles += Path::getFileSize(filePath);
+	}
+
+	lprintf("%d\n", sizeOfAllFiles);
+
+	return (baseSizeOfAllFiles == sizeOfAllFiles ? 1 : 0);
+
+
 }
 void RoadFighter::init()
 {
@@ -76,10 +108,39 @@ void RoadFighter::showTitleScreen()
 	RE->clearBuffer(RE->DDrawBack);
 
 	titleScreen->display();
+	RenderingEngine::outputText(VP->buffer, 90, 150, RGB(0, 0, 255), "TM 2010", 6, 13);
+	RenderingEngine::outputText(VP->buffer, 90, 170, RGB(0, 254, 0), "Press (H) for Help", 6, 13);
+	RenderingEngine::outputText(VP->buffer, 90, 190, RGB(0, 254, 0), "Press (C) for Credits", 6, 13);
 	renderFrame();
 	RE->flipBuffers(hwnd);
 	Sleep(500);
-	titleScreen->wait();
+
+	while(1)
+	{
+		//wait for ENTER
+		if(KEY_DOWN(VK_RETURN))
+		{
+			break;
+		}
+		//wait for H
+		else if(KEY_DOWN(72) || KEY_DOWN(104))
+		{
+			setRoadFighterStatus(HELP_SCREEN);
+			showHelp();
+		}
+		//wait for C
+		else if(KEY_DOWN(67)/* || KEY_DOWN(99)*/)
+		{
+			setRoadFighterStatus(CREDITS_SCREEN);
+			showCredits(no);
+		}
+		//wait for ESC
+		else if(KEY_DOWN(VK_ESCAPE))
+		{
+			exit(0);
+		}
+	}
+	//titleScreen->wait();
 }
 
 void RoadFighter::showScoreScreen()
@@ -118,6 +179,8 @@ void RoadFighter::showScoreScreen()
 	RE->flipBuffers(hwnd);
 	Sleep(500);
 	dummyScreen.wait();
+
+
 }
 
 void RoadFighter::prepareStage(int stageNum)
@@ -388,50 +451,98 @@ void RoadFighter::showBorder()
 	RE->drawLine(RE->getPrimary(), screenTopLeft.getX() + STAGE_WIDTH * SCALE_FACTOR + BORDER_GAP, screenTopLeft.getY() - BORDER_GAP, screenTopLeft.getX() + STAGE_WIDTH * SCALE_FACTOR + BORDER_GAP, screenTopLeft.getY() + STAGE_HEIGHT * SCALE_FACTOR + BORDER_GAP, C_WHITE);
 }
 
-void RoadFighter::showCredits()
+void RoadFighter::showCredits(Logical gameCompleted)
 {
 	int i = 0, j =0;
 	int gapBetweenNames = 20;
-	int y = 90;
+	int y = 10;
 
-	vector<string> keys;
+	vector<string> keys = credits->getKeys();
 
-	string lastKey = "";
 	string currentKey = "";
-
-	for (multimap<string, string>::iterator it = credits->creditMap.begin(); it != credits->creditMap.end(); ++it)
-	{
-		currentKey = (*it).first;
-
-		if(currentKey.compare(lastKey) != 0)
-		{
-			keys.push_back(currentKey);
-		}
-		lastKey = currentKey;
-	}
 
 	Screen dummyScreen;
 	dummyScreen.setWaitForKeyPress(yes);
 
+	if(1)
+	{
+		SM->play(ROADFIGHER_INTRO, yes, no);
+	}
+
 	for(i = 0; i < keys.size(); i++)
 	{
 		currentKey = keys.at(i);
-		y = 90;
+		y = 10;
 		int numValuesForThisKey = credits->getNumValuesForAKey(currentKey);
 		RE->clearBuffer(VP->buffer);
 		RE->clearAllInternalBuffer();
-		RenderingEngine::outputText(VP->buffer, 90, y, C_WHITE, currentKey, 6, 16);
+		showBorder();
+		RenderingEngine::outputText(VP->buffer, 10, y, C_WHITE, currentKey, 6, 16);
 
 		for(j = 0; j < numValuesForThisKey; j++)
 		{
-			RenderingEngine::outputText(VP->buffer, 104, y + (j + 1) * 20, C_WHITE, credits->getValue(currentKey, j).c_str(), 5, 14);
+			RenderingEngine::outputText(VP->buffer, 24, y + (j + 1) * 20, C_RED, credits->getValue(currentKey, j).c_str(), 5, 14);
 		}
 		VPBufferToDXBuffer();
 		RE->flipBuffers(hwnd);
 		Sleep(3000);
 	}
-	setStageLoaded(no);
+
+	if(1)
+	{
+		while(SM->isPlaying(ROADFIGHER_INTRO))
+		{
+
+		}
+
+		while(1)
+		{
+			//wait for Q
+			if(KEY_DOWN(81))
+			{
+				break;
+			}
+		}
+		reinit();
+		//setStageLoaded(no);
+	}
+	else
+	{
+		reinit();
+		//showTitleScreen();
+	}
 }
+
+void RoadFighter::showHelp()
+{
+	RE->clearBuffer(VP->buffer);
+	RE->clearAllInternalBuffer();
+
+	//RE->drawLine(RE->getPrimary(), screenTopLeft.getX() - BORDER_GAP, screenTopLeft.getY() - BORDER_GAP, screenTopLeft.getX() + STAGE_WIDTH * SCALE_FACTOR + BORDER_GAP, screenTopLeft.getY() - BORDER_GAP, C_WHITE);
+	showBorder();
+	RenderingEngine::outputText(VP->buffer, 10, 10, CREF_WHITE, "How to play:", 5, 14);
+	RenderingEngine::outputText(VP->buffer, 10, 30, CREF_RED, "Use Left or Right arrow to steer.", 5, 14);
+	RenderingEngine::outputText(VP->buffer, 10, 50, CREF_RED, "Use UP arrow key for Speed Mode A.", 5, 14);
+	RenderingEngine::outputText(VP->buffer, 10, 70, CREF_RED, "Use DOWN arrow key for Speed Mode B.", 5, 14);
+	RenderingEngine::outputText(VP->buffer, 10, 90, CREF_GREEN, "While sliding do countersteering by pressing either,", 5, 14);
+	RenderingEngine::outputText(VP->buffer, 10, 110, CREF_GREEN, "UP or DOWN arrow + Opposite Direction key.", 5, 14);
+	RenderingEngine::outputText(VP->buffer, 10, 130, CREF_BLUE, "Press (P) to Pause and Unpause game.", 5, 14);
+	RenderingEngine::outputText(VP->buffer, 10, 150, CREF_BLUE, "Press (Q) anytime to go to Title screen.", 5, 14);
+	RenderingEngine::outputText(VP->buffer, 10, 170, CREF_BLUE, "Press (ESC) on Title screen to quit the game.", 5, 14);
+	VPBufferToDXBuffer();
+	RE->flipBuffers(hwnd);
+
+	while(1)
+	{
+		//wait for Q
+		if(KEY_DOWN(81))
+		{
+			break;
+		}
+	}
+	reinit();
+}
+
 const unsigned int SCREEN_REFRESH_RATE(1000/60);
 
 void RoadFighter::processNextFrame()
@@ -513,6 +624,13 @@ void RoadFighter::processUserInput(double milliseconds)
 		{
 			control->brake();
 		}
+
+		//Q to quit to main menu
+		if(KEY_DOWN(81))
+		{
+			SM->stopAllSounds();
+			setStageLoaded(no);
+		}
 	}
 
 	//if sliding check look for counter-steering
@@ -553,7 +671,7 @@ void RoadFighter::processUserInput(double milliseconds)
 		{
 			if(KEY_DOWN(VK_ESCAPE))
 			{
-				exit(0);
+				showTitleScreen();
 			}
 
 			if(!pauseTimerInit)
@@ -1003,6 +1121,9 @@ void RoadFighter::initCredits()
 {
 	credits = new Credit();
 
+	//Credits
+	credits->addNewEntry("Credits", "");
+
 	//Original Concept
 	credits->addNewEntry("Original Concept", "Waqqas Sharif");
 
@@ -1016,11 +1137,11 @@ void RoadFighter::initCredits()
 	//2D Rendering Engine
 	credits->addNewEntry("2D Rendering Engine", "Waqqas Sharif");
 
-	//Programming
-	credits->addNewEntry("Programming", "Waqqas Sharif");
-
 	//Sound Engine
 	credits->addNewEntry("Sound Engine", "Waqqas Sharif");
+
+	//Programming
+	credits->addNewEntry("Programming", "Waqqas Sharif");
 
 	//Level Design
 	credits->addNewEntry("Level Design", "Waqqas Sharif");
@@ -1037,6 +1158,7 @@ void RoadFighter::initCredits()
 	//Testing
 	credits->addNewEntry("Testing", "Waqqas Sharif");
 	credits->addNewEntry("Testing", "Fahad Yousuf");
+	credits->addNewEntry("Testing", "Afnan Ahmed");
 	credits->addNewEntry("Testing", "Naveed Ghafoor");
 
 	//Produced By
@@ -1044,6 +1166,15 @@ void RoadFighter::initCredits()
 
 	//Directed By
 	credits->addNewEntry("Directed By", "Waqqas Sharif");
+
+	//MappyLibrary
+	credits->addNewEntry("Roadfighter uses Mappy Tiling Library", "http://www.tilemap.co.uk/mappy.php");
+
+	//Thanks
+	credits->addNewEntry("Thanks for playing!!!!", "Roadfighter is hosted on Google Projects");
+	credits->addNewEntry("Thanks for playing!!!!", "http://code.google.com/p/roadfighter/");
+	credits->addNewEntry("Thanks for playing!!!!", "Email comments to vickyrare@yahoo.com");
+
 
 }
 

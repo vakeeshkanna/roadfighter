@@ -34,7 +34,7 @@ enum roadfigherStatus
 	STAGE2_SCREEN,
 	STAGE3_SCREEN,
 	STAGE4_SCREEN,
-	END_SCREEN,
+	HELP_SCREEN,
 	CREDITS_SCREEN
 };
 
@@ -89,6 +89,7 @@ public:
 
 	RoadFighter();
 	~RoadFighter();
+	Logical resourcesAreTampered();
 	virtual void init();
 	virtual void initSounds();
 	virtual void initCredits();
@@ -127,7 +128,8 @@ public:
 	void showEndScreen();
 	void showCreditsScreen();
 	void showBorder();
-	void showCredits();
+	void showCredits(Logical gameCompleted);
+	void showHelp();
 	Logical isShowingSuperman();
 	void setStartingFirstStage(Logical starting);
 	Logical isStartingFirstStage();
