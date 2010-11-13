@@ -85,9 +85,12 @@ void RoadFighterInteractiveObjectManager::update()
 		}
 	}
 
-	if(getStageCompletedPercentage() % 25 == 0)
+	if(getCurrentStage() != ROADFIGHTER_STAGE_1)
 	{
-		carManager->spawnTruckCar();
+		if(getStageCompletedPercentage() % 25 == 0)
+		{
+			carManager->spawnTruckCar();
+		}
 	}
 }
 

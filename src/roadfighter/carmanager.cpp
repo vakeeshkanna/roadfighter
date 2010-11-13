@@ -223,6 +223,9 @@ void CarManager::spawnBonusCar()
 
 void CarManager::spawnTruckCar()
 {
+	if(getCurrentStage() == 1)
+		return;
+
 	unsigned int i;
 	Car *car;
 
