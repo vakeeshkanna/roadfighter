@@ -1,3 +1,5 @@
 #include "wave-class.cpp"
 #include "soundengine.cpp"
 #include "wavesound-manager.cpp"
+#include "oggsound-manager.cpp"
+#include "ogg-class.cpp"
