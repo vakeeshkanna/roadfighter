@@ -169,7 +169,7 @@ void PlayerCar::move()
 
 	if(!completingStage)
 	{
-		SM->play(ROADFIGHER_ENGINE_LOW_SOUND, yes, yes);
+		WSM->play(ROADFIGHER_ENGINE_LOW_SOUND, yes, yes);
 		if(speed > 0.0)
 		{
 			//check left side
@@ -251,7 +251,7 @@ void PlayerCar::move()
 			moveRate = 0;
 		}
 
-		if(SM->isPlaying(ROADFIGHER_STAGE_CLEAR_SOUND) || SM->isPlaying(ROADFIGHER_GAME_CLEAR_SOUND))
+		if(WSM->isPlaying(ROADFIGHER_STAGE_CLEAR_SOUND) || WSM->isPlaying(ROADFIGHER_GAME_CLEAR_SOUND))
 		{
 			yPosSC -= moveRate;
 		}
@@ -281,9 +281,9 @@ double PlayerCar::getLastSpeed()
 
 void PlayerCar::incSpeed()
 {
-	if(SM->isPlaying(ROADFIGHER_BRAKES_SOUND))
+	if(WSM->isPlaying(ROADFIGHER_BRAKES_SOUND))
 	{
-		SM->stop(ROADFIGHER_BRAKES_SOUND);
+		WSM->stop(ROADFIGHER_BRAKES_SOUND);
 	}
 
 	if(myState == CAR_DESTROYED || myState == CAR_SLIDING || myState == CAR_SPINNING)
@@ -395,7 +395,7 @@ void PlayerCar::bumpAction(carType cType)
 	switch(cType)
 	{
 		case BONUS_CAR:
-			SM->play(ROADFIGHER_BONUS_CAR_TAKEN_SOUND, yes, no);
+			WSM->play(ROADFIGHER_BONUS_CAR_TAKEN_SOUND, yes, no);
 			addFuel();
 			score += 1000;
 		break;
@@ -463,13 +463,13 @@ void PlayerCar::slide()
 	myState = CAR_SLIDING;
 	lastX = getXPosWC();
 	lastY = getYPosWC();
-	if(SM->isPlaying(ROADFIGHER_ENGINE_LOW_SOUND))
+	if(WSM->isPlaying(ROADFIGHER_ENGINE_LOW_SOUND))
 	{
-		SM->stop(ROADFIGHER_ENGINE_LOW_SOUND);
+		WSM->stop(ROADFIGHER_ENGINE_LOW_SOUND);
 	}
 
-	//SM->stop(ROADFIGHER_ENGINE_SOUND_HIGH);
-	SM->play(ROADFIGHER_CAR_SLIPPING_SOUND, yes, yes);
+	//WSM->stop(ROADFIGHER_ENGINE_SOUND_HIGH);
+	WSM->play(ROADFIGHER_CAR_SLIPPING_SOUND, yes, yes);
 	lastSpeed = speed;
 }
 
@@ -612,16 +612,16 @@ void PlayerCar::destroy()
 	flawless = no;
 
 	lastY = getYPosWC();
-	if(SM->isPlaying(ROADFIGHER_ENGINE_LOW_SOUND))
+	if(WSM->isPlaying(ROADFIGHER_ENGINE_LOW_SOUND))
 	{
-		SM->stop(ROADFIGHER_ENGINE_LOW_SOUND);
+		WSM->stop(ROADFIGHER_ENGINE_LOW_SOUND);
 	}
 
-	if(SM->isPlaying(ROADFIGHER_CAR_SLIPPING_SOUND))
+	if(WSM->isPlaying(ROADFIGHER_CAR_SLIPPING_SOUND))
 	{
-		SM->stop(ROADFIGHER_CAR_SLIPPING_SOUND);
+		WSM->stop(ROADFIGHER_CAR_SLIPPING_SOUND);
 	}
-	SM->play(ROADFIGHER_CAR_DESTORY_SOUND, yes, no);
+	WSM->play(ROADFIGHER_CAR_DESTORY_SOUND, yes, no);
 }
 
 void PlayerCar::destroying()
@@ -784,9 +784,9 @@ int PlayerCar::getCurrentStage()
 
 void PlayerCar::straightenCar()
 {
-	if(SM->isPlaying(ROADFIGHER_CAR_SLIPPING_SOUND))
+	if(WSM->isPlaying(ROADFIGHER_CAR_SLIPPING_SOUND))
 	{
-		SM->stop(ROADFIGHER_CAR_SLIPPING_SOUND);
+		WSM->stop(ROADFIGHER_CAR_SLIPPING_SOUND);
 	}
 	setCarState(CAR_RUNNING);
 	setSlideDirection(DIRECTION_NONE);

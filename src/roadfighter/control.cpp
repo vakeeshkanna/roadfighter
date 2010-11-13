@@ -1,5 +1,5 @@
 #include "control.h"
-#include "soundmanager.h"
+#include "wavesound-manager.h"
 
 Control::Control()
 {
@@ -56,13 +56,13 @@ void Control::brake()
 		}
 		if(player->isCarSlowingDown())
 		{
-			SM->play(ROADFIGHER_BRAKES_SOUND, yes, yes);
+			WSM->play(ROADFIGHER_BRAKES_SOUND, yes, yes);
 		}
 		else
 		{
-			if(SM->isPlaying(ROADFIGHER_BRAKES_SOUND))
+			if(WSM->isPlaying(ROADFIGHER_BRAKES_SOUND))
 			{
-				SM->stop(ROADFIGHER_BRAKES_SOUND);
+				WSM->stop(ROADFIGHER_BRAKES_SOUND);
 			}
 		}
 	}

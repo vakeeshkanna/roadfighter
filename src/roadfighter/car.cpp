@@ -3,7 +3,7 @@
 #include "misc.h"
 #include "helper-class.h"
 #include "framerate.h"
-#include "soundmanager.h"
+#include "wavesound-manager.h"
 
 Car::Car()
 {
@@ -190,11 +190,11 @@ void Car::move()
 		{
 			if(getOnScreen() && isFullyInside())
 			{
-				SM->play(ROADFIGHER_TRUCK_SOUND, yes, yes);
+				WSM->play(ROADFIGHER_TRUCK_SOUND, yes, yes);
 			}
 			else
 			{
-				SM->stop(ROADFIGHER_TRUCK_SOUND);
+				WSM->stop(ROADFIGHER_TRUCK_SOUND);
 			}
 		}
 	}
@@ -306,7 +306,7 @@ void Car::destroy()
 	active = no;
 	myState = CAR_DESTROYING;
 	if(getOnScreen())
-		SM->play(ROADFIGHER_CAR_DESTORY_SOUND, yes, no);
+		WSM->play(ROADFIGHER_CAR_DESTORY_SOUND, yes, no);
 }
 
 void Car::destroying()

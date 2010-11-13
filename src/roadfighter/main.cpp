@@ -7,7 +7,8 @@
 #include<mmsystem.h>
 #include "renderingengine.h"
 #include "soundengine.h"
-#include "soundmanager.h"
+#include "wavesound-manager.h"
+#include "oggsound-manager.h"
 #include "roadfighter.h"
 #include "stage.h"
 #include "viewport.h"
@@ -56,6 +57,7 @@ int WINAPI WinMain(HINSTANCE hinstance,HINSTANCE hPrevInstance,PSTR szCmdLine,in
 	//LoadFiles
 	//BuildTables
 	//FR->init(40);
+
 	while(notDone)
 	{
 		if(PeekMessage(&msg,NULL,0,0,PM_REMOVE))
@@ -74,7 +76,7 @@ int WINAPI WinMain(HINSTANCE hinstance,HINSTANCE hPrevInstance,PSTR szCmdLine,in
 			PlayerCar *player = rf->getPlayer();
 			if(!rf->isStageLoaded())
 			{
-				SM->stopAllSounds();
+				WSM->stopAllSounds();
 				rf->reinit();
 				rf->prepareStage(ROADFIGHTER_STAGE_1);
 				rf->setStageLoaded(yes);
