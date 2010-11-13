@@ -19,6 +19,7 @@ RoadFighter::RoadFighter()
 	supermanShownOnce = no;
 	titleScreen = NULL;
 	courseScreen = NULL;
+	endScreen = NULL;
 	screenTopLeft.setXY(GetSystemMetrics(SM_CXSCREEN) * 35 / 100, GetSystemMetrics(SM_CYSCREEN) * 30 / 100);
 	initSounds();
 	initCredits();
@@ -70,6 +71,8 @@ void RoadFighter::init()
 {
 	titleScreen = new Screen(ImageInfo("Title Screen", ROADFIGHTER_IMAGES_DIR, "titlescreen.bmp"), VP->buffer, 0, 0, 256, 224);
 	titleScreen->setWaitForKeyPress(yes);
+
+	endScreen = new Screen(ImageInfo("End Screen", ROADFIGHTER_IMAGES_DIR, "creditsscreen.bmp"), VP->buffer, 0, 0, 256, 224);
 }
 
 void RoadFighter::reinit()
@@ -108,9 +111,9 @@ void RoadFighter::showTitleScreen()
 	RE->clearBuffer(RE->DDrawBack);
 
 	titleScreen->display();
-	RenderingEngine::outputText(VP->buffer, 90, 150, RGB(0, 0, 255), "TM 2010", 6, 13);
-	RenderingEngine::outputText(VP->buffer, 90, 170, RGB(0, 254, 0), "Press (H) for Help", 6, 13);
-	RenderingEngine::outputText(VP->buffer, 90, 190, RGB(0, 254, 0), "Press (C) for Credits", 6, 13);
+	RenderingEngine::outputText(VP->buffer, 80, 150, RGB(0, 0, 255), "TM and (C) 2010", 6, 13);
+	RenderingEngine::outputText(VP->buffer, 80, 170, RGB(0, 254, 0), "Press (H) for Help", 6, 13);
+	RenderingEngine::outputText(VP->buffer, 80, 190, RGB(0, 254, 0), "Press (C) for Credits", 6, 13);
 	renderFrame();
 	RE->flipBuffers(hwnd);
 	Sleep(500);
@@ -123,13 +126,13 @@ void RoadFighter::showTitleScreen()
 			break;
 		}
 		//wait for H
-		else if(KEY_DOWN(72) || KEY_DOWN(104))
+		else if(KEY_DOWN(72))
 		{
 			setRoadFighterStatus(HELP_SCREEN);
 			showHelp();
 		}
 		//wait for C
-		else if(KEY_DOWN(67)/* || KEY_DOWN(99)*/)
+		else if(KEY_DOWN(67))
 		{
 			setRoadFighterStatus(CREDITS_SCREEN);
 			showCredits(no);
@@ -431,12 +434,12 @@ void RoadFighter::showSuperman()
 		else
 		{
 			showingSuperman = no;
-			SM->play(ROADFIGHER_SUPERMAN_BONUS, yes, no);
+			SM->play(ROADFIGHER_SUPERMAN_BONUS_SOUND, yes, no);
 			player->setScore(player->getScore() + 1000);
 		}
 	}
 
-	if(SM->isPlaying(ROADFIGHER_SUPERMAN_BONUS))
+	if(SM->isPlaying(ROADFIGHER_SUPERMAN_BONUS_SOUND))
 	{
 		RenderingEngine::outputText(VP->buffer, superman->getX(), 5, C_WHITE, "1000", 5, 14, TRANSPARENT);
 	}
@@ -464,10 +467,8 @@ void RoadFighter::showCredits(Logical gameCompleted)
 	Screen dummyScreen;
 	dummyScreen.setWaitForKeyPress(yes);
 
-	if(1)
-	{
-		SM->play(ROADFIGHER_INTRO, yes, no);
-	}
+	endScreen->display();
+	SM->play(ROADFIGHTER_ENDING_SOUND, yes, no);
 
 	for(i = 0; i < keys.size(); i++)
 	{
@@ -476,41 +477,30 @@ void RoadFighter::showCredits(Logical gameCompleted)
 		int numValuesForThisKey = credits->getNumValuesForAKey(currentKey);
 		RE->clearBuffer(VP->buffer);
 		RE->clearAllInternalBuffer();
+		endScreen->display();
 		showBorder();
-		RenderingEngine::outputText(VP->buffer, 10, y, C_WHITE, currentKey, 6, 16);
+		RenderingEngine::outputText(VP->buffer, 10, y, CREF_WHITE, currentKey, 6, 16);
 
 		for(j = 0; j < numValuesForThisKey; j++)
 		{
-			RenderingEngine::outputText(VP->buffer, 24, y + (j + 1) * 20, C_RED, credits->getValue(currentKey, j).c_str(), 5, 14);
+			RenderingEngine::outputText(VP->buffer, 24, y + (j + 1) * 20, CREF_BLUE, credits->getValue(currentKey, j).c_str(), 5, 14);
 		}
 		VPBufferToDXBuffer();
 		RE->flipBuffers(hwnd);
-		Sleep(3000);
+		Sleep(10000);
 	}
 
-	if(1)
+	while(SM->isPlaying(ROADFIGHTER_ENDING_SOUND))
 	{
-		while(SM->isPlaying(ROADFIGHER_INTRO))
+		//wait for Q
+		if(KEY_DOWN(81))
 		{
-
+			SM->stopAllSounds();
+			break;
 		}
-
-		while(1)
-		{
-			//wait for Q
-			if(KEY_DOWN(81))
-			{
-				break;
-			}
-		}
-		reinit();
-		//setStageLoaded(no);
 	}
-	else
-	{
-		reinit();
-		//showTitleScreen();
-	}
+	reinit();
+	//setStageLoaded(no);
 }
 
 void RoadFighter::showHelp()
@@ -665,7 +655,7 @@ void RoadFighter::processUserInput(double milliseconds)
 		Timer pauseTimer;
 		Logical pauseTimerInit = no;
 
-		SM->play(ROADFIGHER_PAUSE, no, no);
+		SM->play(ROADFIGHER_PAUSE_SOUND, no, no);
 
 		while(1)
 		{
@@ -706,7 +696,7 @@ void RoadFighter::processUserInput(double milliseconds)
 				break;
 			}
 		}
-		SM->play(ROADFIGHER_PAUSE, no, no);
+		SM->play(ROADFIGHER_PAUSE_SOUND, no, no);
 		setSkipCurrentFrame(yes);
 	}
 }
@@ -771,7 +761,7 @@ void RoadFighter::renderFrame()
 			}
 		}
 
-		if(SM->isPlaying(ROADFIGHER_BONUS_CAR_TAKEN))
+		if(SM->isPlaying(ROADFIGHER_BONUS_CAR_TAKEN_SOUND))
 		{
 			static int lastX = player->getXPosSC(), lastY = player->getYPosSC() - 50;
 
@@ -850,7 +840,7 @@ Logical RoadFighter::draw()
 			}
 		}
 
-		if(SM->isPlaying(ROADFIGHER_BONUS_CAR_TAKEN))
+		if(SM->isPlaying(ROADFIGHER_BONUS_CAR_TAKEN_SOUND))
 		{
 			static int lastX = player->getXPosSC(), lastY = player->getYPosSC() - 50;
 
@@ -898,7 +888,7 @@ void RoadFighter::processPlayerState()
 
 		VPBufferToDXBuffer();
 		RE->flipBuffers(hwnd);
-		SM->play(ROADFIGHER_GAMEOVER, no, no);
+		SM->play(ROADFIGHER_GAME_OVER_SOUND, no, no);
 		stageLoaded = no;
 		return;
 	}
@@ -923,13 +913,13 @@ void RoadFighter::processPlayerState()
 	}
 	if(player->isRunningLowOnFuel() && player->isCanDeductFuel())
 	{
-		SM->play(ROADFIGHER_FUEL_LOW, yes, yes);
+		SM->play(ROADFIGHER_FUEL_LOW_SOUND, yes, yes);
 	}
 	else
 	{
-		if(SM->isPlaying(ROADFIGHER_FUEL_LOW))
+		if(SM->isPlaying(ROADFIGHER_FUEL_LOW_SOUND))
 		{
-			SM->stop(ROADFIGHER_FUEL_LOW);
+			SM->stop(ROADFIGHER_FUEL_LOW_SOUND);
 		}
 	}
 
@@ -957,12 +947,12 @@ void RoadFighter::processPlayerState()
 		if(getCurrentStage() == ROADFIGHTER_STAGE_4)
 		{
 			//play game ending sound
-			SM->play(ROADFIGHER_GAME_CLEAR, yes, no);
+			SM->play(ROADFIGHER_GAME_CLEAR_SOUND, yes, no);
 		}
 		else
 		{
 			//play stage clear sound
-			SM->play(ROADFIGHER_STAGE_CLEAR, yes, no);
+			SM->play(ROADFIGHER_STAGE_CLEAR_SOUND, yes, no);
 		}
 		stageCompletionSoundPlayed = yes;
 	}
@@ -1004,9 +994,9 @@ void RoadFighter::startFirstStage()
 {
 	int i = 0;
 
-	if(SM->isPlaying(ROADFIGHER_ENGINE_SOUND_LOW))
+	if(SM->isPlaying(ROADFIGHER_ENGINE_LOW_SOUND))
 	{
-		SM->stop(ROADFIGHER_ENGINE_SOUND_LOW);
+		SM->stop(ROADFIGHER_ENGINE_LOW_SOUND);
 	}
 
 	vector < Car *> cars;
@@ -1056,11 +1046,11 @@ void RoadFighter::startFirstStage()
 	VPBufferToDXBuffer();
 	RE->flipBuffers(hwnd);
 
-	SM->play(ROADFIGHER_INTRO, no, no);
-	SM->play(ROADFIGHTER_START_PREPARE, no, no);
-	SM->play(ROADFIGHTER_START_PREPARE, no, no);
-	SM->play(ROADFIGHTER_START_PREPARE, no, no);
-	SM->play(ROADFIGHTER_START_GO, yes, no);
+	SM->play(ROADFIGHER_INTRO_SOUND, no, no);
+	SM->play(ROADFIGHTER_START_PREPARE_SOUND, no, no);
+	SM->play(ROADFIGHTER_START_PREPARE_SOUND, no, no);
+	SM->play(ROADFIGHTER_START_PREPARE_SOUND, no, no);
+	SM->play(ROADFIGHTER_START_GO_SOUND, yes, no);
 
 	Logical notDone = yes;
 
@@ -1082,7 +1072,7 @@ void RoadFighter::startFirstStage()
 		RE->flipBuffers(hwnd);
 	}
 
-	SM->play(ROADFIGHER_ENGINE_SOUND_LOW, yes, yes);
+	SM->play(ROADFIGHER_ENGINE_LOW_SOUND, yes, yes);
 	player->setCanControl(yes);
 	player->setCanDeductFuel(yes);
 	startingFirstStage = no;
@@ -1091,30 +1081,33 @@ void RoadFighter::startFirstStage()
 void RoadFighter::initSounds()
 {
 	//roadfighter
-	SM->addSound(ROADFIGHER_INTRO, ROADFIGHTER_SOUNDS_DIR, "roadfighter_intro.wav");
-	SM->addSound(ROADFIGHER_STAGE_CLEAR, ROADFIGHTER_SOUNDS_DIR, "roadfighter_stage_clear.wav");
-	SM->addSound(ROADFIGHER_GAME_CLEAR, ROADFIGHTER_SOUNDS_DIR, "roadfighter_game_clear.wav");
-	SM->addSound(ROADFIGHER_GAMEOVER, ROADFIGHTER_SOUNDS_DIR, "roadfighter_gameover.wav");
-	SM->addSound(ROADFIGHER_PAUSE, ROADFIGHTER_SOUNDS_DIR, "roadfighter_pause.wav");
-	SM->addSound(ROADFIGHTER_START_PREPARE, ROADFIGHTER_SOUNDS_DIR, "roadfighter_start_prepare.wav");
-	SM->addSound(ROADFIGHTER_START_GO, ROADFIGHTER_SOUNDS_DIR, "roadfighter_start_go.wav");
+	SM->addSound(ROADFIGHER_INTRO_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_intro.wav");
+	SM->addSound(ROADFIGHER_STAGE_CLEAR_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_stage_clear.wav");
+	SM->addSound(ROADFIGHER_GAME_CLEAR_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_game_clear.wav");
+	SM->addSound(ROADFIGHER_GAME_OVER_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_gameover.wav");
+	SM->addSound(ROADFIGHER_PAUSE_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_pause.wav");
+	SM->addSound(ROADFIGHTER_START_PREPARE_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_start_prepare.wav");
+	SM->addSound(ROADFIGHTER_START_GO_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_start_go.wav");
 
 	//player
-	SM->addSound(ROADFIGHER_BRAKES, ROADFIGHTER_SOUNDS_DIR, "roadfighter_brakes.wav");
-	SM->addSound(ROADFIGHTER_ENGINE_SOUND_RUNNING, ROADFIGHTER_SOUNDS_DIR, "roadfighter_engine_sound_running.wav");
-	SM->addSound(ROADFIGHER_ENGINE_SOUND_LOW, ROADFIGHTER_SOUNDS_DIR, "roadfighter_engine_sound_low.wav");
-	SM->addSound(ROADFIGHER_ENGINE_SOUND_HIGH, ROADFIGHTER_SOUNDS_DIR, "roadfighter_engine_sound_high.wav");
-	SM->addSound(ROADFIGHER_FUEL_LOW, ROADFIGHTER_SOUNDS_DIR, "roadfighter_fuel_low.wav");
-	SM->addSound(ROADFIGHER_BONUS_CAR_TAKEN, ROADFIGHTER_SOUNDS_DIR, "roadfighter_bonus_car_taken.wav");
-	SM->addSound(ROADFIGHER_SUPERMAN_BONUS, ROADFIGHTER_SOUNDS_DIR, "roadfighter_superman_bonus.wav");
+	SM->addSound(ROADFIGHER_BRAKES_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_brakes.wav");
+	SM->addSound(ROADFIGHTER_ENGINE_RUNNING_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_engine_sound_running.wav");
+	SM->addSound(ROADFIGHER_ENGINE_LOW_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_engine_sound_low.wav");
+	SM->addSound(ROADFIGHER_ENGINE_HIGH_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_engine_sound_high.wav");
+	SM->addSound(ROADFIGHER_FUEL_LOW_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_fuel_low.wav");
+	SM->addSound(ROADFIGHER_BONUS_CAR_TAKEN_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_bonus_car_taken.wav");
+	SM->addSound(ROADFIGHER_SUPERMAN_BONUS_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_superman_bonus.wav");
 
 	//truck
-	SM->addSound(ROADFIGHER_TRUCK, ROADFIGHTER_SOUNDS_DIR, "roadfighter_truck.wav");
+	SM->addSound(ROADFIGHER_TRUCK_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_truck.wav");
 
 	//cars
-	SM->addSound(ROADFIGHER_COLLISION, ROADFIGHTER_SOUNDS_DIR, "roadfighter_collision.wav");
-	SM->addSound(ROADFIGHER_CAR_DESTORY, ROADFIGHTER_SOUNDS_DIR, "roadfighter_car_destroy.wav");
-	SM->addSound(ROADFIGHER_CAR_SLIPPING, ROADFIGHTER_SOUNDS_DIR, "roadfighter_car_slipping.wav");
+	SM->addSound(ROADFIGHER_COLLISION_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_collision.wav");
+	SM->addSound(ROADFIGHER_CAR_DESTORY_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_car_destroy.wav");
+	SM->addSound(ROADFIGHER_CAR_SLIPPING_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_car_slipping.wav");
+
+	//ending
+	SM->addSound(ROADFIGHTER_ENDING_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_ending.wav");
 }
 
 void RoadFighter::initCredits()
@@ -1155,6 +1148,9 @@ void RoadFighter::initCredits()
 	//Source Management
 	credits->addNewEntry("Source Management", "Waqqas Sharif");
 
+	//Debugging
+	credits->addNewEntry("Debugging", "Waqqas Sharif");
+
 	//Testing
 	credits->addNewEntry("Testing", "Waqqas Sharif");
 	credits->addNewEntry("Testing", "Fahad Yousuf");
@@ -1168,12 +1164,22 @@ void RoadFighter::initCredits()
 	credits->addNewEntry("Directed By", "Waqqas Sharif");
 
 	//MappyLibrary
-	credits->addNewEntry("Roadfighter uses Mappy Tiling Library", "http://www.tilemap.co.uk/mappy.php");
+	credits->addNewEntry("Tiling Library", "Roadfighter uses Mappy");
+	credits->addNewEntry("Tiling Library", "http://www.tilemap.co.uk/mappy.php");
+	//Ending Theme
+	credits->addNewEntry("Ending Sound", "On the run (Forza Motorsport 3 OST)");
+	credits->addNewEntry("Ending Sound", "Performed by The Qemist");
+
+	//Notice
+	credits->addNewEntry("Notice", "Roadfighter is a car-based arcade game");
+	credits->addNewEntry("Notice", "developed by Konami and released in 1984.");
+	credits->addNewEntry("Notice", "This is just a remake done by a Pakistani");
+	credits->addNewEntry("Notice", "programmer for fun. Enjoy !!!!");
 
 	//Thanks
-	credits->addNewEntry("Thanks for playing!!!!", "Roadfighter is hosted on Google Projects");
-	credits->addNewEntry("Thanks for playing!!!!", "http://code.google.com/p/roadfighter/");
-	credits->addNewEntry("Thanks for playing!!!!", "Email comments to vickyrare@yahoo.com");
+	credits->addNewEntry("Thanks for playing !!!!", "Roadfighter is hosted on Google Projects");
+	credits->addNewEntry("Thanks for playing !!!!", "http://code.google.com/p/roadfighter/");
+	credits->addNewEntry("Thanks for playing !!!!", "Email comments to vickyrare@google.com");
 
 
 }

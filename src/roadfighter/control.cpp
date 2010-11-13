@@ -56,13 +56,13 @@ void Control::brake()
 		}
 		if(player->isCarSlowingDown())
 		{
-			SM->play(ROADFIGHER_BRAKES, yes, yes);
+			SM->play(ROADFIGHER_BRAKES_SOUND, yes, yes);
 		}
 		else
 		{
-			if(SM->isPlaying(ROADFIGHER_BRAKES))
+			if(SM->isPlaying(ROADFIGHER_BRAKES_SOUND))
 			{
-				SM->stop(ROADFIGHER_BRAKES);
+				SM->stop(ROADFIGHER_BRAKES_SOUND);
 			}
 		}
 	}
