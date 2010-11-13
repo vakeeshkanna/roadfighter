@@ -8,7 +8,7 @@
 
 class EXPORT SoundEngine
 {
-	LPDIRECTSOUND lpDS;
+	LPDIRECTSOUND8 lpDS;
 
 public:
 	static SoundEngine* sEngine;
@@ -17,6 +17,7 @@ public:
 	~SoundEngine();
 	static SoundEngine* getInstance();
 	Logical init(HWND hwnd);
+	LPDIRECTSOUND8 getDirectSound();
 	LPDIRECTSOUNDBUFFER createSoundBuffer(string fname);
 	void cleanUp();
 };

@@ -27,7 +27,7 @@ SoundEngine* SoundEngine::getInstance()
 
 Logical SoundEngine::init(HWND hwnd)
 {
-	if(DirectSoundCreate(NULL, &lpDS, NULL) != DS_OK)
+	if(DirectSoundCreate8(NULL, &lpDS, NULL) != DS_OK)
 	{
 		return no;
 	}
@@ -76,4 +76,9 @@ LPDIRECTSOUNDBUFFER SoundEngine::createSoundBuffer(string fname)
 	}
 
 	return lpSoundBuffer;
+}
+
+LPDIRECTSOUND8 SoundEngine::getDirectSound()
+{
+	return lpDS;
 }
