@@ -191,7 +191,7 @@ void CarManager::spawn()
 	for(i = 0; i < cars.size(); i++)
 	{
 		car = cars.at(i);
-		if(car->getCarState() == CAR_READY && car->getCarType() != BONUS_CAR)
+		if(car->getCarState() == CAR_READY && car->getCarType() != BONUS_CAR && car->getCarType() != TRUCK_CAR)
 		{
 			car->setSlideDirection(DIRECTION_NONE);
 			car->initMe();
@@ -221,6 +221,22 @@ void CarManager::spawnBonusCar()
 	}
 }
 
+void CarManager::spawnTruckCar()
+{
+	unsigned int i;
+	Car *car;
+
+	car = cars.at(cars.size() - 1);
+	if(car->getCarState() == CAR_READY)
+	{
+		car->setSlideDirection(DIRECTION_NONE);
+		car->initMe();
+		//manage the positions of all the cars
+		findPositionToSpawn(car);
+		car->setCarState(CAR_RUNNING);
+		car->setSpeed(200);
+	}
+}
 void CarManager::display()
 {
 	unsigned int i;

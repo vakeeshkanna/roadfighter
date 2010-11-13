@@ -17,6 +17,7 @@ public:
 	virtual void findPositionToSpawn(Car *car);
 	virtual void spawn();
 	virtual void spawnBonusCar();
+	virtual void spawnTruckCar();
 	virtual void display();
 	virtual void update();
 	virtual void cleanup();
