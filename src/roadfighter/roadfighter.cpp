@@ -897,6 +897,7 @@ void RoadFighter::processPlayerState()
 		RE->flipBuffers(hwnd);
 		WSM->play(ROADFIGHER_GAME_OVER_SOUND, no, no);
 		stageLoaded = no;
+		player->setScore(0);
 		return;
 	}
 	int tElapsed = fuelTimer.getTicks();
