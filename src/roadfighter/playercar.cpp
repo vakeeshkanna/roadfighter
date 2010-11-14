@@ -184,7 +184,7 @@ void PlayerCar::move()
 						destroy();
 						return;
 					}
-					setXPosWC(getXPosWC() + 1.5 * deltaTime);
+					setXPosWC(getXPosWC() + 1.5);
 				}
 			}
 
@@ -200,7 +200,7 @@ void PlayerCar::move()
 						destroy();
 						return;
 					}
-					setXPosWC(getXPosWC() - 1.5 * deltaTime);
+					setXPosWC(getXPosWC() - 1.5);
 				}
 			}
 
