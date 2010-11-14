@@ -28,6 +28,9 @@ WaveSoundManager* WaveSoundManager::getInstance()
 void WaveSoundManager::addSound(int id, string fpath, string fname)
 {
 	fpath += fname;
+	//add file extension
+	fpath += ".wav";
+
 	LPDIRECTSOUNDBUFFER soundBuffer = SE->createSoundBuffer(fpath.c_str());
 	lpDSSOUNDS[id] = soundBuffer;
 }

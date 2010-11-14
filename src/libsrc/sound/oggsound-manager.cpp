@@ -5,12 +5,6 @@ OggSoundManager* OggSoundManager::osManager = NULL;
 OggSoundManager::OggSoundManager()
 {
 	oggSounds.clear();
-	/*int i;
-
-	for(i = 0; i < MAX_SOUNDS; i++)
-	{
-		lpDSSOUNDS[i] = NULL;
-	}*/
 }
 
 OggSoundManager::~OggSoundManager()
@@ -29,6 +23,9 @@ OggSoundManager* OggSoundManager::getInstance()
 void OggSoundManager::addSound(int id, string fpath, string fname)
 {
 	fpath += fname;
+	//add file extension
+	fpath += ".OGG";
+
 	LPDIRECTSOUND8  ds = SE->getDirectSound();
 	CDirectSoundOgg *sound = new CDirectSoundOgg(fpath, ds);
 	oggSounds.push_back(sound);
@@ -56,7 +53,7 @@ void OggSoundManager::stopAllSounds()
 {
 	int i;
 
-	for(i = 0; i < MAX_SOUNDS; i++)
+	for(i = 0; i < oggSounds.size(); i++)
 	{
 		CDirectSoundOgg *sound  = oggSounds.at(i);
 		if(sound != NULL)
