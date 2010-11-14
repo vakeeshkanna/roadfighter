@@ -33,3 +33,8 @@ install(DIRECTORY  ${RESOURCES_DIR}/sounds
 		DESTINATION .
 		COMPONENT resources
 		FILES_MATCHING PATTERN "*.wav")
+
+install(DIRECTORY  ${RESOURCES_DIR}/sounds
+		DESTINATION .
+		COMPONENT resources
+		FILES_MATCHING PATTERN "*.ogg")
