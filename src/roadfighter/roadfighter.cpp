@@ -107,6 +107,11 @@ int RoadFighter::getCurrentStage()
 
 void RoadFighter::showTitleScreen()
 {
+	if(!OSM->isPlaying(ROADFIGHTER_TITLE_SOUND))
+	{
+		OSM->play(ROADFIGHTER_TITLE_SOUND, yes, yes);
+	}
+
 	//clear everything
 	RE->clearBuffer(RE->DDrawBack);
 
@@ -123,6 +128,7 @@ void RoadFighter::showTitleScreen()
 		//wait for ENTER
 		if(KEY_DOWN(VK_RETURN))
 		{
+			OSM->stopAllSounds();
 			break;
 		}
 		//wait for H
@@ -134,6 +140,7 @@ void RoadFighter::showTitleScreen()
 		//wait for C
 		else if(KEY_DOWN(67))
 		{
+			OSM->stopAllSounds();
 			setRoadFighterStatus(CREDITS_SCREEN);
 			showCredits(no);
 		}
@@ -468,7 +475,7 @@ void RoadFighter::showCredits(Logical gameCompleted)
 	dummyScreen.setWaitForKeyPress(yes);
 
 	endScreen->display();
-	WSM->play(ROADFIGHTER_ENDING_SOUND, yes, no);
+	OSM->play(ROADFIGHTER_ENDING_SOUND, yes, no);
 
 	for(i = 0; i < keys.size(); i++)
 	{
@@ -490,12 +497,12 @@ void RoadFighter::showCredits(Logical gameCompleted)
 		Sleep(10000);
 	}
 
-	while(WSM->isPlaying(ROADFIGHTER_ENDING_SOUND))
+	while(OSM->isPlaying(ROADFIGHTER_ENDING_SOUND))
 	{
 		//wait for Q
 		if(KEY_DOWN(81))
 		{
-			WSM->stopAllSounds();
+			OSM->stopAllSounds();
 			break;
 		}
 	}
@@ -1081,33 +1088,36 @@ void RoadFighter::startFirstStage()
 void RoadFighter::initSounds()
 {
 	//roadfighter
-	WSM->addSound(ROADFIGHER_INTRO_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_intro.wav");
-	WSM->addSound(ROADFIGHER_STAGE_CLEAR_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_stage_clear.wav");
-	WSM->addSound(ROADFIGHER_GAME_CLEAR_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_game_clear.wav");
-	WSM->addSound(ROADFIGHER_GAME_OVER_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_gameover.wav");
-	WSM->addSound(ROADFIGHER_PAUSE_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_pause.wav");
-	WSM->addSound(ROADFIGHTER_START_PREPARE_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_start_prepare.wav");
-	WSM->addSound(ROADFIGHTER_START_GO_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_start_go.wav");
+	WSM->addSound(ROADFIGHER_INTRO_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_intro");
+	WSM->addSound(ROADFIGHER_STAGE_CLEAR_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_stage_clear");
+	WSM->addSound(ROADFIGHER_GAME_CLEAR_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_game_clear");
+	WSM->addSound(ROADFIGHER_GAME_OVER_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_gameover");
+	WSM->addSound(ROADFIGHER_PAUSE_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_pause");
+	WSM->addSound(ROADFIGHTER_START_PREPARE_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_start_prepare");
+	WSM->addSound(ROADFIGHTER_START_GO_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_start_go");
 
 	//player
-	WSM->addSound(ROADFIGHER_BRAKES_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_brakes.wav");
-	WSM->addSound(ROADFIGHTER_ENGINE_RUNNING_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_engine_sound_running.wav");
-	WSM->addSound(ROADFIGHER_ENGINE_LOW_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_engine_sound_low.wav");
-	WSM->addSound(ROADFIGHER_ENGINE_HIGH_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_engine_sound_high.wav");
-	WSM->addSound(ROADFIGHER_FUEL_LOW_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_fuel_low.wav");
-	WSM->addSound(ROADFIGHER_BONUS_CAR_TAKEN_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_bonus_car_taken.wav");
-	WSM->addSound(ROADFIGHER_SUPERMAN_BONUS_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_superman_bonus.wav");
+	WSM->addSound(ROADFIGHER_BRAKES_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_brakes");
+	WSM->addSound(ROADFIGHTER_ENGINE_RUNNING_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_engine_sound_running");
+	WSM->addSound(ROADFIGHER_ENGINE_LOW_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_engine_sound_low");
+	WSM->addSound(ROADFIGHER_ENGINE_HIGH_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_engine_sound_high");
+	WSM->addSound(ROADFIGHER_FUEL_LOW_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_fuel_low");
+	WSM->addSound(ROADFIGHER_BONUS_CAR_TAKEN_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_bonus_car_taken");
+	WSM->addSound(ROADFIGHER_SUPERMAN_BONUS_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_superman_bonus");
 
 	//truck
-	WSM->addSound(ROADFIGHER_TRUCK_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_truck.wav");
+	WSM->addSound(ROADFIGHER_TRUCK_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_truck");
 
 	//cars
-	WSM->addSound(ROADFIGHER_COLLISION_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_collision.wav");
-	WSM->addSound(ROADFIGHER_CAR_DESTORY_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_car_destroy.wav");
-	WSM->addSound(ROADFIGHER_CAR_SLIPPING_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_car_slipping.wav");
+	WSM->addSound(ROADFIGHER_COLLISION_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_collision");
+	WSM->addSound(ROADFIGHER_CAR_DESTORY_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_car_destroy");
+	WSM->addSound(ROADFIGHER_CAR_SLIPPING_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_car_slipping");
+
+	//title
+	OSM->addSound(ROADFIGHTER_TITLE_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_title");
 
 	//ending
-	WSM->addSound(ROADFIGHTER_ENDING_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_ending.wav");
+	OSM->addSound(ROADFIGHTER_ENDING_SOUND, ROADFIGHTER_SOUNDS_DIR, "roadfighter_ending");
 }
 
 void RoadFighter::initCredits()
@@ -1164,11 +1174,20 @@ void RoadFighter::initCredits()
 	credits->addNewEntry("Directed By", "Waqqas Sharif");
 
 	//MappyLibrary
-	credits->addNewEntry("Tiling Library", "Roadfighter uses Mappy");
+	credits->addNewEntry("Tiling Library", "Roadfighter uses Mappy Tiling Library");
 	credits->addNewEntry("Tiling Library", "http://www.tilemap.co.uk/mappy.php");
+
+	//OGG Library
+	credits->addNewEntry("OGG Sound Library", "Roadfighter uses OGG Sound Library ");
+	credits->addNewEntry("OGG Sound Library", "http://xiph.org/downloads/");
+
+	//Title Theme
+	credits->addNewEntry("Title Theme", "Stigma (GranTurismo PSP OST)");
+	credits->addNewEntry("Title Theme", "Performed by Noisia");
+
 	//Ending Theme
-	credits->addNewEntry("Ending Sound", "On the run (Forza Motorsport 3 OST)");
-	credits->addNewEntry("Ending Sound", "Performed by The Qemist");
+	credits->addNewEntry("Ending Theme", "On the run (Forza Motorsport 3 OST)");
+	credits->addNewEntry("Ending Theme", "Performed by The Qemist feat. Jenna");
 
 	//Notice
 	credits->addNewEntry("Notice", "Roadfighter is a car-based arcade game");

@@ -4,6 +4,7 @@
 #include "helper-class.h"
 #include "framerate.h"
 #include "wavesound-manager.h"
+#include "oggsound-manager.h"
 
 Car::Car()
 {

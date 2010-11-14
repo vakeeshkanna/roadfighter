@@ -1,5 +1,6 @@
 #include "control.h"
 #include "wavesound-manager.h"
+#include "oggsound-manager.h"
 
 Control::Control()
 {
