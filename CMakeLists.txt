@@ -41,7 +41,7 @@ configure_files ( "${RESOURCES_DIR}/sounds" "${ROOT_DIR}/build/bin/sounds")
 
 MESSAGE( "Copying libogg.dll" )
 configure_files ( "${PREBUILD_DIR}/ogg/1.2.1/lib/Debug" "${ROOT_DIR}/build/bin/Debug")
-configure_files ( "${PREBUILD_DIR}/ogg/1.2.1/lib/Release" "${ROOT_DIR}/bin/Release")
+configure_files ( "${PREBUILD_DIR}/ogg/1.2.1/lib/Release" "${ROOT_DIR}/build/bin/Release")
 
 MESSAGE( "Copying libvorbis.dll and libvorbisfile.dll" )
 configure_files ( "${PREBUILD_DIR}/vorbis/1.3.2/lib/Debug" "${ROOT_DIR}/build/bin/Debug")
@@ -52,7 +52,7 @@ MESSAGE( "Copying resources done" )
 IF(MSVC90)
 	FIND_PROGRAM(MSVC_REDIST NAMES
 	redist/vcredist_${CMAKE_MSVC_ARCH}.exe PATHS
-	"{ROOT_DIR}/resources")
+	"${ROOT_DIR}/resources")
     GET_FILENAME_COMPONENT(vcredist_name "${MSVC_REDIST}" NAME)
     INSTALL(PROGRAMS ${MSVC_REDIST} COMPONENT Runtime DESTINATION bin)
     SET(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "ExecWait '\\\"$INSTDIR\\\\bin\\\\${vcredist_name}\\\"'")
@@ -62,7 +62,7 @@ ENDIF(MSVC90)
 IF(MSVC90)
 	FIND_PROGRAM(DIRECTX_REDIST NAMES
 	redist/directx_9c_redist.exe PATHS
-	"{ROOT_DIR}/resources")
+	"${ROOT_DIR}/resources")
     GET_FILENAME_COMPONENT(directx_redist_name "${DIRECTX_REDIST}" NAME)
     INSTALL(PROGRAMS ${DIRECTX_REDIST} COMPONENT Runtime DESTINATION bin)
     SET(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "ExecWait '\\\"$INSTDIR\\\\bin\\\\${directx_redist_name}\\\"'")
@@ -88,9 +88,6 @@ IF(MSVC90)
     GET_FILENAME_COMPONENT(vorbisfileredist_name "${VORBISFILE_REDIST}" NAME)
     INSTALL(PROGRAMS ${VORBISFILE_REDIST} COMPONENT Runtime DESTINATION bin)
 	MESSAGE( "vorbisfile redist copied" )
-ENDIF(MSVC90)
-
-configure_file( "${ROOT_DIR}/Roadfighter-1.0.0-win32.exe" "${ROOT_DIR}/build/installers" COPYONLY)
-#configure_files ( "${ROOT_DIR}/Roadfighter-1.0.0-win32.exe" "${ROOT_DIR}/build/installers")
+ENDIF(MSVC90)	
 
 INCLUDE(CPack)
