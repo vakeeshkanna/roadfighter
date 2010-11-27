@@ -50,26 +50,6 @@ configure_files ( "${PREBUILD_DIR}/vorbis/1.3.2/lib/Release" "${ROOT_DIR}/build/
 MESSAGE( "Copying resources done" )
 
 IF(MSVC90)
-	FIND_PROGRAM(MSVC_REDIST NAMES
-	redist/vcredist_${CMAKE_MSVC_ARCH}.exe PATHS
-	"${ROOT_DIR}/resources")
-    GET_FILENAME_COMPONENT(vcredist_name "${MSVC_REDIST}" NAME)
-    INSTALL(PROGRAMS ${MSVC_REDIST} COMPONENT Runtime DESTINATION bin)
-    SET(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "ExecWait '\\\"$INSTDIR\\\\bin\\\\${vcredist_name}\\\"'")
-	MESSAGE( "vc redist copied" )
-ENDIF(MSVC90)
-
-IF(MSVC90)
-	FIND_PROGRAM(DIRECTX_REDIST NAMES
-	redist/directx_9c_redist.exe PATHS
-	"${ROOT_DIR}/resources")
-    GET_FILENAME_COMPONENT(directx_redist_name "${DIRECTX_REDIST}" NAME)
-    INSTALL(PROGRAMS ${DIRECTX_REDIST} COMPONENT Runtime DESTINATION bin)
-    SET(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "ExecWait '\\\"$INSTDIR\\\\bin\\\\${directx_redist_name}\\\"'")
-	MESSAGE( "directx redist copied" )
-ENDIF(MSVC90)
-
-IF(MSVC90)
 	FIND_PROGRAM(OGG_REDIST NAMES "ogg/1.2.1/lib/Release/libogg.dll" PATHS "${PREBUILD_DIR}")
     GET_FILENAME_COMPONENT(oggredist_name "${OGG_REDIST}" NAME)
     INSTALL(PROGRAMS ${OGG_REDIST} COMPONENT Runtime DESTINATION bin)
