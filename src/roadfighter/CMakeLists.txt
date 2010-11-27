@@ -2,7 +2,7 @@ LINK_DIRECTORIES ( ${DIRECTX9}/Lib/x86 )
 LINK_DIRECTORIES ( ${BUILD_SOURCE_DIR}/prebuild/ogg/1.2.1/lib )
 LINK_DIRECTORIES ( ${BUILD_SOURCE_DIR}/prebuild/vorbis/1.3.2/lib )
 
-ADD_EXECUTABLE ( roadfighter roadfighterAll.cpp )
+ADD_EXECUTABLE ( roadfighter roadfighterAll.cpp roadfighter.rc)
 
 USE_MSDEV(roadfighter)
 USE_DIRECTX(roadfighter)
