@@ -117,8 +117,9 @@ void RoadFighter::showTitleScreen()
 
 	titleScreen->display();
 	RenderingEngine::outputText(VP->buffer, 80, 150, RGB(0, 0, 255), "TM and (C) 2010", 6, 13);
-	RenderingEngine::outputText(VP->buffer, 80, 170, RGB(0, 254, 0), "Press (H) for Help", 6, 13);
-	RenderingEngine::outputText(VP->buffer, 80, 190, RGB(0, 254, 0), "Press (C) for Credits", 6, 13);
+	RenderingEngine::outputText(VP->buffer, 80, 170, RGB(0, 254, 0), "Press (Enter) to start", 6, 13);
+	RenderingEngine::outputText(VP->buffer, 80, 190, RGB(0, 254, 0), "Press (H) for Help", 6, 13);
+	RenderingEngine::outputText(VP->buffer, 80, 210, RGB(0, 254, 0), "Press (C) for Credits", 6, 13);
 	renderFrame();
 	RE->flipBuffers(hwnd);
 	Sleep(500);
