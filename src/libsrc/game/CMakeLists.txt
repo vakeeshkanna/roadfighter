@@ -5,4 +5,4 @@ USE_COMMON(game)
 USE_RENDERING(game)
 USE_MAPPY(game)
 
-install(TARGETS game RUNTIME DESTINATION bin COMPONENT applications)
+install(TARGETS game RUNTIME DESTINATION . COMPONENT applications)

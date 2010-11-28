@@ -2,4 +2,4 @@
 ADD_LIBRARY (math SHARED mathAll )
 USE_COMMON(math)
 
-install(TARGETS math RUNTIME DESTINATION bin COMPONENT applications)
+install(TARGETS math RUNTIME DESTINATION . COMPONENT applications)

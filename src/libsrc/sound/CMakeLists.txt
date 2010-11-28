@@ -8,4 +8,4 @@ USE_COMMON(sound)
 USE_DIRECTX(sound)
 USE_OGG(sound)
 
-install(TARGETS sound RUNTIME DESTINATION bin COMPONENT applications)
+install(TARGETS sound RUNTIME DESTINATION . COMPONENT applications)

@@ -16,7 +16,7 @@ SET_TARGET_PROPERTIES ( roadfighter PROPERTIES LINK_FLAGS "-subsystem:windows" )
 
 install(TARGETS roadfighter 
         RUNTIME 
-		DESTINATION bin
+		DESTINATION .
 		COMPONENT applications)
 
 install(DIRECTORY  ${RESOURCES_DIR}/maps
