@@ -1,10 +1,11 @@
 package myjava.application.tetris;
 
-import javax.swing.BorderFactory;
-import javax.swing.JPanel;
-import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
+
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
 
 /**
  * Responsible for displaying the Tetris panel on which the game is displayed

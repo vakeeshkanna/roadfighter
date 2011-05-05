@@ -1,6 +1,6 @@
 package myjava.application.tetris;
 
-import java.util.*;
+import java.util.Random;
 
 /**
  * Base class for all sort of shapes for tetris

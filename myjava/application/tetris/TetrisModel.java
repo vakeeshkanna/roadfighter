@@ -1,6 +1,6 @@
 package myjava.application.tetris;
 
-import java.util.*;
+import java.util.Random;
 
 public class TetrisModel
 {
