@@ -1,0 +1,1 @@
+What we trying to do here is to create the remake of the 1984 classic racing game on Famicom known as RoadFighter. I love this game so i thought it be good if we can remake the game again and relive the classic.
